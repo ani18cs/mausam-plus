@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppStore } from '../store/useAppStore';
 import { SavedPlace } from '@mausam/shared-types';
 import { Button } from '@mausam/design-system';
 import {
   ArrowLeft,
-  MapPin,
   Plus,
   Trash2,
-  Check,
   Plane,
-  Sun,
-  CloudRain,
-  Navigation,
+  Search,
 } from 'lucide-react';
+
+interface PlaceWeather {
+  temp_c: number;
+  condition: string;
+}
 
 export const SavedPlacesPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,6 +23,45 @@ export const SavedPlacesPage: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [cityName, setCityName] = useState('');
   const [stateName, setStateName] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [placeWeather, setPlaceWeather] = useState<Record<string, PlaceWeather>>({});
+  const [loadingWeather, setLoadingWeather] = useState(true);
+
+  useEffect(() => {
+    let isCurrent = true;
+
+    const loadPlaceWeather = async () => {
+      setLoadingWeather(true);
+      const results = await Promise.all(
+        savedPlaces.map(async (place) => {
+          try {
+            const response = await fetch(
+              `/api/forecast?lat=${place.lat}&lon=${place.lon}&name=${encodeURIComponent(place.name)}`,
+            );
+            if (!response.ok) return null;
+            const data = (await response.json()) as { current?: PlaceWeather };
+            return data.current ? [place.id, data.current] as const : null;
+          } catch {
+            return null;
+          }
+        }),
+      );
+
+      if (isCurrent) {
+        setPlaceWeather(Object.fromEntries(results.filter((result): result is readonly [string, PlaceWeather] => result !== null)));
+        setLoadingWeather(false);
+      }
+    };
+
+    void loadPlaceWeather();
+    return () => {
+      isCurrent = false;
+    };
+  }, [savedPlaces]);
+
+  const visiblePlaces = savedPlaces.filter((place) =>
+    `${place.name} ${place.state} ${place.country}`.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+  );
 
   const handleAdd = (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,6 +115,18 @@ export const SavedPlacesPage: React.FC = () => {
         </button>
       </div>
 
+      <label className="relative block">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-content-muted" />
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          placeholder="Search saved cities"
+          aria-label="Search saved cities"
+          className="min-h-[44px] w-full rounded-2xl border border-border-subtle bg-input pl-9 pr-3 text-xs text-content-primary focus:border-accent-primary focus:outline-none focus:ring-1 focus:ring-accent-primary"
+        />
+      </label>
+
       {/* Add Destination Form Popover */}
       {isAdding && (
         <form onSubmit={handleAdd} className="rounded-2xl border border-border-strong bg-card p-4 space-y-3 shadow-card animate-fadeIn">
@@ -115,8 +167,9 @@ export const SavedPlacesPage: React.FC = () => {
 
       {/* Saved Places List */}
       <div className="space-y-2.5">
-        {savedPlaces.map((place) => {
+        {visiblePlaces.map((place) => {
           const isCurrent = activeLocation.name.includes(place.name);
+          const weather = placeWeather[place.id];
 
           return (
             <div
@@ -158,8 +211,18 @@ export const SavedPlacesPage: React.FC = () => {
 
               <div className="flex items-center gap-3">
                 <div className="text-right">
-                  <span className="font-heading text-base font-bold text-content-primary">29°C</span>
-                  <span className="text-[10px] text-content-muted block">Clear Sky</span>
+                  {weather ? (
+                    <>
+                      <span className="font-heading text-base font-bold text-content-primary">
+                        {Math.round(weather.temp_c)}°C
+                      </span>
+                      <span className="text-[10px] text-content-muted block">{weather.condition}</span>
+                    </>
+                  ) : (
+                    <span className="text-[10px] text-content-muted">
+                      {loadingWeather ? 'Loading weather...' : 'Weather unavailable'}
+                    </span>
+                  )}
                 </div>
 
                 {savedPlaces.length > 1 && (
@@ -179,6 +242,11 @@ export const SavedPlacesPage: React.FC = () => {
             </div>
           );
         })}
+        {visiblePlaces.length === 0 && (
+          <p className="rounded-2xl border border-dashed border-border-strong p-5 text-center text-content-muted">
+            No saved cities match your search.
+          </p>
+        )}
       </div>
     </div>
   );

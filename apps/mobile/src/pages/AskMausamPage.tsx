@@ -23,6 +23,26 @@ interface ChatMessage {
   confidence?: number;
 }
 
+interface SpeechRecognitionEventLike extends Event {
+  results: ArrayLike<ArrayLike<{ transcript: string }>>;
+}
+
+interface SpeechRecognitionLike {
+  lang: string;
+  interimResults: boolean;
+  maxAlternatives: number;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+  start: () => void;
+  stop: () => void;
+}
+
+interface SpeechRecognitionWindow extends Window {
+  SpeechRecognition?: new () => SpeechRecognitionLike;
+  webkitSpeechRecognition?: new () => SpeechRecognitionLike;
+}
+
 const SUGGESTED_QUERIES = [
   'Can I run at 6 PM?',
   'Will it rain during evening commute?',
@@ -44,7 +64,9 @@ export const AskMausamPage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [voiceError, setVoiceError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -53,6 +75,8 @@ export const AskMausamPage: React.FC = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
+
+  useEffect(() => () => recognitionRef.current?.stop(), []);
 
   const handleSend = async (queryText?: string) => {
     const textToSend = queryText || inputValue;
@@ -122,15 +146,40 @@ export const AskMausamPage: React.FC = () => {
   };
 
   const handleVoiceToggle = () => {
-    if (!isRecording) {
-      setIsRecording(true);
-      // Simulate speech-to-text voice recognition
-      setTimeout(() => {
-        setIsRecording(false);
-        handleSend('Can I run at 6 PM?');
-      }, 2500);
-    } else {
+    if (isRecording) {
+      recognitionRef.current?.stop();
+      return;
+    }
+
+    const speechWindow = window as SpeechRecognitionWindow;
+    const Recognition = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
+    if (!Recognition) {
+      setVoiceError('Voice input is not supported in this browser.');
+      return;
+    }
+
+    setVoiceError(null);
+    const recognition = new Recognition();
+    recognition.lang = 'en-IN';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+    recognition.onresult = (event) => {
+      const transcript = event.results[0]?.[0]?.transcript?.trim();
+      if (transcript) setInputValue(transcript);
+    };
+    recognition.onerror = () => {
+      setVoiceError('Voice input could not be captured. Please try again.');
       setIsRecording(false);
+    };
+    recognition.onend = () => setIsRecording(false);
+    recognitionRef.current = recognition;
+    setIsRecording(true);
+
+    try {
+      recognition.start();
+    } catch {
+      setIsRecording(false);
+      setVoiceError('Voice input could not be started. Please try again.');
     }
   };
 
@@ -256,6 +305,12 @@ export const AskMausamPage: React.FC = () => {
           <Mic className="w-4 h-4 animate-bounce" />
           <span className="font-bold">Listening... Speak your weather question</span>
         </div>
+      )}
+
+      {voiceError && (
+        <p className="mb-2 text-center text-[11px] font-medium text-rose-600 dark:text-rose-400">
+          {voiceError}
+        </p>
       )}
 
       {/* Bottom Input Bar (Thumb Zone) */}

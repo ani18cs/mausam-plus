@@ -106,6 +106,35 @@ export const TopAppBar: React.FC = () => {
           </button>
         </div>
       </div>
+
+      <div className="flex gap-1.5 overflow-x-auto px-4 pb-2 scrollbar-none">
+        {savedPlaces.map((place) => {
+          const isActive = activeLocation.lat === place.lat && activeLocation.lon === place.lon;
+
+          return (
+            <button
+              key={place.id}
+              type="button"
+              onClick={() => setActiveLocation({
+                name: `${place.name}, ${place.state}`,
+                lat: place.lat,
+                lon: place.lon,
+                region: place.state,
+                country: place.country,
+              })}
+              className={`flex min-h-[32px] flex-shrink-0 items-center gap-1 rounded-full border px-2.5 text-[10px] font-semibold transition-colors ${
+                isActive
+                  ? 'border-accent-primary bg-accent-primary/15 text-accent-primary'
+                  : 'border-border-subtle bg-card-subtle text-content-muted hover:border-accent-primary/50 hover:text-content-primary'
+              }`}
+              aria-pressed={isActive}
+            >
+              <MapPin className="h-3 w-3" />
+              {place.name}
+            </button>
+          );
+        })}
+      </div>
     </header>
   );
 };
