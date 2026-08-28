@@ -61,11 +61,42 @@ export interface HeatStressIndex {
   band: HeatStressBand;
   label?: string; // 'Safe' | 'Caution' | 'High Risk' | 'Extreme Danger'
   summary?: string;
+  apparent_temp_c?: number;
+  wet_bulb_temp_c?: number;
+  wbgt_c?: number;
+  discomfort_index?: number;
+  evaporative_cooling_efficiency_pct?: number;
+  hydration_loss_ml_per_hr?: number;
+}
+
+export interface ForecastDiff {
+  temp_diff_c: number; // e.g. +3.2 (today vs yesterday)
+  humidity_diff_pct: number; // e.g. +14
+  rain_risk_changed: boolean;
+  summary: string;
+  trend: 'warmer' | 'cooler' | 'wetter' | 'drier' | 'stable';
+  yesterday_temp_c: number;
+  yesterday_condition: string;
+}
+
+export interface AirQualityPollutants {
+  us_aqi: number;
+  european_aqi: number;
+  pm25: number;
+  pm10: number;
+  no2: number;
+  o3: number;
+  so2: number;
+  primary_pollutant: string;
+  health_category: 'Good' | 'Satisfactory' | 'Moderate' | 'Poor' | 'Very Poor' | 'Severe';
+  health_implication?: string;
 }
 
 export interface ForecastExtras {
   tide?: TideExtras;
   heat_stress_index: HeatStressIndex;
+  forecast_diff?: ForecastDiff;
+  air_quality?: AirQualityPollutants;
   running_window?: {
     score: number; // 0 - 100 suitability score
     optimal_time_slot: string; // e.g. "06:00 AM - 07:30 AM"
@@ -96,7 +127,22 @@ export interface NormalizedForecast {
 }
 
 // ==========================================
-// 2. Persona Definitions & Ranking
+// 2. Geocoding Search Contract
+// ==========================================
+
+export interface GeocodingLocation {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  elevation?: number;
+  admin1?: string; // State / Province
+  country: string;
+  country_code: string;
+}
+
+// ==========================================
+// 3. Persona Definitions & Ranking
 // ==========================================
 
 export type PersonaId =
@@ -120,7 +166,7 @@ export interface PersonaDefinition {
 }
 
 // ==========================================
-// 3. Explainable Alert System
+// 4. Explainable Alert System
 // ==========================================
 
 export type AlertSeverity = 'info' | 'caution' | 'warning' | 'severe';
@@ -155,7 +201,7 @@ export interface Alert {
 }
 
 // ==========================================
-// 4. Citizen Weather Reports
+// 5. Citizen Weather Reports
 // ==========================================
 
 export type CitizenReportCategory =
@@ -183,7 +229,7 @@ export interface CitizenReport {
 }
 
 // ==========================================
-// 5. Card Component Manifest & Registry
+// 6. Card Component Manifest & Registry
 // ==========================================
 
 export type CardCategory =
@@ -213,7 +259,7 @@ export interface CardProps {
 }
 
 // ==========================================
-// 6. Conversational AI Query Contract
+// 7. Conversational AI Query Contract
 // ==========================================
 
 export interface AIQueryRequest {
@@ -237,7 +283,7 @@ export interface AIQueryResponse {
 }
 
 // ==========================================
-// 7. User Settings & Preferences
+// 8. User Settings & Preferences
 // ==========================================
 
 export interface UserPreferences {

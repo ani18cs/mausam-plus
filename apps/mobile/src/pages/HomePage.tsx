@@ -129,6 +129,44 @@ export const HomePage: React.FC = () => {
         </div>
       </div>
 
+      {/* 2.5 "What Changed?" Forecast Delta Banner */}
+      {forecast?.extras?.forecast_diff && (
+        <div className="relative overflow-hidden rounded-2xl border border-indigo-500/25 bg-gradient-to-r from-indigo-500/10 via-sky-500/10 to-transparent p-3.5 shadow-sm dark:bg-slate-900/70">
+          <div className="flex items-start justify-between gap-2.5">
+            <div className="flex items-center gap-2">
+              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-500 font-bold text-xs">
+                Δ
+              </span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                What Changed vs Yesterday
+              </span>
+            </div>
+            <span
+              className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                forecast.extras.forecast_diff.trend === 'warmer'
+                  ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400'
+                  : forecast.extras.forecast_diff.trend === 'cooler'
+                  ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400'
+                  : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
+              }`}
+            >
+              {forecast.extras.forecast_diff.trend.toUpperCase()}
+            </span>
+          </div>
+
+          <p className="text-xs text-content-primary mt-2 leading-relaxed font-medium">
+            {forecast.extras.forecast_diff.summary}
+          </p>
+
+          <div className="flex items-center justify-between text-[10px] text-content-muted mt-2 pt-2 border-t border-indigo-500/15 font-mono">
+            <span>Yesterday: {forecast.extras.forecast_diff.yesterday_temp_c}°C ({forecast.extras.forecast_diff.yesterday_condition})</span>
+            <span className="font-bold text-content-secondary">
+              Δ Temp: {forecast.extras.forecast_diff.temp_diff_c > 0 ? `+${forecast.extras.forecast_diff.temp_diff_c}` : forecast.extras.forecast_diff.temp_diff_c}°C
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* 3. Section Header & Drag-to-Reorder Toggle */}
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
