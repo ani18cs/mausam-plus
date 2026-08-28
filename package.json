@@ -1,0 +1,32 @@
+{
+  "name": "mausam-plus-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mausam+ Personalized Weather Homepage Application (SIH PS 26076 / MoES / IMD)",
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/mobile",
+    "dev:all": "npm run dev --workspaces --if-present",
+    "dev:mobile": "npm run dev --workspace=apps/mobile",
+    "dev:bff": "npm run dev --workspace=services/bff",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "keywords": [
+    "weather",
+    "personalized-weather",
+    "imd",
+    "sih",
+    "pwa",
+    "framer-motion",
+    "react",
+    "express"
+  ],
+  "author": "Mausam+ Team",
+  "license": "MIT"
+}

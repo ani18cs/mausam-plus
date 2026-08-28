@@ -1,0 +1,111 @@
+/* Mausam+ Design System Core Tokens & CSS Variables */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap');
+
+:root {
+  /* Safe-area mobile insets */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+
+  /* Light Theme Color Tokens */
+  --bg-app: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-card-glass: rgba(255, 255, 255, 0.82);
+  --bg-card-subtle: #F1F5F9;
+  --bg-input: #F1F5F9;
+  --bg-tab-bar: rgba(255, 255, 255, 0.92);
+
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-glass: rgba(255, 255, 255, 0.6);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --text-inverse: #FFFFFF;
+
+  --accent-primary: #0284C7; /* Sky 600 */
+  --accent-primary-hover: #0369A1;
+  --accent-primary-subtle: rgba(2, 132, 199, 0.12);
+
+  /* Severity Level Colors */
+  --severity-safe: #10B981;
+  --severity-safe-bg: rgba(16, 185, 129, 0.12);
+  --severity-safe-border: rgba(16, 185, 129, 0.28);
+  --severity-safe-text: #047857;
+
+  --severity-caution: #F59E0B;
+  --severity-caution-bg: rgba(245, 158, 11, 0.12);
+  --severity-caution-border: rgba(245, 158, 11, 0.28);
+  --severity-caution-text: #B45309;
+
+  --severity-warning: #F97316;
+  --severity-warning-bg: rgba(249, 115, 22, 0.12);
+  --severity-warning-border: rgba(249, 115, 22, 0.28);
+  --severity-warning-text: #C2410C;
+
+  --severity-severe: #EF4444;
+  --severity-severe-bg: rgba(239, 68, 68, 0.12);
+  --severity-severe-border: rgba(239, 68, 68, 0.28);
+  --severity-severe-text: #B91C1C;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+  --shadow-floating: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  --shadow-glow-safe: 0 0 20px rgba(16, 185, 129, 0.25);
+  --shadow-glow-severe: 0 0 20px rgba(239, 68, 68, 0.25);
+
+  /* Fonts */
+  --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dark {
+  /* Dark Theme Color Tokens */
+  --bg-app: #090D16;
+  --bg-card: #111827;
+  --bg-card-glass: rgba(17, 24, 39, 0.78);
+  --bg-card-subtle: #1E293B;
+  --bg-input: #1E293B;
+  --bg-tab-bar: rgba(17, 24, 39, 0.9);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-glass: rgba(255, 255, 255, 0.12);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  --text-inverse: #0F172A;
+
+  --accent-primary: #38BDF8; /* Sky 400 */
+  --accent-primary-hover: #7DD3FC;
+  --accent-primary-subtle: rgba(56, 189, 248, 0.15);
+
+  /* Severity Level Colors in Dark Mode */
+  --severity-safe: #34D399;
+  --severity-safe-bg: rgba(52, 211, 153, 0.15);
+  --severity-safe-border: rgba(52, 211, 153, 0.35);
+  --severity-safe-text: #6EE7B7;
+
+  --severity-caution: #FBBF24;
+  --severity-caution-bg: rgba(251, 191, 36, 0.15);
+  --severity-caution-border: rgba(251, 191, 36, 0.35);
+  --severity-caution-text: #FDE68A;
+
+  --severity-warning: #FB923C;
+  --severity-warning-bg: rgba(251, 146, 60, 0.15);
+  --severity-warning-border: rgba(251, 146, 60, 0.35);
+  --severity-warning-text: #FED7AA;
+
+  --severity-severe: #F87171;
+  --severity-severe-bg: rgba(248, 113, 113, 0.18);
+  --severity-severe-border: rgba(248, 113, 113, 0.4);
+  --severity-severe-text: #FECACA;
+
+  /* Shadows Dark */
+  --shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.4), 0 2px 8px -1px rgba(0, 0, 0, 0.3);
+  --shadow-floating: 0 16px 36px -4px rgba(0, 0, 0, 0.6), 0 6px 16px -2px rgba(0, 0, 0, 0.4);
+}
