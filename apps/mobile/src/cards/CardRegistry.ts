@@ -5,6 +5,9 @@ import { BestRunningHoursCard } from './BestRunningHoursCard';
 import { TideCard } from './TideCard';
 import { HeatStressCard } from './HeatStressCard';
 import { CommuteRadarCard } from './CommuteRadarCard';
+import { AgriSoilCard } from './AgriSoilCard';
+import { TravelPackingCard } from './TravelPackingCard';
+import { EventPlannerComfortCard } from './EventPlannerComfortCard';
 
 export interface CardRegistryEntry {
   id: string;
@@ -12,13 +15,13 @@ export interface CardRegistryEntry {
   category: string;
   component: React.FC<CardProps>;
   relevantPersonas: PersonaId[];
-  defaultRank: number; // 1 = highest default priority
+  defaultRank: number;
   description: string;
 }
 
 /**
  * =========================================================================
- * 🛠️ HOW TEAMMATES ADD A NEW CARD:
+ * HOW TEAMMATES ADD A NEW CARD:
  * 1. Build your Card component in `apps/mobile/src/cards/MyNewCard.tsx`
  *    using the `<CardShell>` wrapper from `@mausam/design-system`.
  * 2. Register it below in `CARD_REGISTRY`.
@@ -32,10 +35,19 @@ export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
     title: 'Physiological Heat-Stress Index',
     category: 'thermal_stress',
     component: HeatStressCard,
-    relevantPersonas: ['health', 'fitness', 'agri', 'family', 'commuter', 'events'],
+    relevantPersonas: [
+      'health',
+      'fitness',
+      'agri',
+      'family',
+      'commuter',
+      'events',
+    ],
     defaultRank: 1,
-    description: 'Composite thermal strain calculated from ambient temp, humidity, wind, and UV.',
+    description:
+      'Composite thermal strain calculated from ambient temp, humidity, wind, and UV.',
   },
+
   'card-health-aqi': {
     id: 'card-health-aqi',
     title: 'Air Quality & Pollutant Breakdown',
@@ -43,8 +55,10 @@ export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
     component: AqiCard,
     relevantPersonas: ['health', 'family', 'fitness', 'commuter'],
     defaultRank: 2,
-    description: 'Real-time AQI, PM2.5/PM10 concentrations and respiratory safety advice.',
+    description:
+      'Real-time AQI, PM2.5/PM10 concentrations and respiratory safety advice.',
   },
+
   'card-fitness-running': {
     id: 'card-fitness-running',
     title: 'Optimal Running & Workout Window',
@@ -52,8 +66,10 @@ export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
     component: BestRunningHoursCard,
     relevantPersonas: ['fitness', 'health'],
     defaultRank: 3,
-    description: 'Hourly outdoor workout suitability index considering UV and heat load.',
+    description:
+      'Hourly outdoor workout suitability index considering UV and heat load.',
   },
+
   'card-beach-tide': {
     id: 'card-beach-tide',
     title: 'Tide, Wave & Coastal Marine',
@@ -61,8 +77,10 @@ export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
     component: TideCard,
     relevantPersonas: ['beach', 'traveler', 'events'],
     defaultRank: 4,
-    description: 'High/Low tide schedule, swell height, sea water temperature, and surf conditions.',
+    description:
+      'High/Low tide schedule, swell height, sea water temperature, and surf conditions.',
   },
+
   'card-commute-radar': {
     id: 'card-commute-radar',
     title: 'Commute Weather & Radar Hazard',
@@ -70,11 +88,42 @@ export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
     component: CommuteRadarCard,
     relevantPersonas: ['commuter', 'family', 'traveler'],
     defaultRank: 5,
-    description: 'Precipitation radar, transit delays, and citizen-reported road waterlogging.',
+    description:
+      'Precipitation radar, transit delays, and citizen-reported road waterlogging.',
   },
-  // TODO [Teammate 3 & 4]: Add Farmer/Agri Soil Moisture Card here
-  // TODO [Teammate 3 & 4]: Add Traveler Packing & Severe Alerts Card here
-  // TODO [Teammate 3 & 4]: Add Event Planner 7-Day Comfort Matrix Card here
+
+  'card-agri-soil': {
+    id: 'card-agri-soil',
+    title: 'Soil Moisture & Sowing Window',
+    category: 'agri_farming',
+    component: AgriSoilCard,
+    relevantPersonas: ['agri', 'family'],
+    defaultRank: 6,
+    description:
+      'Topsoil saturation level, evapotranspiration rates, and crop planting advice.',
+  },
+
+  'card-travel-packing': {
+    id: 'card-travel-packing',
+    title: 'Travel Packing & Flight Risk',
+    category: 'travel_packing',
+    component: TravelPackingCard,
+    relevantPersonas: ['traveler', 'family', 'events'],
+    defaultRank: 7,
+    description:
+      'Weather-based packing recommendations, daily travel comfort, and travel risk indicators.',
+  },
+
+  'card-event-planner-comfort': {
+    id: 'card-event-planner-comfort',
+    title: '7-Day Outdoor Event Comfort',
+    category: 'event_planning',
+    component: EventPlannerComfortCard,
+    relevantPersonas: ['events', 'family', 'traveler'],
+    defaultRank: 8,
+    description:
+      'Seven-day outdoor event comfort based on temperature, rain probability, and weather conditions.',
+  },
 };
 
 /**
@@ -87,10 +136,14 @@ export function getRankedCardIds(
 ): string[] {
   // If user has a saved custom order, honor it first, then append any missing registered cards
   if (customOrder && customOrder.length > 0) {
-    const validCustom = customOrder.filter((id) => CARD_REGISTRY[id] && !hiddenCardIds.includes(id));
+    const validCustom = customOrder.filter(
+      (id) => CARD_REGISTRY[id] && !hiddenCardIds.includes(id)
+    );
+
     const remaining = Object.keys(CARD_REGISTRY).filter(
       (id) => !validCustom.includes(id) && !hiddenCardIds.includes(id)
     );
+
     return [...validCustom, ...remaining];
   }
 
@@ -99,14 +152,20 @@ export function getRankedCardIds(
     .filter((entry) => !hiddenCardIds.includes(entry.id))
     .map((entry) => {
       let score = entry.defaultRank;
-      const matches = entry.relevantPersonas.filter((p) => selectedPersonas.includes(p)).length;
+
+      const matches = entry.relevantPersonas.filter((p) =>
+        selectedPersonas.includes(p)
+      ).length;
+
       if (matches > 0) {
         // Boost priority if card directly matches selected personas
         score -= matches * 10;
       }
+
       return { id: entry.id, score };
     });
 
   scored.sort((a, b) => a.score - b.score);
+
   return scored.map((item) => item.id);
 }
