@@ -186,13 +186,21 @@ export const OnboardingPage: React.FC = () => {
       <div>
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white shadow-sm">
-              <Compass className="w-5 h-5" />
+            <img
+              src="/logo.png"
+              alt="IMD Logo"
+              className="h-10 w-auto object-contain drop-shadow-sm flex-shrink-0"
+            />
+            <div>
+              <span className="font-heading font-bold text-sm tracking-wider uppercase text-accent-primary block">
+                Mausam+ IMD Setup
+              </span>
+              <span className="text-[10px] text-content-muted block">
+                Govt. of India • MoES
+              </span>
             </div>
-            <span className="font-heading font-bold text-sm tracking-wider uppercase text-accent-primary">
-              Mausam+ Setup
-            </span>
           </div>
+
 
           <div className="flex items-center gap-1 text-[11px] font-bold text-content-muted">
             <span className={step === 'personas' ? 'text-accent-primary font-extrabold' : ''}>1</span>

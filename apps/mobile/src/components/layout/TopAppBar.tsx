@@ -14,10 +14,13 @@ export const TopAppBar: React.FC = () => {
       <div className="flex h-14 items-center justify-between px-3 sm:px-4">
         {/* Left: IMD Emblem & Location Selector Dropdown */}
         <div className="relative flex items-center gap-2">
-          {/* IMD Emblem Badge */}
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-600 to-indigo-700 text-white font-extrabold text-[11px] shadow-sm flex-shrink-0 border border-white/20">
-            IMD
-          </div>
+          {/* Official IMD Emblem */}
+          <img
+            src="/logo.png"
+            alt="IMD Official Logo"
+            className="h-9 w-auto object-contain drop-shadow-sm flex-shrink-0"
+          />
+
 
           <button
             type="button"

@@ -24,7 +24,15 @@ export const App: React.FC = () => {
     }
     // Fetch initial weather forecast on app load
     fetchForecast();
+
+    // Live Real-Time Telemetry Heartbeat (refresh every 60 seconds)
+    const interval = setInterval(() => {
+      fetchForecast();
+    }, 60000);
+
+    return () => clearInterval(interval);
   }, [theme]);
+
 
   return (
     <BrowserRouter>

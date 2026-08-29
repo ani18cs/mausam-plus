@@ -84,14 +84,22 @@ export const ClimateNewsPage: React.FC = () => {
           <Newspaper className="w-32 h-32 text-sky-400" />
         </div>
 
-        <div className="flex items-center gap-2 mb-1.5">
-          <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-sky-500 text-white font-bold text-xs shadow-sm">
-            IMD
+        <div className="flex items-center gap-2 mb-2">
+          <img
+            src="/logo.png"
+            alt="IMD Official Logo"
+            className="h-10 w-auto object-contain drop-shadow-md flex-shrink-0"
+          />
+          <div>
+            <span className="text-[11px] font-bold tracking-wide uppercase text-sky-300 block">
+              {t('imd.ministry')}
+            </span>
+            <span className="text-[10px] text-sky-200 block font-medium">
+              National Weather Service & Hazard Division
+            </span>
           </div>
-          <span className="text-[11px] font-bold tracking-wide uppercase text-sky-300">
-            {t('imd.ministry')}
-          </span>
         </div>
+
 
         <h1 className="font-heading text-xl font-extrabold text-white tracking-tight">
           {t('news.page_title')}
