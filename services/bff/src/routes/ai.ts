@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { AIQueryRequest, AIQueryResponse, ForecastResponse } from '@mausam/shared-types';
+import { AIQueryRequest, AIQueryResponse, NormalizedForecast } from '@mausam/shared-types';
 import OpenAI from 'openai';
 
 export const aiRouter = Router();
@@ -7,7 +7,7 @@ export const aiRouter = Router();
 function generateGroundedFallback(
   query: string,
   locationName: string,
-  forecast?: ForecastResponse
+  forecast?: Partial<NormalizedForecast>
 ): AIQueryResponse {
   const q = query.toLowerCase();
   const current = forecast?.current;
