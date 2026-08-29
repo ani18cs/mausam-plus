@@ -104,6 +104,85 @@ export const WhyModal: React.FC = () => {
           ],
           recommendation: 'Avoid swimming near rock groynes during approaching high tide.',
         };
+      case 'card-agri-soil':
+        return {
+          title: 'Why is Soil Moisture at 38% Optimal?',
+          subtitle: 'Agricultural Hydrology Model',
+          summary: 'Recent rainfall has saturated the topsoil root zone, creating favorable conditions for sowing without waterlogging risk.',
+          confidence: 91,
+          steps: [
+            {
+              factor: 'Topsoil Field Capacity',
+              observed: '38%',
+              threshold: '30% - 45%',
+              note: 'Within optimal range for seed germination and root development.',
+              impact: 'high',
+            },
+            {
+              factor: 'Frost Risk',
+              observed: 'Low',
+              threshold: '< 4°C overnight',
+              note: 'Overnight temperatures remain well above frost threshold.',
+              impact: 'medium',
+            },
+          ],
+          recommendation: 'Favorable window for sowing and spraying. Monitor soil moisture before additional irrigation.',
+        };
+      case 'card-travel-packing':
+        return {
+          title: `Why ${forecast?.current.temp_c ?? 28.5}°C Needs This Packing List?`,
+          subtitle: 'Travel Comfort & Flight Risk Model',
+          summary: 'Packing recommendations and flight delay risk are derived from current temperature, precipitation probability, and wind speed.',
+          confidence: 88,
+          steps: [
+            {
+              factor: 'Current Temperature',
+              observed: `${forecast?.current.temp_c ?? 28.5}°C`,
+              threshold: '20°C - 30°C',
+              note: 'Determines clothing layer recommendations.',
+              impact: 'high',
+            },
+            {
+              factor: 'Rain Probability',
+              observed: `${forecast?.hourly?.[0]?.rain_prob_pct ?? 30}%`,
+              threshold: '> 40%',
+              note: 'Drives flight delay risk and umbrella/rain gear suggestions.',
+              impact: 'high',
+            },
+            {
+              factor: 'Wind Speed',
+              observed: `${forecast?.current.wind_kph ?? 14.2} km/h`,
+              threshold: '> 25 km/h',
+              note: 'High winds may trigger windproof layer recommendation and ground delays.',
+              impact: 'medium',
+            },
+          ],
+          recommendation: 'Check flight status closer to departure if rain probability stays above 60%.',
+        };
+      case 'card-event-planner-comfort':
+        return {
+          title: 'Why This 7-Day Comfort Rating?',
+          subtitle: 'Outdoor Event Suitability Model',
+          summary: 'Each day is scored using maximum temperature and rain probability to flag favorable outdoor event windows.',
+          confidence: 85,
+          steps: [
+            {
+              factor: 'Max Temperature Threshold',
+              observed: 'Daily max compared',
+              threshold: '< 35°C = favorable',
+              note: 'Days at or above 40°C are marked Poor for outdoor comfort.',
+              impact: 'high',
+            },
+            {
+              factor: 'Rain Probability Threshold',
+              observed: 'Daily rain % compared',
+              threshold: '< 40% = favorable',
+              note: 'Days at or above 70% rain risk are marked Poor.',
+              impact: 'high',
+            },
+          ],
+          recommendation: 'Prefer days rated "Good" for outdoor events; avoid days rated "Poor".',
+        };
       default:
         return {
           title: 'Why am I seeing this recommendation?',
