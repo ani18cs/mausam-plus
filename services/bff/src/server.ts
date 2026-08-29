@@ -1,15 +1,23 @@
+import dotenv from 'dotenv';
+import path from 'path'
+dotenv.config({
+  path: path.resolve(__dirname, '../../../.env'),
+}
+
+);
+
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import { forecastRouter } from './routes/forecast';
 import { aiRouter } from './routes/ai';
 import { reportsRouter } from './routes/reports';
 import { alertsRouter } from './routes/alerts';
 
-dotenv.config();
+
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
 
 // Middleware
 app.use(

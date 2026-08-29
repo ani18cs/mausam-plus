@@ -51,7 +51,7 @@ const SUGGESTED_QUERIES = [
 ];
 
 export const AskMausamPage: React.FC = () => {
-  const { activeLocation, selectedPersonas } = useAppStore();
+  const { activeLocation, selectedPersonas,forecast,fetchForecast } = useAppStore();
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-0',
@@ -77,6 +77,16 @@ export const AskMausamPage: React.FC = () => {
   }, [messages, isLoading]);
 
   useEffect(() => () => recognitionRef.current?.stop(), []);
+  
+  useEffect(() => {
+  if (!forecast) {
+    fetchForecast(
+      activeLocation.lat,
+      activeLocation.lon,
+      activeLocation.name
+    );
+  }
+}, [forecast, activeLocation, fetchForecast]);
 
   const handleSend = async (queryText?: string) => {
     const textToSend = queryText || inputValue;
@@ -101,6 +111,7 @@ export const AskMausamPage: React.FC = () => {
           query: textToSend,
           location: activeLocation,
           selectedPersonas,
+          forecastContext:forecast,
         }),
       });
 
