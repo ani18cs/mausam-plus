@@ -13,7 +13,9 @@
     "dev:all": "npm run dev --workspaces --if-present",
     "dev:mobile": "npm run dev --workspace=apps/mobile",
     "dev:bff": "npm run dev --workspace=services/bff",
+    "prebuild": "npm run build --workspace=@mausam/shared-types",
     "build": "npm run build --workspaces --if-present",
+    "pretypecheck": "npm run build --workspace=@mausam/shared-types",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present"
   },
