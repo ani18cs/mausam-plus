@@ -61,7 +61,7 @@ export const HyperlocalMapPage: React.FC = () => {
   // Fetch Reports from BFF
   const fetchReports = async () => {
     try {
-      const res = await fetch('http://localhost:4000/api/reports');
+      const res = await fetch('/api/reports');
       if (res.ok) {
         const data = await res.json();
         setReports(data.reports || []);
@@ -106,7 +106,7 @@ export const HyperlocalMapPage: React.FC = () => {
   const handleUpvote = async (reportId: string) => {
     setUpvotingId(reportId);
     try {
-      const res = await fetch(`http://localhost:4000/api/reports/${reportId}/upvote`, {
+      const res = await fetch(`/api/reports/${reportId}/upvote`, {
         method: 'POST',
       });
       if (res.ok) {
