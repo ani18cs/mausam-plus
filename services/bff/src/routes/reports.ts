@@ -3,8 +3,7 @@ import { CitizenReport } from '@mausam/shared-types';
 
 export const reportsRouter = Router();
 
-// In-memory initial citizen report store
-// // TODO: replace with real database persistence (Supabase / Postgres) — see docs/ARCHITECTURE.md
+// In-memory citizen report store with dynamic upvote & verification pipeline
 let citizenReports: CitizenReport[] = [
   {
     id: 'rep-001',
@@ -96,7 +95,7 @@ reportsRouter.post('/', (req: Request, res: Response) => {
     severity: severity || 'medium',
     upvotes: 1,
     timestamp: new Date().toISOString(),
-    verified: false, // Community verification pipeline
+    verified: false,
   };
 
   citizenReports.unshift(newReport);
@@ -104,5 +103,33 @@ reportsRouter.post('/', (req: Request, res: Response) => {
   return res.status(201).json({
     message: 'Citizen report submitted successfully and added to verification queue',
     report: newReport,
+  });
+});
+
+/**
+ * POST /api/reports/:id/upvote
+ * Upvote an existing citizen hazard report & auto-verify when threshold reached
+ */
+reportsRouter.post('/:id/upvote', (req: Request, res: Response) => {
+  const { id } = req.params;
+  const report = citizenReports.find((r) => r.id === id);
+
+  if (!report) {
+    return res.status(404).json({ error: 'Report not found' });
+  }
+
+  // Increment upvotes
+  report.upvotes += 1;
+
+  // Auto-verify if community upvotes reach 5 or more
+  if (report.upvotes >= 5 && !report.verified) {
+    report.verified = true;
+  }
+
+  return res.json({
+    message: 'Report upvoted successfully',
+    upvotes: report.upvotes,
+    verified: report.verified,
+    report,
   });
 });
