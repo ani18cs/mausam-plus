@@ -23,7 +23,7 @@
 
   --text-primary: #0F172A;
   --text-secondary: #475569;
-  --text-muted: #94A3B8;
+  --text-muted: #64748B;
   --text-inverse: #FFFFFF;
 
   --accent-primary: #0284C7; /* Sky 600 */
@@ -60,6 +60,7 @@
   /* Fonts */
   --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition-colors: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
 .dark {

@@ -15,6 +15,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { LANGUAGE_LABELS, SupportedLanguage, translate } from '../utils/i18n';
 
 const ALL_PERSONAS: Array<{ id: PersonaId; label: string }> = [
   { id: 'health', label: 'Health-Conscious' },
@@ -27,13 +28,7 @@ const ALL_PERSONAS: Array<{ id: PersonaId; label: string }> = [
   { id: 'events', label: 'Event Planners' },
 ];
 
-const LANGUAGES = [
-  { code: 'en', label: 'English' },
-  { code: 'hi', label: 'हिन्दी (Hindi)' },
-  { code: 'ta', label: 'தமிழ் (Tamil)' },
-  { code: 'bn', label: 'বাংলা (Bengali)' },
-  { code: 'mr', label: 'मराठी (Marathi)' },
-];
+const LANGUAGES = Object.entries(LANGUAGE_LABELS) as Array<[SupportedLanguage, string]>;
 
 export const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
@@ -44,9 +39,9 @@ export const ProfilePage: React.FC = () => {
     setLanguage,
     theme,
     toggleTheme,
-    temperatureUnit,
     setHasCompletedOnboarding,
   } = useAppStore();
+  const t = (key: Parameters<typeof translate>[1]) => translate(language, key);
 
   const togglePersona = (id: PersonaId) => {
     if (selectedPersonas.includes(id)) {
@@ -72,10 +67,10 @@ export const ProfilePage: React.FC = () => {
         </div>
         <div>
           <h1 className="font-heading text-base font-bold text-content-primary">
-            Profile & Personalization
+            {t('profile.title')}
           </h1>
           <p className="text-[11px] text-content-muted">
-            Configure homepage persona feed, language & telemetry units
+            {t('profile.subtitle')}
           </p>
         </div>
       </div>
@@ -84,14 +79,14 @@ export const ProfilePage: React.FC = () => {
       <div className="rounded-3xl border border-border-subtle bg-card p-4 space-y-3 shadow-card">
         <div className="flex items-center justify-between">
           <h3 className="font-heading text-xs font-bold text-content-primary flex items-center gap-1.5">
-            <Compass className="w-4 h-4 text-accent-primary" /> Active Personas
+            <Compass className="w-4 h-4 text-accent-primary" /> {t('profile.active_personas')}
           </h3>
           <span className="text-[10px] font-bold text-accent-primary">
-            {selectedPersonas.length} Active
+            {selectedPersonas.length} {t('profile.personas_active')}
           </span>
         </div>
         <p className="text-[11px] text-content-muted">
-          Tap chips to toggle which cards rank at the top of your homepage feed.
+          {t('profile.personas_hint')}
         </p>
 
         <div className="flex flex-wrap gap-1.5 pt-1">
@@ -102,7 +97,7 @@ export const ProfilePage: React.FC = () => {
                 key={p.id}
                 type="button"
                 onClick={() => togglePersona(p.id)}
-                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 border transition-all ${
+                className={`flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 py-2 border transition-all ${
                   isSelected
                     ? 'bg-accent-primary text-white border-accent-primary shadow-sm font-semibold'
                     : 'bg-card-subtle text-content-secondary border-border-subtle hover:bg-card'
@@ -120,24 +115,24 @@ export const ProfilePage: React.FC = () => {
       {/* 2. Language & Multilingual Selector */}
       <div className="rounded-3xl border border-border-subtle bg-card p-4 space-y-3 shadow-card">
         <h3 className="font-heading text-xs font-bold text-content-primary flex items-center gap-1.5">
-          <Globe className="w-4 h-4 text-emerald-500" /> Language & Regional Localization
+          <Globe className="w-4 h-4 text-emerald-500" /> {t('profile.language')}
         </h3>
 
         <div className="grid grid-cols-2 gap-2">
-          {LANGUAGES.map((lang) => (
+          {LANGUAGES.map(([code, label]) => (
             <button
-              key={lang.code}
+              key={code}
               type="button"
-              onClick={() => setLanguage(lang.code as any)}
-              className={`rounded-xl p-2.5 text-left border transition-all ${
-                language === lang.code
+              onClick={() => setLanguage(code)}
+              className={`min-h-[44px] rounded-xl p-2.5 text-left border transition-all ${
+                language === code
                   ? 'border-emerald-500 bg-emerald-500/10 font-bold text-content-primary ring-1 ring-emerald-500/30'
                   : 'border-border-subtle bg-card-subtle text-content-secondary hover:bg-card'
               }`}
             >
               <div className="flex items-center justify-between">
-                <span>{lang.label}</span>
-                {language === lang.code && <Check className="w-3.5 h-3.5 text-emerald-500" />}
+                <span>{label}</span>
+                {language === code && <Check className="w-3.5 h-3.5 text-emerald-500" />}
               </div>
             </button>
           ))}
@@ -147,42 +142,42 @@ export const ProfilePage: React.FC = () => {
       {/* 3. Theme & Preferences */}
       <div className="rounded-3xl border border-border-subtle bg-card p-4 space-y-3 shadow-card">
         <h3 className="font-heading text-xs font-bold text-content-primary flex items-center gap-1.5">
-          <Sliders className="w-4 h-4 text-orange-500" /> Display & Telemetry Units
+          <Sliders className="w-4 h-4 text-orange-500" /> {t('profile.display')}
         </h3>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between p-2 rounded-xl bg-card-subtle">
-            <span className="font-semibold text-content-primary">Color Theme</span>
+            <span className="font-semibold text-content-primary">{t('profile.color_theme')}</span>
             <button
               type="button"
               onClick={toggleTheme}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-card border border-border-subtle font-bold text-content-primary"
+              className="flex min-h-[44px] items-center gap-1.5 px-3 py-1.5 rounded-lg bg-card border border-border-subtle font-bold text-content-primary"
             >
               {theme === 'dark' ? (
                 <>
                   <Moon className="w-3.5 h-3.5 text-sky-400" />
-                  <span>Dark Mode</span>
+                  <span>{t('profile.dark_mode')}</span>
                 </>
               ) : (
                 <>
                   <Sun className="w-3.5 h-3.5 text-amber-500" />
-                  <span>Light Mode</span>
+                  <span>{t('profile.light_mode')}</span>
                 </>
               )}
             </button>
           </div>
 
           <div className="flex items-center justify-between p-2 rounded-xl bg-card-subtle">
-            <span className="font-semibold text-content-primary">Temperature Units</span>
+            <span className="font-semibold text-content-primary">{t('profile.temperature')}</span>
             <span className="font-mono font-bold text-accent-primary bg-card px-2.5 py-1 rounded-lg border border-border-subtle">
-              Celsius (°C)
+              {t('profile.celsius')}
             </span>
           </div>
 
           <div className="flex items-center justify-between p-2 rounded-xl bg-card-subtle">
-            <span className="font-semibold text-content-primary">Wind Speed</span>
+            <span className="font-semibold text-content-primary">{t('profile.wind')}</span>
             <span className="font-mono font-bold text-accent-primary bg-card px-2.5 py-1 rounded-lg border border-border-subtle">
-              km/h
+              {t('profile.wind_value')}
             </span>
           </div>
         </div>
@@ -192,13 +187,13 @@ export const ProfilePage: React.FC = () => {
       <div className="rounded-2xl border border-border-subtle bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-transparent p-4 space-y-1.5">
         <div className="flex items-center gap-1.5 text-accent-primary font-bold">
           <ShieldCheck className="w-4 h-4" />
-          <span>Smart India Hackathon 2026</span>
+          <span>{t('profile.project')}</span>
         </div>
         <p className="text-[11px] text-content-secondary">
-          PS 26076 | Ministry of Earth Sciences (MoES) / India Meteorological Department (IMD)
+          {t('profile.project_detail')}
         </p>
         <p className="text-[10px] text-content-muted">
-          Mausam+ Prototype Foundation v1.0.0 (Monorepo Architecture)
+          {t('profile.version')}
         </p>
       </div>
 
@@ -210,7 +205,7 @@ export const ProfilePage: React.FC = () => {
           onClick={handleResetOnboarding}
           leftIcon={<RotateCcw className="w-4 h-4" />}
         >
-          Re-run Onboarding Persona Flow
+          {t('profile.reset')}
         </Button>
       </div>
     </div>
