@@ -44,7 +44,6 @@ const ALLERGIES: Array<{ id: AllergyType; label: string; icon: string }> = [
   { id: 'elder_infant_care', label: 'Elder / Infant Care', icon: '👶' },
 ];
 
-
 export const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -187,14 +186,14 @@ export const ProfilePage: React.FC = () => {
       <div className="rounded-3xl border border-border-subtle bg-card p-4 space-y-3 shadow-card">
         <div className="flex items-center justify-between">
           <h3 className="font-heading text-xs font-bold text-content-primary flex items-center gap-1.5">
-            <Compass className="w-4 h-4 text-accent-primary" /> Active Personas
+            <Compass className="w-4 h-4 text-accent-primary" /> {t('profile.active_personas')}
           </h3>
           <span className="text-[10px] font-bold text-accent-primary">
-            {selectedPersonas.length} Active
+            {selectedPersonas.length} {t('profile.personas_active')}
           </span>
         </div>
         <p className="text-[11px] text-content-muted">
-          Tap chips to toggle which cards rank at the top of your homepage feed.
+          {t('profile.personas_hint')}
         </p>
 
         <div className="flex flex-wrap gap-1.5 pt-1">
@@ -205,7 +204,7 @@ export const ProfilePage: React.FC = () => {
                 key={p.id}
                 type="button"
                 onClick={() => togglePersona(p.id)}
-                className={`flex items-center gap-1.5 rounded-xl px-3 py-2 border transition-all ${
+                className={`flex min-h-[44px] items-center gap-1.5 rounded-xl px-3 py-2 border transition-all ${
                   isSelected
                     ? 'bg-accent-primary text-white border-accent-primary shadow-sm font-semibold'
                     : 'bg-card-subtle text-content-secondary border-border-subtle hover:bg-card'
@@ -340,13 +339,13 @@ export const ProfilePage: React.FC = () => {
       <div className="rounded-2xl border border-border-subtle bg-gradient-to-r from-sky-500/10 via-indigo-500/10 to-transparent p-4 space-y-1.5">
         <div className="flex items-center gap-1.5 text-accent-primary font-bold">
           <ShieldCheck className="w-4 h-4" />
-          <span>Smart India Hackathon 2026</span>
+          <span>{t('profile.project')}</span>
         </div>
         <p className="text-[11px] text-content-secondary">
-          PS 26076 | Ministry of Earth Sciences (MoES) / India Meteorological Department (IMD)
+          {t('profile.project_detail')}
         </p>
         <p className="text-[10px] text-content-muted">
-          Mausam+ Prototype v1.2.0 • Full Multilingual & Allergy AI Engine
+          Mausam+ Prototype v1.2.0 • Full Multilingual &amp; Allergy AI Engine
         </p>
       </div>
 
@@ -358,7 +357,7 @@ export const ProfilePage: React.FC = () => {
           onClick={handleResetOnboarding}
           leftIcon={<RotateCcw className="w-4 h-4" />}
         >
-          Re-run Onboarding Persona Flow
+          {t('profile.reset')}
         </Button>
       </div>
 
@@ -377,4 +376,3 @@ export const ProfilePage: React.FC = () => {
     </div>
   );
 };
-

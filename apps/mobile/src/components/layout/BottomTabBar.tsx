@@ -91,5 +91,3 @@ export const BottomTabBar: React.FC = () => {
     </nav>
   );
 };
-
-

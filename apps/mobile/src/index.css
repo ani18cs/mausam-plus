@@ -8,6 +8,11 @@
   * {
     border-color: var(--border-subtle);
   }
+
+  html,
+  body {
+    transition: var(--transition-colors);
+  }
   
   body {
     background-color: var(--bg-app);
