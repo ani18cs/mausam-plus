@@ -1,9 +1,13 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
+import { useAppStore } from '../store/useAppStore';
+import { formatTemp, formatWind } from '../utils/units';
 import { Flame, Droplets, Sun, Wind } from 'lucide-react';
 
 export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
+  const { temperatureUnit, windSpeedUnit } = useAppStore();
+
   const heatStress = forecast.extras.heat_stress_index || {
     score: 72,
     band: 'orange',
@@ -50,7 +54,7 @@ export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }
           </div>
 
           <span className="text-xs font-semibold text-content-secondary">
-            Perceived: {forecast.current.feels_like_c}°C
+            Perceived: {formatTemp(forecast.current.feels_like_c, temperatureUnit)}
           </span>
         </div>
 
@@ -98,7 +102,7 @@ export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }
               <span>Wind</span>
             </div>
             <span className="font-heading text-xs font-bold text-content-primary mt-0.5">
-              {forecast.current.wind_kph} km/h
+              {formatWind(forecast.current.wind_kph, windSpeedUnit)}
             </span>
           </div>
         </div>
@@ -111,4 +115,5 @@ export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }
     </CardShell>
   );
 };
+
 

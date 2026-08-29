@@ -4,6 +4,11 @@ import {
   NormalizedForecast,
   LocationInfo,
   SavedPlace,
+  SupportedLanguage,
+  TemperatureUnit,
+  WindSpeedUnit,
+  UserProfile,
+  AllergyType,
 } from '@mausam/shared-types';
 
 export interface AppState {
@@ -12,6 +17,10 @@ export interface AppState {
   hasCompletedOnboarding: boolean;
   cardOrder: string[];
   hiddenCardIds: string[];
+
+  // User Profile & Health Sensitivities
+  userProfile: UserProfile;
+  allergies: AllergyType[];
 
   // Active Location & Saved Places
   activeLocation: LocationInfo;
@@ -22,10 +31,11 @@ export interface AppState {
   isLoadingForecast: boolean;
   forecastError: string | null;
 
-  // UI State
+  // UI State & Preferences
   theme: 'light' | 'dark';
-  language: 'en' | 'hi' | 'ta' | 'bn' | 'mr';
-  temperatureUnit: 'celsius' | 'fahrenheit';
+  language: SupportedLanguage;
+  temperatureUnit: TemperatureUnit;
+  windSpeedUnit: WindSpeedUnit;
   activeWhyModalCardId: string | null;
 
   // Actions
@@ -34,7 +44,14 @@ export interface AppState {
   setCardOrder: (order: string[]) => void;
   reorderCards: (startIndex: number, endIndex: number) => void;
   setActiveLocation: (location: LocationInfo) => void;
-  setLanguage: (lang: 'en' | 'hi' | 'ta' | 'bn' | 'mr') => void;
+  setLanguage: (lang: SupportedLanguage) => void;
+  setTemperatureUnit: (unit: TemperatureUnit) => void;
+  setWindSpeedUnit: (unit: WindSpeedUnit) => void;
+  setUserProfile: (profile: Partial<UserProfile>) => void;
+  toggleAllergy: (allergy: AllergyType) => void;
+  setAllergies: (allergies: AllergyType[]) => void;
+  loginWithPhone: (phone: string, name?: string, age?: number, gender?: UserProfile['gender']) => void;
+  logout: () => void;
   toggleTheme: () => void;
   setWhyModalCardId: (cardId: string | null) => void;
   fetchForecast: (lat?: number, lon?: number, name?: string) => Promise<void>;
@@ -55,6 +72,18 @@ export const useAppStore = create<AppState>((set, get) => ({
   hasCompletedOnboarding: true,
   cardOrder: DEFAULT_CARD_ORDER,
   hiddenCardIds: [],
+
+  userProfile: {
+    id: 'user-01',
+    name: 'Aniket Singh',
+    phone: '+91 98765 43210',
+    age: 24,
+    gender: 'male',
+    allergies: ['pollen', 'dust_aqi'],
+    isLoggedIn: true,
+    city: 'Bengaluru',
+  },
+  allergies: ['pollen', 'dust_aqi'],
 
   activeLocation: {
     name: 'Bengaluru, Karnataka',
@@ -107,6 +136,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   theme: 'dark',
   language: 'en',
   temperatureUnit: 'celsius',
+  windSpeedUnit: 'kph',
   activeWhyModalCardId: null,
 
   setSelectedPersonas: (personas) => set({ selectedPersonas: personas }),
@@ -126,6 +156,54 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   setLanguage: (language) => set({ language }),
+  setTemperatureUnit: (temperatureUnit) => set({ temperatureUnit }),
+  setWindSpeedUnit: (windSpeedUnit) => set({ windSpeedUnit }),
+
+  setUserProfile: (profileUpdates) =>
+    set((state) => ({
+      userProfile: { ...state.userProfile, ...profileUpdates },
+    })),
+
+  toggleAllergy: (allergy) => {
+    const current = get().allergies;
+    const next = current.includes(allergy)
+      ? current.filter((a) => a !== allergy)
+      : [...current, allergy];
+    set((state) => ({
+      allergies: next,
+      userProfile: { ...state.userProfile, allergies: next },
+    }));
+  },
+
+  setAllergies: (allergies) =>
+    set((state) => ({
+      allergies,
+      userProfile: { ...state.userProfile, allergies },
+    })),
+
+  loginWithPhone: (phone, name = 'Weather Citizen', age = 25, gender = 'male') => {
+    const profile: UserProfile = {
+      id: `user-${Date.now()}`,
+      name,
+      phone,
+      age,
+      gender,
+      allergies: get().allergies,
+      isLoggedIn: true,
+      city: get().activeLocation.name,
+    };
+    set({ userProfile: profile });
+  },
+
+  logout: () => {
+    set((state) => ({
+      userProfile: {
+        ...state.userProfile,
+        isLoggedIn: false,
+      },
+    }));
+  },
+
 
   toggleTheme: () => {
     const next = get().theme === 'dark' ? 'light' : 'dark';

@@ -9,12 +9,16 @@ import {
   Car,
   CalendarDays,
   Sun,
+  Moon,
+  CloudMoon,
+  CloudSun,
   CloudRain,
   CloudLightning,
   CloudFog,
   Cloud,
   ThermometerSun,
   Wind,
+  Snowflake,
 } from 'lucide-react';
 import { PersonaId } from '@mausam/shared-types';
 
@@ -63,22 +67,33 @@ export interface WeatherConditionIconProps {
 }
 
 /**
- * Weather condition glyphs with high visual contrast
+ * Weather condition glyphs with high visual contrast and day/night awareness
  */
 export const WeatherConditionIcon: React.FC<WeatherConditionIconProps> = ({
   condition,
+  isDay = true,
   className = 'w-8 h-8',
 }) => {
-  const normalized = condition.toLowerCase();
+  const normalized = (condition || '').toLowerCase();
 
-  if (normalized.includes('rain') || normalized.includes('drizzle') || normalized.includes('shower')) {
-    return <CloudRain className={`${className} text-sky-400`} />;
-  }
   if (normalized.includes('thunder') || normalized.includes('storm') || normalized.includes('lightning')) {
     return <CloudLightning className={`${className} text-amber-400`} />;
   }
+  if (normalized.includes('rain') || normalized.includes('drizzle') || normalized.includes('shower')) {
+    return <CloudRain className={`${className} text-sky-400`} />;
+  }
+  if (normalized.includes('snow') || normalized.includes('hail') || normalized.includes('sleet') || normalized.includes('frost')) {
+    return <Snowflake className={`${className} text-cyan-300`} />;
+  }
   if (normalized.includes('fog') || normalized.includes('mist') || normalized.includes('haze')) {
     return <CloudFog className={`${className} text-slate-400`} />;
+  }
+  if (normalized.includes('partly') || normalized.includes('scattered')) {
+    return isDay ? (
+      <CloudSun className={`${className} text-amber-400`} />
+    ) : (
+      <CloudMoon className={`${className} text-indigo-300`} />
+    );
   }
   if (normalized.includes('cloud') || normalized.includes('overcast')) {
     return <Cloud className={`${className} text-slate-300 dark:text-slate-400`} />;
@@ -90,5 +105,11 @@ export const WeatherConditionIcon: React.FC<WeatherConditionIconProps> = ({
     return <Wind className={`${className} text-teal-400`} />;
   }
 
-  return <Sun className={`${className} text-amber-400 animate-pulse-subtle`} />;
+  // Clear / Sunny condition
+  return isDay ? (
+    <Sun className={`${className} text-amber-400 animate-pulse-subtle`} />
+  ) : (
+    <Moon className={`${className} text-indigo-300`} />
+  );
 };
+

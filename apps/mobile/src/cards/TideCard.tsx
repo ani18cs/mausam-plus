@@ -1,9 +1,13 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
+import { useAppStore } from '../store/useAppStore';
+import { formatTemp } from '../utils/units';
 import { Waves, ArrowUpRight, ArrowDownRight } from 'lucide-react';
 
 export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
+  const { temperatureUnit } = useAppStore();
+
   const tide = forecast.extras.tide || {
     next_high: '03:45 PM (+1.8m)',
     next_low: '09:20 PM (+0.4m)',
@@ -60,11 +64,14 @@ export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
           </div>
           <div>
             <span className="text-[10px] text-content-muted block uppercase font-medium">Sea Temp</span>
-            <span className="font-heading text-xs font-bold text-content-primary">{tide.water_temp_c ?? 27.5} °C</span>
+            <span className="font-heading text-xs font-bold text-content-primary">
+              {formatTemp(tide.water_temp_c ?? 27.5, temperatureUnit)}
+            </span>
           </div>
         </div>
       </div>
     </CardShell>
   );
 };
+
 

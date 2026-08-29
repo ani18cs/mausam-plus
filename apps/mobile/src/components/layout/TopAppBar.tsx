@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
-import { MapPin, AlertTriangle, ChevronDown, Check, Sun, Moon, Search } from 'lucide-react';
+import { useTranslation } from '../../utils/i18n';
+import { MapPin, AlertTriangle, ChevronDown, Check, Sun, Moon, Search, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const TopAppBar: React.FC = () => {
-  const { activeLocation, setActiveLocation, savedPlaces, theme, toggleTheme } = useAppStore();
+  const { t } = useTranslation();
+  const { activeLocation, setActiveLocation, savedPlaces, theme, toggleTheme, userProfile } = useAppStore();
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
 
   return (
@@ -28,7 +30,7 @@ export const TopAppBar: React.FC = () => {
                 <ChevronDown className="h-3.5 w-3.5 text-content-muted" />
               </div>
               <span className="block text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
-                Live IMD Telemetry
+                {t('bar.live_telemetry')}
               </span>
             </div>
           </button>
@@ -42,7 +44,7 @@ export const TopAppBar: React.FC = () => {
               />
               <div className="absolute left-0 top-full mt-2 w-64 rounded-2xl border border-border-strong bg-card p-2 shadow-floating z-50 animate-fadeIn">
                 <div className="flex items-center justify-between px-2.5 py-1.5 text-[11px] font-bold uppercase tracking-wider text-content-muted border-b border-border-subtle mb-1">
-                  <span>Saved Cities</span>
+                  <span>{t('bar.saved_places')}</span>
                   <Link
                     to="/saved-places"
                     onClick={() => setIsLocationDropdownOpen(false)}
@@ -83,7 +85,7 @@ export const TopAppBar: React.FC = () => {
           )}
         </div>
 
-        {/* Right: Search Cities Shortcut & Theme Toggle */}
+        {/* Right: Search Cities Shortcut, Theme Toggle & Profile Avatar */}
         <div className="flex items-center gap-1">
           <Link
             to="/saved-places"
@@ -111,9 +113,18 @@ export const TopAppBar: React.FC = () => {
           >
             {theme === 'dark' ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-slate-700" />}
           </button>
+
+          <Link
+            to="/profile"
+            className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent-primary/10 text-accent-primary hover:bg-accent-primary/20 transition-colors"
+            title="Profile"
+          >
+            <User className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </header>
   );
 };
+
 

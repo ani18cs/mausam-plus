@@ -283,16 +283,38 @@ export interface AIQueryResponse {
 }
 
 // ==========================================
-// 8. User Settings & Preferences
+// 8. User Settings, Profile & Personalization
 // ==========================================
+
+export type SupportedLanguage = 'en' | 'hi' | 'ta' | 'bn' | 'mr' | 'kn';
+export type TemperatureUnit = 'celsius' | 'fahrenheit';
+export type WindSpeedUnit = 'kph' | 'mph' | 'mps' | 'knots';
+
+export type AllergyType =
+  | 'pollen'
+  | 'dust_aqi'
+  | 'asthma'
+  | 'heat_sensitive'
+  | 'migraine';
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  phone: string;
+  age?: number;
+  gender?: 'male' | 'female' | 'other' | 'prefer_not_to_say';
+  allergies: AllergyType[];
+  isLoggedIn: boolean;
+  city?: string;
+}
 
 export interface UserPreferences {
   selectedPersonas: PersonaId[];
   cardOrder: string[];
   hiddenCardIds: string[];
-  language: 'en' | 'hi' | 'ta' | 'bn' | 'mr';
-  temperatureUnit: 'celsius' | 'fahrenheit';
-  windSpeedUnit: 'kph' | 'mph';
+  language: SupportedLanguage;
+  temperatureUnit: TemperatureUnit;
+  windSpeedUnit: WindSpeedUnit;
   theme: 'light' | 'dark' | 'system';
 }
 
@@ -305,3 +327,31 @@ export interface SavedPlace {
   lon: number;
   isCurrentLocation?: boolean;
 }
+
+// ==========================================
+// 9. Weather & Climate News Contracts
+// ==========================================
+
+export type NewsCategory =
+  | 'imd_advisory'
+  | 'monsoon'
+  | 'heatwave'
+  | 'aqi'
+  | 'cyclone'
+  | 'climate_science';
+
+export interface NewsArticle {
+  id: string;
+  title: string;
+  summary: string;
+  content: string;
+  source: string;
+  author?: string;
+  publishedAt: string;
+  readTimeMinutes: number;
+  category: NewsCategory;
+  imageUrl?: string;
+  relatedLocation?: string;
+  verifiedIMD?: boolean;
+}
+
