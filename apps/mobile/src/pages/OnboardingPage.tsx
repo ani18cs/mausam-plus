@@ -99,11 +99,30 @@ const ALLERGY_OPTIONS: Array<{ id: AllergyType; title: string; desc: string; ico
   },
   {
     id: 'migraine',
-    title: 'Barometric Migraines',
+    title: 'Barometric Weather Migraines',
     desc: 'Alerts for sudden atmospheric pressure swings and incoming storms',
     icon: '⚡',
   },
+  {
+    id: 'cold_joint_pain',
+    title: 'Cold Humidity & Joint Flare',
+    desc: 'Alerts for sharp temperature drops & arthritis stiffness',
+    icon: '❄️',
+  },
+  {
+    id: 'eye_irritation',
+    title: 'Eye Irritation & Smog Alert',
+    desc: 'Alerts for high photochemical ozone and airborne dust',
+    icon: '👁️',
+  },
+  {
+    id: 'elder_infant_care',
+    title: 'Elder & Infant Thermal Care',
+    desc: 'Safeguards vulnerable groups against rapid thermal shifts',
+    icon: '👶',
+  },
 ];
+
 
 export const OnboardingPage: React.FC = () => {
   const navigate = useNavigate();

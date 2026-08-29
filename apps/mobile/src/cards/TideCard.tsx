@@ -2,10 +2,12 @@ import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
 import { useAppStore } from '../store/useAppStore';
+import { useTranslation } from '../utils/i18n';
 import { formatTemp } from '../utils/units';
-import { Waves, ArrowUpRight, ArrowDownRight } from 'lucide-react';
+import { Waves, ArrowUpRight, ArrowDownRight, Compass } from 'lucide-react';
 
 export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
+  const { t } = useTranslation();
   const { temperatureUnit } = useAppStore();
 
   const tide = forecast.extras.tide || {
@@ -26,45 +28,59 @@ export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
   return (
     <CardShell
       id="card-beach-tide"
-      title="Tide & Coastal Swell"
-      subtitle="Marine conditions"
+      title={t('card.tide_title')}
+      subtitle="Marine conditions & sea swell"
       icon={<Waves className="h-4 w-4 text-cyan-500" />}
       badge={{
         severity: surfSeverity,
         label: `Surf: ${tide.surf_quality || 'Fair'}`,
       }}
       onWhyClick={onOpenWhyModal}
-      whyLabel="Why this tide?"
+      whyLabel={t('card.why_button')}
     >
-      <div className="space-y-3">
-        {/* High / Low Tide Row */}
-        <div className="grid grid-cols-2 gap-2">
-          <div className="rounded-xl bg-card-subtle p-2.5 flex items-center gap-2">
-            <ArrowUpRight className="w-4 h-4 text-cyan-500 flex-shrink-0" />
+      <div className="space-y-3.5">
+        {/* High / Low Tide Visual Grid */}
+        <div className="grid grid-cols-2 gap-2.5">
+          <div className="rounded-2xl bg-cyan-500/10 border border-cyan-500/25 p-3 flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-500 text-white shadow-sm flex-shrink-0">
+              <ArrowUpRight className="w-4 h-4" />
+            </div>
             <div>
-              <span className="text-[10px] text-content-muted block uppercase font-medium">Next High</span>
-              <p className="font-heading text-xs font-bold text-content-primary">{tide.next_high}</p>
+              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 block uppercase font-bold">
+                Next High Tide
+              </span>
+              <p className="font-heading text-xs font-extrabold text-content-primary">
+                {tide.next_high}
+              </p>
             </div>
           </div>
 
-          <div className="rounded-xl bg-card-subtle p-2.5 flex items-center gap-2">
-            <ArrowDownRight className="w-4 h-4 text-sky-500 flex-shrink-0" />
+          <div className="rounded-2xl bg-sky-500/10 border border-sky-500/25 p-3 flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white shadow-sm flex-shrink-0">
+              <ArrowDownRight className="w-4 h-4" />
+            </div>
             <div>
-              <span className="text-[10px] text-content-muted block uppercase font-medium">Next Low</span>
-              <p className="font-heading text-xs font-bold text-content-primary">{tide.next_low}</p>
+              <span className="text-[10px] text-sky-600 dark:text-sky-400 block uppercase font-bold">
+                Next Low Tide
+              </span>
+              <p className="font-heading text-xs font-extrabold text-content-primary">
+                {tide.next_low}
+              </p>
             </div>
           </div>
         </div>
 
         {/* Marine Metrics Strip */}
-        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border-subtle/50 text-center">
-          <div>
-            <span className="text-[10px] text-content-muted block uppercase font-medium">Wave Swell</span>
-            <span className="font-heading text-xs font-bold text-content-primary">{tide.wave_height_m} m</span>
+        <div className="grid grid-cols-2 gap-2 text-center">
+          <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">
+            <span className="text-[10px] text-content-muted block uppercase font-bold">Wave Height</span>
+            <span className="font-heading text-xs font-bold text-content-primary mt-0.5 block">
+              {tide.wave_height_m} meters
+            </span>
           </div>
-          <div>
-            <span className="text-[10px] text-content-muted block uppercase font-medium">Sea Temp</span>
-            <span className="font-heading text-xs font-bold text-content-primary">
+          <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">
+            <span className="text-[10px] text-content-muted block uppercase font-bold">Sea Surface Temp</span>
+            <span className="font-heading text-xs font-bold text-content-primary mt-0.5 block">
               {formatTemp(tide.water_temp_c ?? 27.5, temperatureUnit)}
             </span>
           </div>
@@ -73,5 +89,3 @@ export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
     </CardShell>
   );
 };
-
-

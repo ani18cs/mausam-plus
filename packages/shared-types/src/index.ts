@@ -295,7 +295,11 @@ export type AllergyType =
   | 'dust_aqi'
   | 'asthma'
   | 'heat_sensitive'
-  | 'migraine';
+  | 'migraine'
+  | 'cold_joint_pain'
+  | 'eye_irritation'
+  | 'elder_infant_care';
+
 
 export interface UserProfile {
   id: string;

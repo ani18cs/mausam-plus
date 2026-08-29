@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { CARD_REGISTRY, getRankedCardIds } from '../cards/CardRegistry';
 import { WeatherConditionIcon } from '@mausam/design-system';
-import { WeatherNewsFeed } from '../components/news/WeatherNewsFeed';
 import { useTranslation } from '../utils/i18n';
 import { formatTemp, formatWind } from '../utils/units';
 import {
@@ -21,7 +20,7 @@ import {
   Droplets,
   Wind,
   Sun,
-  ShieldAlert,
+  ShieldCheck,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -75,14 +74,15 @@ export const HomePage: React.FC = () => {
   // Next 8 hours of forecast
   const nextHours = forecast?.hourly?.slice(0, 8) || [];
 
-  // Determine Allergy AI Alerts based on current conditions & user sensitivities
+  // Determine Allergy & Health AI Alerts based on current conditions & user sensitivities
   const aqiVal = forecast?.current.aqi ?? 128;
   const uvVal = forecast?.current.uv_index ?? 7;
   const heatStressScore = forecast?.extras?.heat_stress_index?.score ?? 72;
+  const humidityVal = forecast?.current.humidity_pct ?? 58;
 
-  const allergyAlerts = [];
+  const healthAlerts = [];
   if (allergies.includes('pollen')) {
-    allergyAlerts.push({
+    healthAlerts.push({
       type: 'pollen',
       title: t('allergy.pollen_high'),
       desc: t('allergy.pollen_desc'),
@@ -91,7 +91,7 @@ export const HomePage: React.FC = () => {
     });
   }
   if (allergies.includes('dust_aqi') && aqiVal > 100) {
-    allergyAlerts.push({
+    healthAlerts.push({
       type: 'dust_aqi',
       title: t('allergy.dust_aqi'),
       desc: t('allergy.dust_desc'),
@@ -100,7 +100,7 @@ export const HomePage: React.FC = () => {
     });
   }
   if (allergies.includes('asthma') && aqiVal > 120) {
-    allergyAlerts.push({
+    healthAlerts.push({
       type: 'asthma',
       title: t('allergy.asthma'),
       desc: t('allergy.asthma_desc'),
@@ -109,7 +109,7 @@ export const HomePage: React.FC = () => {
     });
   }
   if (allergies.includes('heat_sensitive') && heatStressScore > 65) {
-    allergyAlerts.push({
+    healthAlerts.push({
       type: 'heat',
       title: t('allergy.heat'),
       desc: t('allergy.heat_desc'),
@@ -117,9 +117,45 @@ export const HomePage: React.FC = () => {
       severity: 'warning',
     });
   }
+  if (allergies.includes('migraine')) {
+    healthAlerts.push({
+      type: 'migraine',
+      title: t('allergy.migraine'),
+      desc: t('allergy.migraine_desc'),
+      icon: '⚡',
+      severity: 'caution',
+    });
+  }
+  if (allergies.includes('cold_joint_pain') && rawTemp < 20) {
+    healthAlerts.push({
+      type: 'cold_joint',
+      title: t('allergy.cold_joint'),
+      desc: t('allergy.cold_joint_desc'),
+      icon: '❄️',
+      severity: 'caution',
+    });
+  }
+  if (allergies.includes('eye_irritation') && (aqiVal > 150 || uvVal > 8)) {
+    healthAlerts.push({
+      type: 'eye',
+      title: t('allergy.eye'),
+      desc: t('allergy.eye_desc'),
+      icon: '👁️',
+      severity: 'caution',
+    });
+  }
+  if (allergies.includes('elder_infant_care') && (heatStressScore > 70 || rawTemp < 15)) {
+    healthAlerts.push({
+      type: 'elder_care',
+      title: t('allergy.elder_care'),
+      desc: t('allergy.elder_care_desc'),
+      icon: '👶',
+      severity: 'warning',
+    });
+  }
 
   return (
-    <div className="space-y-4 p-4 max-w-lg mx-auto">
+    <div className="space-y-4 p-4 max-w-lg mx-auto pb-24">
       {/* 1. Subtle Alert Pill (Only shown if severe weather) */}
       <Link
         to="/alert/alert-heat-01"
@@ -135,8 +171,8 @@ export const HomePage: React.FC = () => {
         </div>
       </Link>
 
-      {/* 2. Intelligent AI Allergy & Health Advisory Module */}
-      {allergyAlerts.length > 0 && (
+      {/* 2. Intelligent AI Health & Allergy Advisory Module */}
+      {healthAlerts.length > 0 && (
         <div className="rounded-3xl border border-rose-500/25 bg-rose-500/10 dark:bg-rose-950/30 p-4 space-y-2.5 shadow-sm">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -153,7 +189,7 @@ export const HomePage: React.FC = () => {
           </div>
 
           <div className="space-y-2">
-            {allergyAlerts.slice(0, 2).map((alert, i) => (
+            {healthAlerts.slice(0, 3).map((alert, i) => (
               <div
                 key={i}
                 className="rounded-2xl bg-card/90 p-3 border border-border-subtle flex items-start gap-2.5"
@@ -231,7 +267,7 @@ export const HomePage: React.FC = () => {
               <span className="flex items-center gap-1">
                 <Clock className="w-3 h-3 text-accent-primary" /> {t('hero.hourly_outlook')}
               </span>
-              <span>8h Strip</span>
+              <span>8h Outlook</span>
             </div>
 
             <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
@@ -282,10 +318,7 @@ export const HomePage: React.FC = () => {
         )}
       </div>
 
-      {/* 4. Weather & Climate News Section (AccuWeather-Style) */}
-      <WeatherNewsFeed />
-
-      {/* 5. Section Header & Reorder Mode */}
+      {/* 4. Section Header & Reorder Mode */}
       <div className="flex items-center justify-between px-1 pt-1">
         <div className="flex items-center gap-2">
           <h2 className="font-heading text-xs font-bold uppercase tracking-wider text-content-primary">
@@ -317,7 +350,7 @@ export const HomePage: React.FC = () => {
         </button>
       </div>
 
-      {/* 6. Ranked Persona Cards Feed */}
+      {/* 5. Ranked Persona Cards Feed */}
       <div className="space-y-3.5">
         {forecast && (
           <AnimatePresence>
@@ -370,7 +403,7 @@ export const HomePage: React.FC = () => {
         )}
       </div>
 
-      {/* 7. Explore Persona Widgets */}
+      {/* 6. Explore Persona Widgets */}
       <div className="pt-1">
         <button
           type="button"
@@ -408,5 +441,6 @@ export const HomePage: React.FC = () => {
     </div>
   );
 };
+
 
 

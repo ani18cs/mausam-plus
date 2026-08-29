@@ -39,7 +39,11 @@ const ALLERGIES: Array<{ id: AllergyType; label: string; icon: string }> = [
   { id: 'asthma', label: 'Asthma / Bronchial', icon: '🫁' },
   { id: 'heat_sensitive', label: 'Extreme Heat', icon: '☀️' },
   { id: 'migraine', label: 'Barometric Migraine', icon: '⚡' },
+  { id: 'cold_joint_pain', label: 'Cold Joint Pain', icon: '❄️' },
+  { id: 'eye_irritation', label: 'Eye Irritation & Smog', icon: '👁️' },
+  { id: 'elder_infant_care', label: 'Elder / Infant Care', icon: '👶' },
 ];
+
 
 export const ProfilePage: React.FC = () => {
   const navigate = useNavigate();

@@ -4,6 +4,7 @@ import { useAppStore } from './store/useAppStore';
 import { MobileShell } from './components/layout/MobileShell';
 import { OnboardingPage } from './pages/OnboardingPage';
 import { HomePage } from './pages/HomePage';
+import { ClimateNewsPage } from './pages/ClimateNewsPage';
 import { AskMausamPage } from './pages/AskMausamPage';
 import { HyperlocalMapPage } from './pages/HyperlocalMapPage';
 import { CitizenReportPage } from './pages/CitizenReportPage';
@@ -41,6 +42,7 @@ export const App: React.FC = () => {
             }
           />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/news" element={<ClimateNewsPage />} />
           <Route path="/ask" element={<AskMausamPage />} />
           <Route path="/map" element={<HyperlocalMapPage />} />
           <Route path="/report" element={<CitizenReportPage />} />
@@ -53,3 +55,4 @@ export const App: React.FC = () => {
     </BrowserRouter>
   );
 };
+

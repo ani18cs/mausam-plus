@@ -1,37 +1,44 @@
 import React, { useState } from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { useTranslation } from '../../utils/i18n';
-import { MapPin, AlertTriangle, ChevronDown, Check, Sun, Moon, Search, User } from 'lucide-react';
+import { MapPin, AlertTriangle, ChevronDown, Check, Sun, Moon, Search, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const TopAppBar: React.FC = () => {
   const { t } = useTranslation();
-  const { activeLocation, setActiveLocation, savedPlaces, theme, toggleTheme, userProfile } = useAppStore();
+  const { activeLocation, setActiveLocation, savedPlaces, theme, toggleTheme } = useAppStore();
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-40 border-b border-border-subtle bg-card/90 backdrop-blur-md transition-colors pt-[var(--sat)]">
-      <div className="flex h-14 items-center justify-between px-4">
-        {/* Left: Location Selector Dropdown */}
-        <div className="relative">
+      <div className="flex h-14 items-center justify-between px-3 sm:px-4">
+        {/* Left: IMD Emblem & Location Selector Dropdown */}
+        <div className="relative flex items-center gap-2">
+          {/* IMD Emblem Badge */}
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-sky-600 to-indigo-700 text-white font-extrabold text-[11px] shadow-sm flex-shrink-0 border border-white/20">
+            IMD
+          </div>
+
           <button
             type="button"
             onClick={() => setIsLocationDropdownOpen(!isLocationDropdownOpen)}
-            className="flex min-h-[40px] items-center gap-2 rounded-xl px-2 py-1 transition-colors hover:bg-card-subtle focus:outline-none focus:ring-1 focus:ring-accent-primary"
+            className="flex min-h-[40px] items-center gap-1.5 rounded-xl px-1.5 py-1 transition-colors hover:bg-card-subtle focus:outline-none focus:ring-1 focus:ring-accent-primary"
             aria-expanded={isLocationDropdownOpen}
             aria-label="Change active weather location"
           >
-            <MapPin className="h-4 w-4 text-accent-primary flex-shrink-0" />
             <div className="text-left">
-              <div className="flex items-center gap-1.5">
-                <span className="font-heading text-sm font-bold text-content-primary truncate max-w-[160px] sm:max-w-[200px]">
+              <div className="flex items-center gap-1">
+                <span className="font-heading text-sm font-bold text-content-primary truncate max-w-[140px] sm:max-w-[180px]">
                   {activeLocation.name.split(',')[0]}
                 </span>
                 <ChevronDown className="h-3.5 w-3.5 text-content-muted" />
               </div>
-              <span className="block text-[10px] font-medium text-emerald-600 dark:text-emerald-400">
-                {t('bar.live_telemetry')}
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="block text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                  {t('bar.live_telemetry')}
+                </span>
+              </div>
             </div>
           </button>
 
@@ -85,7 +92,7 @@ export const TopAppBar: React.FC = () => {
           )}
         </div>
 
-        {/* Right: Search Cities Shortcut, Theme Toggle & Profile Avatar */}
+        {/* Right: Search Cities Shortcut, Active Alert Pulse & Theme Toggle */}
         <div className="flex items-center gap-1">
           <Link
             to="/saved-places"
@@ -113,18 +120,11 @@ export const TopAppBar: React.FC = () => {
           >
             {theme === 'dark' ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-slate-700" />}
           </button>
-
-          <Link
-            to="/profile"
-            className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent-primary/10 text-accent-primary hover:bg-accent-primary/20 transition-colors"
-            title="Profile"
-          >
-            <User className="h-4 w-4" />
-          </Link>
         </div>
       </div>
     </header>
   );
 };
+
 
 
