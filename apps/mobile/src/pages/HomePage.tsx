@@ -8,9 +8,11 @@ import {
   ArrowDown,
   GripVertical,
   Layers,
-  Sparkles,
   ChevronRight,
   RefreshCw,
+  Clock,
+  TrendingUp,
+  TrendingDown,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -50,150 +52,156 @@ export const HomePage: React.FC = () => {
     }
   };
 
-  const currentTemp = forecast?.current.temp_c ?? 28.5;
-  const feelsLike = forecast?.current.feels_like_c ?? 31.0;
+  const currentTemp = forecast?.current.temp_c ? Math.round(forecast.current.temp_c) : 28;
+  const feelsLike = forecast?.current.feels_like_c ? Math.round(forecast.current.feels_like_c) : 31;
   const condition = forecast?.current.condition ?? 'Partly Cloudy';
+  const diff = forecast?.extras?.forecast_diff;
+
+  // Next 8 hours of forecast
+  const nextHours = forecast?.hourly?.slice(0, 8) || [];
 
   return (
-    <div className="space-y-4 p-4">
-      {/* 1. Severe Weather Alert Banner (Collapsible) */}
+    <div className="space-y-4 p-4 max-w-lg mx-auto">
+      {/* 1. Subtle Alert Pill (Only shown if severe weather) */}
       <Link
         to="/alert/alert-heat-01"
-        className="group relative flex items-center justify-between overflow-hidden rounded-2xl border border-orange-500/30 bg-orange-500/10 p-3.5 shadow-sm transition-all hover:bg-orange-500/15 dark:bg-orange-950/30"
+        className="flex items-center justify-between rounded-2xl border border-orange-500/25 bg-orange-500/10 px-3.5 py-2.5 text-xs text-orange-600 dark:text-orange-400 transition-all hover:bg-orange-500/15"
       >
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-orange-500 text-white shadow-sm">
-            <AlertTriangle className="h-5 w-5 animate-pulse" />
-          </div>
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-orange-600 dark:text-orange-400">
-                Heat-Stress Warning
-              </span>
-              <span className="h-1 w-1 rounded-full bg-orange-400" />
-              <span className="text-[10px] text-content-muted">Valid till 4:30 PM</span>
-            </div>
-            <p className="truncate text-xs font-bold text-content-primary">
-              High thermal strain with 78% humidity.
-            </p>
-          </div>
+        <div className="flex items-center gap-2 min-w-0">
+          <AlertTriangle className="h-4 w-4 flex-shrink-0 animate-pulse" />
+          <span className="font-semibold truncate">Heat-Stress Warning till 4:30 PM</span>
         </div>
-        <div className="flex items-center text-orange-600 dark:text-orange-400 text-xs font-semibold pl-2">
-          <span>Trace</span>
-          <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+        <div className="flex items-center gap-1 font-bold text-[11px] flex-shrink-0 pl-2">
+          <span>Reason Trace</span>
+          <ChevronRight className="h-3.5 w-3.5" />
         </div>
       </Link>
 
-      {/* 2. Ambient Condition Hero Header */}
-      <div className="relative overflow-hidden rounded-3xl border border-border-subtle bg-gradient-to-br from-sky-500/15 via-indigo-500/10 to-transparent p-5 shadow-card dark:from-sky-950/40 dark:via-slate-900/60">
+      {/* 2. Clean Ambient Hero */}
+      <div className="relative overflow-hidden rounded-3xl border border-border-subtle bg-card/90 p-5 shadow-card backdrop-blur-md dark:bg-card/75">
         <div className="flex items-start justify-between">
           <div>
-            <span className="text-xs font-semibold text-content-muted uppercase tracking-wider">
-              {activeLocation.name}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-semibold text-content-muted">
+                {activeLocation.name}
+              </span>
+              <button
+                type="button"
+                onClick={() => fetchForecast(activeLocation.lat, activeLocation.lon, activeLocation.name)}
+                disabled={isLoadingForecast}
+                className="text-content-muted hover:text-accent-primary transition-colors"
+                title="Refresh weather"
+              >
+                <RefreshCw className={`w-3 h-3 ${isLoadingForecast ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
+
             <div className="flex items-baseline gap-2 mt-1">
-              <span className="font-heading text-5xl font-extrabold text-content-primary tracking-tight">
+              <span className="font-heading text-6xl font-extrabold text-content-primary tracking-tighter">
                 {currentTemp}°
               </span>
-              <span className="text-sm font-semibold text-content-secondary">
-                Feels like {feelsLike}°C
-              </span>
+              <div className="text-xs text-content-secondary font-medium">
+                <p className="font-bold text-content-primary text-sm">{condition}</p>
+                <p>Feels like {feelsLike}°C</p>
+              </div>
             </div>
-            <p className="text-sm font-bold text-content-primary mt-1 flex items-center gap-1.5">
-              <span>{condition}</span>
-              <span className="text-content-muted">•</span>
-              <span className="text-xs text-content-muted">H: 32° L: 21°</span>
+
+            <p className="text-[11px] text-content-muted mt-1 font-medium">
+              High: 32° • Low: 21° • Humidity: {forecast?.current.humidity_pct ?? 57}%
             </p>
           </div>
 
-          <div className="flex flex-col items-end gap-2">
-            <WeatherConditionIcon condition={condition} className="w-14 h-14" />
-            <button
-              type="button"
-              onClick={() => fetchForecast(activeLocation.lat, activeLocation.lon, activeLocation.name)}
-              disabled={isLoadingForecast}
-              className="flex min-h-[36px] items-center gap-1 text-[11px] font-semibold text-accent-primary hover:underline"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isLoadingForecast ? 'animate-spin' : ''}`} />
-              <span>{isLoadingForecast ? 'Updating...' : 'Synced'}</span>
-            </button>
+          <div className="flex flex-col items-center">
+            <WeatherConditionIcon condition={condition} className="w-16 h-16" />
           </div>
         </div>
 
-        {/* Human Context Summary */}
-        <div className="mt-3.5 border-t border-border-subtle/50 pt-2.5 flex items-center justify-between">
-          <p className="text-xs font-medium text-content-secondary leading-snug">
-            <span className="font-bold text-content-primary">Summary: </span>
-            Thermal load elevated during midday; expect scattered convective showers by 5:30 PM.
-          </p>
-        </div>
-      </div>
-
-      {/* 2.5 "What Changed?" Forecast Delta Banner */}
-      {forecast?.extras?.forecast_diff && (
-        <div className="relative overflow-hidden rounded-2xl border border-indigo-500/25 bg-gradient-to-r from-indigo-500/10 via-sky-500/10 to-transparent p-3.5 shadow-sm dark:bg-slate-900/70">
-          <div className="flex items-start justify-between gap-2.5">
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-500 font-bold text-xs">
-                Δ
+        {/* Hourly Forecast Timeline Strip */}
+        {nextHours.length > 0 && (
+          <div className="mt-4 pt-3.5 border-t border-border-subtle/70">
+            <div className="flex items-center justify-between text-[11px] font-semibold text-content-muted mb-2.5">
+              <span className="flex items-center gap-1">
+                <Clock className="w-3 h-3 text-accent-primary" /> Hourly Outlook
               </span>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
-                What Changed vs Yesterday
+              <span>Next 8 Hours</span>
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {nextHours.map((h, idx) => {
+                const hourLabel = idx === 0 ? 'Now' : h.time.split('T')[1]?.slice(0, 5) || h.time;
+                return (
+                  <div
+                    key={idx}
+                    className="flex flex-col items-center justify-between min-w-[54px] rounded-xl bg-card-subtle py-2 px-1 text-center"
+                  >
+                    <span className="text-[10px] font-medium text-content-muted">{hourLabel}</span>
+                    <span className="font-heading text-xs font-bold text-content-primary my-1">
+                      {Math.round(h.temp_c)}°
+                    </span>
+                    <span className="text-[9px] font-semibold text-sky-500">
+                      {h.rain_prob_pct > 0 ? `${h.rain_prob_pct}%` : '—'}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* "What Changed?" Integrated Insight Pill */}
+        {diff && (
+          <div className="mt-3 flex items-center justify-between rounded-xl bg-accent-primary-subtle px-3 py-2 text-xs">
+            <div className="flex items-center gap-1.5 min-w-0">
+              {diff.trend === 'warmer' ? (
+                <TrendingUp className="w-3.5 h-3.5 text-orange-500 flex-shrink-0" />
+              ) : (
+                <TrendingDown className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" />
+              )}
+              <span className="truncate text-[11px] text-content-secondary">
+                <strong className="text-content-primary font-semibold">vs Yesterday:</strong> {diff.summary}
               </span>
             </div>
-            <span
-              className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                forecast.extras.forecast_diff.trend === 'warmer'
-                  ? 'bg-orange-500/15 text-orange-600 dark:text-orange-400'
-                  : forecast.extras.forecast_diff.trend === 'cooler'
-                  ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400'
-                  : 'bg-indigo-500/15 text-indigo-600 dark:text-indigo-400'
-              }`}
-            >
-              {forecast.extras.forecast_diff.trend.toUpperCase()}
+            <span className="text-[10px] font-bold text-accent-primary flex-shrink-0 pl-2">
+              {diff.temp_diff_c > 0 ? `+${diff.temp_diff_c}` : diff.temp_diff_c}°C
             </span>
           </div>
+        )}
+      </div>
 
-          <p className="text-xs text-content-primary mt-2 leading-relaxed font-medium">
-            {forecast.extras.forecast_diff.summary}
-          </p>
-
-          <div className="flex items-center justify-between text-[10px] text-content-muted mt-2 pt-2 border-t border-indigo-500/15 font-mono">
-            <span>Yesterday: {forecast.extras.forecast_diff.yesterday_temp_c}°C ({forecast.extras.forecast_diff.yesterday_condition})</span>
-            <span className="font-bold text-content-secondary">
-              Δ Temp: {forecast.extras.forecast_diff.temp_diff_c > 0 ? `+${forecast.extras.forecast_diff.temp_diff_c}` : forecast.extras.forecast_diff.temp_diff_c}°C
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* 3. Section Header & Drag-to-Reorder Toggle */}
-      <div className="flex items-center justify-between px-1">
+      {/* 3. Section Header & Reorder Mode */}
+      <div className="flex items-center justify-between px-1 pt-1">
         <div className="flex items-center gap-2">
-          <h2 className="font-heading text-sm font-bold uppercase tracking-wider text-content-primary">
-            Personalized Feed
+          <h2 className="font-heading text-xs font-bold uppercase tracking-wider text-content-primary">
+            Intelligence Feed
           </h2>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-accent-primary/15 text-accent-primary">
-            {selectedPersonas.join(' + ')}
-          </span>
+          <div className="flex gap-1">
+            {selectedPersonas.map((p) => (
+              <span
+                key={p}
+                className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-primary-subtle text-accent-primary"
+              >
+                {p}
+              </span>
+            ))}
+          </div>
         </div>
 
         <button
           type="button"
           onClick={() => setIsReorderMode(!isReorderMode)}
-          className={`flex min-h-[44px] items-center gap-1.5 rounded-xl px-2.5 py-1 text-xs font-semibold transition-colors ${
+          className={`flex min-h-[32px] items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-semibold transition-colors ${
             isReorderMode
               ? 'bg-accent-primary text-white shadow-sm'
               : 'text-content-muted hover:bg-card-subtle hover:text-content-primary'
           }`}
         >
-          <GripVertical className="w-4 h-4" />
-          <span>{isReorderMode ? 'Done Reordering' : 'Reorder'}</span>
+          <GripVertical className="w-3.5 h-3.5" />
+          <span>{isReorderMode ? 'Done' : 'Reorder'}</span>
         </button>
       </div>
 
       {/* 4. Ranked Persona Cards Feed */}
-      <div className="space-y-3">
+      <div className="space-y-3.5">
         {forecast && (
           <AnimatePresence>
             {activeCardIds.map((cardId, index) => {
@@ -205,10 +213,10 @@ export const HomePage: React.FC = () => {
                 <motion.div
                   key={cardId}
                   layout
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.2 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.18 }}
                   className="relative"
                 >
                   {isReorderMode && (
@@ -217,19 +225,19 @@ export const HomePage: React.FC = () => {
                         type="button"
                         onClick={() => handleMoveUp(index)}
                         disabled={index === 0}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
+                        className="flex h-7 w-7 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
                         aria-label="Move card up"
                       >
-                        <ArrowUp className="w-4 h-4" />
+                        <ArrowUp className="w-3.5 h-3.5" />
                       </button>
                       <button
                         type="button"
                         onClick={() => handleMoveDown(index)}
                         disabled={index === activeCardIds.length - 1}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
+                        className="flex h-7 w-7 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
                         aria-label="Move card down"
                       >
-                        <ArrowDown className="w-4 h-4" />
+                        <ArrowDown className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   )}
@@ -245,19 +253,19 @@ export const HomePage: React.FC = () => {
         )}
       </div>
 
-      {/* 5. Explore Other Cards Drawer Affordance */}
-      <div className="pt-2">
+      {/* 5. Explore Persona Widgets */}
+      <div className="pt-1">
         <button
           type="button"
           onClick={() => setShowExploreModal(!showExploreModal)}
-          className="flex w-full min-h-[44px] items-center justify-center gap-2 rounded-2xl border border-dashed border-border-strong bg-card/40 p-3.5 text-xs font-semibold text-content-muted hover:border-accent-primary hover:text-accent-primary transition-colors"
+          className="flex w-full min-h-[40px] items-center justify-center gap-1.5 rounded-2xl border border-border-subtle bg-card/60 p-3 text-xs font-semibold text-content-muted hover:border-accent-primary hover:text-accent-primary transition-colors"
         >
-          <Layers className="w-4 h-4" />
-          <span>Explore All 8 Persona Widgets ({Object.keys(CARD_REGISTRY).length} available)</span>
+          <Layers className="w-3.5 h-3.5" />
+          <span>{showExploreModal ? 'Hide Available Widgets' : `Explore All Widgets (${Object.keys(CARD_REGISTRY).length})`}</span>
         </button>
 
         {showExploreModal && (
-          <div className="mt-3 space-y-2 rounded-2xl border border-border-subtle bg-card p-4 shadow-card animate-fadeIn">
+          <div className="mt-2.5 space-y-2 rounded-2xl border border-border-subtle bg-card p-3.5 shadow-card animate-fadeIn">
             <h4 className="font-heading text-xs font-bold text-content-primary">
               All Available Card Modules
             </h4>
@@ -283,3 +291,4 @@ export const HomePage: React.FC = () => {
     </div>
   );
 };
+

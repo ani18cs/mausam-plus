@@ -1,54 +1,55 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
-import { Car, CloudRain, AlertCircle, Navigation } from 'lucide-react';
+import { Car, CloudRain } from 'lucide-react';
 
 export const CommuteRadarCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
   return (
     <CardShell
       id="card-commute-radar"
-      title="Commute Weather & Radar Hazard"
-      subtitle="School & office transit window conditions"
-      icon={<Car className="h-5 w-5 text-sky-500" />}
+      title="Commute & Transit Radar"
+      subtitle="Evening transit forecast"
+      icon={<Car className="h-4 w-4" />}
       badge={{
         severity: 'caution',
-        label: 'Rain Expected (5-7 PM)',
+        label: 'Rain Expected',
       }}
       onWhyClick={onOpenWhyModal}
       whyLabel="Why this alert?"
     >
       <div className="space-y-3">
-        <div className="flex items-center justify-between rounded-xl bg-sky-500/10 dark:bg-sky-950/40 border border-sky-500/25 p-3">
-          <div className="flex items-center gap-2.5">
-            <CloudRain className="w-5 h-5 text-sky-600 dark:text-sky-400" />
+        {/* Transit Window Row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <CloudRain className="w-4 h-4 text-sky-500 flex-shrink-0" />
             <div>
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-sky-700 dark:text-sky-300">
-                Evening Peak Commute
-              </span>
-              <p className="font-heading text-xs font-bold text-content-primary">
+              <span className="text-[10px] uppercase font-medium text-content-muted block">Peak Commute (5-7 PM)</span>
+              <p className="font-heading text-sm font-bold text-content-primary">
                 65% Convective Rain Showers
               </p>
             </div>
           </div>
           <div className="text-right">
-            <span className="font-heading text-lg font-bold text-sky-600 dark:text-sky-400">
+            <span className="font-heading text-xl font-extrabold text-sky-600 dark:text-sky-400">
               +25m
             </span>
             <span className="text-[10px] text-content-muted block font-medium">Est. Delay</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <div className="rounded-lg bg-card-subtle p-2">
-            <span className="text-[10px] text-content-muted block font-medium">Road Visibility</span>
-            <span className="font-semibold text-content-primary">6.5 km (Clear)</span>
+        {/* 2-Column Metrics */}
+        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border-subtle/50 text-center">
+          <div>
+            <span className="text-[10px] text-content-muted block uppercase font-medium">Road Visibility</span>
+            <span className="font-heading text-xs font-bold text-content-primary">6.5 km (Clear)</span>
           </div>
-          <div className="rounded-lg bg-card-subtle p-2">
-            <span className="text-[10px] text-content-muted block font-medium">Citizen Reports</span>
-            <span className="font-semibold text-amber-500">2 Flooded Pockets</span>
+          <div>
+            <span className="text-[10px] text-content-muted block uppercase font-medium">Hazard Reports</span>
+            <span className="font-heading text-xs font-bold text-amber-500">2 Flooded Pockets</span>
           </div>
         </div>
       </div>
     </CardShell>
   );
 };
+

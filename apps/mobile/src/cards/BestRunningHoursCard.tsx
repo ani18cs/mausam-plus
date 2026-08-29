@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
-import { Activity, Clock, SunDim, Sparkles } from 'lucide-react';
+import { Activity, Clock } from 'lucide-react';
 
 export const BestRunningHoursCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
   const running = forecast.extras.running_window || {
@@ -11,31 +11,29 @@ export const BestRunningHoursCard: React.FC<CardProps> = ({ forecast, onOpenWhyM
   };
 
   const getFitnessSeverity = (score: number): { severity: 'safe' | 'caution' | 'warning' | 'severe'; label: string } => {
-    if (score >= 80) return { severity: 'safe', label: 'Prime Conditions' };
+    if (score >= 80) return { severity: 'safe', label: 'Prime' };
     if (score >= 60) return { severity: 'caution', label: 'Fair' };
     if (score >= 40) return { severity: 'warning', label: 'Sub-Optimal' };
-    return { severity: 'severe', label: 'Unsafe for Running' };
+    return { severity: 'severe', label: 'Unsafe' };
   };
 
   return (
     <CardShell
       id="card-fitness-running"
-      title="Optimal Running & Workout Window"
-      subtitle="Physiological strain & weather index"
-      icon={<Activity className="h-5 w-5 text-emerald-500" />}
+      title="Workout & Running Window"
+      subtitle="Optimal thermal & air comfort"
+      icon={<Activity className="h-4 w-4" />}
       badge={getFitnessSeverity(running.score)}
       onWhyClick={onOpenWhyModal}
       whyLabel="Why this time?"
     >
       <div className="space-y-3">
-        {/* Prime Window Banner */}
-        <div className="flex items-center justify-between rounded-xl bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/25 p-3">
-          <div className="flex items-center gap-2.5">
-            <Clock className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+        {/* Prime Window Row */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-emerald-500 flex-shrink-0" />
             <div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
-                Recommended Window
-              </span>
+              <span className="text-[10px] uppercase font-medium text-content-muted block">Optimal Window</span>
               <p className="font-heading text-sm font-bold text-content-primary">
                 {running.optimal_time_slot}
               </p>
@@ -49,37 +47,32 @@ export const BestRunningHoursCard: React.FC<CardProps> = ({ forecast, onOpenWhyM
           </div>
         </div>
 
-        {/* Hourly Suitability Pill Strip */}
-        <div className="pt-1">
-          <p className="text-[11px] font-semibold text-content-muted mb-1.5 flex items-center gap-1">
-            <SunDim className="w-3.5 h-3.5" /> Hourly Workout Feasibility
-          </p>
-          <div className="grid grid-cols-4 gap-1.5">
-            <div className="rounded-lg bg-emerald-500/15 border border-emerald-500/30 p-1.5 text-center">
-              <span className="text-[10px] text-content-muted block font-medium">06:00 AM</span>
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">92 / 100</span>
-            </div>
-            <div className="rounded-lg bg-amber-500/15 border border-amber-500/30 p-1.5 text-center">
-              <span className="text-[10px] text-content-muted block font-medium">12:00 PM</span>
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400">38 / 100</span>
-            </div>
-            <div className="rounded-lg bg-amber-500/15 border border-amber-500/30 p-1.5 text-center">
-              <span className="text-[10px] text-content-muted block font-medium">06:00 PM</span>
-              <span className="text-xs font-bold text-amber-600 dark:text-amber-400">58 / 100</span>
-            </div>
-            <div className="rounded-lg bg-emerald-500/15 border border-emerald-500/30 p-1.5 text-center">
-              <span className="text-[10px] text-content-muted block font-medium">08:00 PM</span>
-              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">76 / 100</span>
-            </div>
+        {/* Hourly Feasibility Strip */}
+        <div className="grid grid-cols-4 gap-1.5 pt-2 border-t border-border-subtle/50 text-center">
+          <div className="rounded-lg bg-card-subtle py-1.5 px-1">
+            <span className="text-[10px] text-content-muted block font-medium">06:00 AM</span>
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">92/100</span>
+          </div>
+          <div className="rounded-lg bg-card-subtle py-1.5 px-1">
+            <span className="text-[10px] text-content-muted block font-medium">12:00 PM</span>
+            <span className="text-xs font-bold text-amber-600 dark:text-amber-400">38/100</span>
+          </div>
+          <div className="rounded-lg bg-card-subtle py-1.5 px-1">
+            <span className="text-[10px] text-content-muted block font-medium">06:00 PM</span>
+            <span className="text-xs font-bold text-amber-600 dark:text-amber-400">58/100</span>
+          </div>
+          <div className="rounded-lg bg-card-subtle py-1.5 px-1">
+            <span className="text-[10px] text-content-muted block font-medium">08:00 PM</span>
+            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">76/100</span>
           </div>
         </div>
 
         {/* Insight note */}
-        <p className="text-xs text-content-secondary flex items-start gap-1.5 pt-1">
-          <Sparkles className="w-3.5 h-3.5 text-accent-primary flex-shrink-0 mt-0.5" />
-          <span>{running.reason}</span>
+        <p className="text-[11px] text-content-secondary font-medium pt-1 border-t border-border-subtle/30">
+          {running.reason}
         </p>
       </div>
     </CardShell>
   );
 };
+
