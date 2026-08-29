@@ -359,3 +359,8 @@ export interface NewsArticle {
   verifiedIMD?: boolean;
 }
 
+// ==========================================
+// 10. IMD Mausam Meteorological Contracts
+// ==========================================
+export * from './imd';
+

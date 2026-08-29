@@ -11,6 +11,9 @@ import { CitizenReportPage } from './pages/CitizenReportPage';
 import { AlertDetailPage } from './pages/AlertDetailPage';
 import { SavedPlacesPage } from './pages/SavedPlacesPage';
 import { ProfilePage } from './pages/ProfilePage';
+import { RadarSatellitePage } from './pages/RadarSatellitePage';
+import { CycloneMarinePage } from './pages/CycloneMarinePage';
+import { SpecializedHubPage } from './pages/SpecializedHubPage';
 
 export const App: React.FC = () => {
   const { hasCompletedOnboarding, theme, fetchForecast } = useAppStore();
@@ -50,6 +53,9 @@ export const App: React.FC = () => {
             }
           />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/radar" element={<RadarSatellitePage />} />
+          <Route path="/cyclone" element={<CycloneMarinePage />} />
+          <Route path="/specialized" element={<SpecializedHubPage />} />
           <Route path="/news" element={<ClimateNewsPage />} />
           <Route path="/ask" element={<AskMausamPage />} />
           <Route path="/map" element={<HyperlocalMapPage />} />

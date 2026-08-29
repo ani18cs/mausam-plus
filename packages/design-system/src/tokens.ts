@@ -43,6 +43,42 @@ export const tokens = {
         darkText: '#F87171',
       },
     },
+    // IMD Standard 4-Tier Warning Colors
+    imdWarning: {
+      green: {
+        DEFAULT: '#22C55E',
+        label: 'No Warning',
+        bg: 'rgba(34, 197, 94, 0.15)',
+        border: 'rgba(34, 197, 94, 0.3)',
+      },
+      yellow: {
+        DEFAULT: '#EAB308',
+        label: 'Watch (Be Updated)',
+        bg: 'rgba(234, 179, 8, 0.15)',
+        border: 'rgba(234, 179, 8, 0.3)',
+      },
+      orange: {
+        DEFAULT: '#F97316',
+        label: 'Alert (Be Prepared)',
+        bg: 'rgba(249, 115, 22, 0.15)',
+        border: 'rgba(249, 115, 22, 0.3)',
+      },
+      red: {
+        DEFAULT: '#EF4444',
+        label: 'Warning (Take Action)',
+        bg: 'rgba(239, 68, 68, 0.15)',
+        border: 'rgba(239, 68, 68, 0.3)',
+      },
+    },
+    // Doppler Radar Reflectivity Palette (dBZ)
+    radarDbz: {
+      veryLight: '#00E5FF', // < 15 dBZ (Drizzle)
+      light: '#00E676',     // 15-30 dBZ (Light Rain)
+      moderate: '#FFEA00',  // 30-45 dBZ (Moderate Rain)
+      heavy: '#FF9100',     // 45-55 dBZ (Heavy Rain)
+      intense: '#FF1744',   // 55-65 dBZ (Hail / Severe Core)
+      extreme: '#D500F9',   // > 65 dBZ (Extreme Violent Storm)
+    },
     // Atmospheric ambient accents
     atmosphere: {
       clearDay: 'linear-gradient(135deg, rgba(56, 189, 248, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%)',

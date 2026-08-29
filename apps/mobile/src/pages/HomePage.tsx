@@ -22,11 +22,14 @@ import {
   Sun,
   ShieldCheck,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { NowcastWarningCard } from '../cards/NowcastWarningCard';
+import { FiveDayWarningCard } from '../cards/FiveDayWarningCard';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const {
     forecast,
     selectedPersonas,
@@ -156,22 +159,56 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-4 p-4 max-w-lg mx-auto pb-24">
-      {/* 1. Subtle Alert Pill (Only shown if severe weather) */}
-      <Link
-        to="/alert/alert-heat-01"
-        className="flex items-center justify-between rounded-2xl border border-orange-500/25 bg-orange-500/10 px-3.5 py-2.5 text-xs text-orange-600 dark:text-orange-400 transition-all hover:bg-orange-500/15"
-      >
-        <div className="flex items-center gap-2 min-w-0">
-          <AlertTriangle className="h-4 w-4 flex-shrink-0 animate-pulse" />
-          <span className="font-semibold truncate">{t('hero.severe_alert')}</span>
-        </div>
-        <div className="flex items-center gap-1 font-bold text-[11px] flex-shrink-0 pl-2">
-          <span>Reason Trace</span>
-          <ChevronRight className="h-3.5 w-3.5" />
-        </div>
-      </Link>
+      {/* 1. Live 0-3hr IMD Nowcast Severe Alert Card */}
+      <NowcastWarningCard
+        districtName={activeLocation.name}
+        onOpenRadar={() => navigate('/radar')}
+      />
 
-      {/* 2. Intelligent AI Health & Allergy Advisory Module */}
+      {/* 2. IMD National Weather Hubs Quick Navigation Ribbon */}
+      <div className="rounded-3xl border border-slate-800 bg-slate-900/90 p-3.5 backdrop-blur-md">
+        <div className="flex items-center justify-between mb-2.5 px-1">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400">
+            IMD National Hubs
+          </span>
+          <span className="text-[10px] text-slate-400 font-mono">
+            Direct Telemetry
+          </span>
+        </div>
+        <div className="grid grid-cols-3 gap-2">
+          <Link
+            to="/radar"
+            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-cyan-500/50 transition-all text-center group"
+          >
+            <span className="text-xl mb-1 group-hover:scale-110 transition-transform">📡</span>
+            <span className="text-xs font-bold text-slate-200">Radar &amp; Cloud</span>
+            <span className="text-[9px] text-cyan-400 mt-0.5">37 Radars</span>
+          </Link>
+
+          <Link
+            to="/cyclone"
+            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-rose-500/50 transition-all text-center group"
+          >
+            <span className="text-xl mb-1 group-hover:scale-110 transition-transform">🌀</span>
+            <span className="text-xs font-bold text-slate-200">Cyclone &amp; Sea</span>
+            <span className="text-[9px] text-rose-400 mt-0.5">RSMC Active</span>
+          </Link>
+
+          <Link
+            to="/specialized"
+            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-emerald-500/50 transition-all text-center group"
+          >
+            <span className="text-xl mb-1 group-hover:scale-110 transition-transform">🛣️</span>
+            <span className="text-xs font-bold text-slate-200">Specialized</span>
+            <span className="text-[9px] text-emerald-400 mt-0.5">Highways/Agro</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* 3. 5-Day Warning Matrix */}
+      <FiveDayWarningCard districtName={activeLocation.name} />
+
+      {/* 4. Intelligent AI Health & Allergy Advisory Module */}
       {healthAlerts.length > 0 && (
         <div className="rounded-3xl border border-rose-500/25 bg-rose-500/10 dark:bg-rose-950/30 p-4 space-y-2.5 shadow-sm">
           <div className="flex items-center justify-between">
@@ -209,7 +246,7 @@ export const HomePage: React.FC = () => {
         </div>
       )}
 
-      {/* 3. Clean Ambient Hero */}
+      {/* 5. Clean Ambient Hero */}
       <div className="relative overflow-hidden rounded-3xl border border-border-subtle bg-card/90 p-5 shadow-card backdrop-blur-md dark:bg-card/75">
         <div className="flex items-start justify-between">
           <div>

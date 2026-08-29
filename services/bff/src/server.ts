@@ -5,6 +5,7 @@ import { forecastRouter } from './routes/forecast';
 import { aiRouter } from './routes/ai';
 import { reportsRouter } from './routes/reports';
 import { alertsRouter } from './routes/alerts';
+import imdRouter from './routes/imd';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/forecast', forecastRouter);
 app.use('/api/ai', aiRouter);
 app.use('/api/reports', reportsRouter);
 app.use('/api/alerts', alertsRouter);
+app.use('/api/imd', imdRouter);
 
 // Health check
 app.get('/api/health', (_req: Request, res: Response) => {
