@@ -20,12 +20,10 @@ import {
   Droplets,
   Wind,
   Sun,
-  ShieldCheck,
+  ShieldAlert,
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NowcastWarningCard } from '../cards/NowcastWarningCard';
-import { FiveDayWarningCard } from '../cards/FiveDayWarningCard';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -46,12 +44,33 @@ export const HomePage: React.FC = () => {
 
   const [isReorderMode, setIsReorderMode] = useState(false);
   const [showExploreModal, setShowExploreModal] = useState(false);
+  const [activeAlertCount, setActiveAlertCount] = useState<number>(0);
 
   useEffect(() => {
     if (!forecast) {
       fetchForecast(activeLocation.lat, activeLocation.lon, activeLocation.name);
     }
   }, [activeLocation]);
+
+  // Fetch active alert count for the contextual banner
+  useEffect(() => {
+    const fetchAlertCount = async () => {
+      try {
+        const res = await fetch('/api/imd/overview');
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data) {
+            setActiveAlertCount(
+              (json.data.activeNowcastsCount ?? 0) + (json.data.criticalWarningsCount ?? 0)
+            );
+          }
+        }
+      } catch {
+        // Silently fail — banner just won't show
+      }
+    };
+    fetchAlertCount();
+  }, []);
 
   const activeCardIds = getRankedCardIds(selectedPersonas, cardOrder);
 
@@ -83,7 +102,13 @@ export const HomePage: React.FC = () => {
   const heatStressScore = forecast?.extras?.heat_stress_index?.score ?? 72;
   const humidityVal = forecast?.current.humidity_pct ?? 58;
 
-  const healthAlerts = [];
+  const healthAlerts: Array<{
+    type: string;
+    title: string;
+    desc: string;
+    icon: string;
+    severity: string;
+  }> = [];
   if (allergies.includes('pollen')) {
     healthAlerts.push({
       type: 'pollen',
@@ -159,94 +184,29 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className="space-y-4 p-4 max-w-lg mx-auto pb-24">
-      {/* 1. Live 0-3hr IMD Nowcast Severe Alert Card */}
-      <NowcastWarningCard
-        districtName={activeLocation.name}
-        onOpenRadar={() => navigate('/radar')}
-      />
-
-      {/* 2. IMD National Weather Hubs Quick Navigation Ribbon */}
-      <div className="rounded-3xl border border-slate-800 bg-slate-900/90 p-3.5 backdrop-blur-md">
-        <div className="flex items-center justify-between mb-2.5 px-1">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400">
-            IMD National Hubs
-          </span>
-          <span className="text-[10px] text-slate-400 font-mono">
-            Direct Telemetry
-          </span>
-        </div>
-        <div className="grid grid-cols-3 gap-2">
+      {/* 1. Contextual Active Warnings Banner (non-intrusive, links to /alerts) */}
+      {activeAlertCount > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.25 }}
+        >
           <Link
-            to="/radar"
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-cyan-500/50 transition-all text-center group"
+            to="/alerts"
+            className="flex items-center gap-2.5 rounded-2xl border border-amber-500/25 bg-amber-500/8 px-3.5 py-2.5 group hover:border-amber-500/40 transition-colors"
           >
-            <span className="text-xl mb-1 group-hover:scale-110 transition-transform">📡</span>
-            <span className="text-xs font-bold text-slate-200">Radar &amp; Cloud</span>
-            <span className="text-[9px] text-cyan-400 mt-0.5">37 Radars</span>
-          </Link>
-
-          <Link
-            to="/cyclone"
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-rose-500/50 transition-all text-center group"
-          >
-            <span className="text-xl mb-1 group-hover:scale-110 transition-transform">🌀</span>
-            <span className="text-xs font-bold text-slate-200">Cyclone &amp; Sea</span>
-            <span className="text-[9px] text-rose-400 mt-0.5">RSMC Active</span>
-          </Link>
-
-          <Link
-            to="/specialized"
-            className="flex flex-col items-center justify-center p-2.5 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-emerald-500/50 transition-all text-center group"
-          >
-            <span className="text-xl mb-1 group-hover:scale-110 transition-transform">🛣️</span>
-            <span className="text-xs font-bold text-slate-200">Specialized</span>
-            <span className="text-[9px] text-emerald-400 mt-0.5">Highways/Agro</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* 3. 5-Day Warning Matrix */}
-      <FiveDayWarningCard districtName={activeLocation.name} />
-
-      {/* 4. Intelligent AI Health & Allergy Advisory Module */}
-      {healthAlerts.length > 0 && (
-        <div className="rounded-3xl border border-rose-500/25 bg-rose-500/10 dark:bg-rose-950/30 p-4 space-y-2.5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-500/20 text-rose-600 dark:text-rose-400">
-                <HeartPulse className="w-4 h-4" />
-              </div>
-              <h3 className="font-heading text-xs font-bold text-content-primary">
-                {t('allergy.title')}
-              </h3>
+            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-amber-500/20 text-amber-500 flex-shrink-0">
+              <ShieldAlert className="w-3.5 h-3.5" />
             </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> AI Active
+            <span className="text-[11px] font-semibold text-content-secondary flex-1">
+              <strong className="text-amber-600 dark:text-amber-400">{activeAlertCount} active alerts</strong> for {activeLocation.name}
             </span>
-          </div>
-
-          <div className="space-y-2">
-            {healthAlerts.slice(0, 3).map((alert, i) => (
-              <div
-                key={i}
-                className="rounded-2xl bg-card/90 p-3 border border-border-subtle flex items-start gap-2.5"
-              >
-                <span className="text-xl flex-shrink-0 mt-0.5">{alert.icon}</span>
-                <div className="min-w-0 flex-1">
-                  <h4 className="font-heading text-xs font-bold text-content-primary">
-                    {alert.title}
-                  </h4>
-                  <p className="text-[11px] text-content-secondary leading-snug mt-0.5">
-                    {alert.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+            <ChevronRight className="w-3.5 h-3.5 text-amber-500/60 group-hover:text-amber-500 group-hover:translate-x-0.5 transition-all" />
+          </Link>
+        </motion.div>
       )}
 
-      {/* 5. Clean Ambient Hero */}
+      {/* 2. Clean Ambient Hero */}
       <div className="relative overflow-hidden rounded-3xl border border-border-subtle bg-card/90 p-5 shadow-card backdrop-blur-md dark:bg-card/75">
         <div className="flex items-start justify-between">
           <div>
@@ -354,6 +314,44 @@ export const HomePage: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* 3. Intelligent AI Health & Allergy Advisory Module */}
+      {healthAlerts.length > 0 && (
+        <div className="rounded-3xl border border-rose-500/25 bg-rose-500/10 dark:bg-rose-950/30 p-4 space-y-2.5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-500/20 text-rose-600 dark:text-rose-400">
+                <HeartPulse className="w-4 h-4" />
+              </div>
+              <h3 className="font-heading text-xs font-bold text-content-primary">
+                {t('allergy.title')}
+              </h3>
+            </div>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center gap-1">
+              <Sparkles className="w-3 h-3" /> AI Active
+            </span>
+          </div>
+
+          <div className="space-y-2">
+            {healthAlerts.slice(0, 3).map((alert, i) => (
+              <div
+                key={i}
+                className="rounded-2xl bg-card/90 p-3 border border-border-subtle flex items-start gap-2.5"
+              >
+                <span className="text-xl flex-shrink-0 mt-0.5">{alert.icon}</span>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-heading text-xs font-bold text-content-primary">
+                    {alert.title}
+                  </h4>
+                  <p className="text-[11px] text-content-secondary leading-snug mt-0.5">
+                    {alert.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 4. Section Header & Reorder Mode */}
       <div className="flex items-center justify-between px-1 pt-1">
@@ -478,6 +476,3 @@ export const HomePage: React.FC = () => {
     </div>
   );
 };
-
-
-

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Newspaper, Sparkles, Map, User } from 'lucide-react';
+import { Home, ShieldAlert, Sparkles, Compass, User } from 'lucide-react';
 import { useTranslation } from '../../utils/i18n';
 
 export const BottomTabBar: React.FC = () => {
@@ -13,7 +13,7 @@ export const BottomTabBar: React.FC = () => {
       aria-label="Bottom Navigation"
     >
       <div className="flex items-center justify-around px-2">
-        {/* Tab 1: Home Feed */}
+        {/* Tab 1: Home — Personal Weather */}
         <NavLink
           to="/home"
           className={({ isActive }) =>
@@ -28,9 +28,9 @@ export const BottomTabBar: React.FC = () => {
           <span className="text-[10px]">{t('nav.home')}</span>
         </NavLink>
 
-        {/* Tab 2: Climate News Feed */}
+        {/* Tab 2: Alerts — National Warnings & Nowcasts */}
         <NavLink
-          to="/news"
+          to="/alerts"
           className={({ isActive }) =>
             `flex min-h-[44px] min-w-[50px] flex-col items-center justify-center gap-0.5 rounded-xl transition-colors ${
               isActive
@@ -39,8 +39,8 @@ export const BottomTabBar: React.FC = () => {
             }`
           }
         >
-          <Newspaper className="h-4.5 w-4.5" />
-          <span className="text-[10px]">{t('nav.news')}</span>
+          <ShieldAlert className="h-4.5 w-4.5" />
+          <span className="text-[10px]">{t('nav.alerts')}</span>
         </NavLink>
 
         {/* Tab 3: Ask Mausam AI (Elevated Flagship Button) */}
@@ -58,9 +58,9 @@ export const BottomTabBar: React.FC = () => {
           <span className="text-[10px] font-bold text-accent-primary mt-0.5">{t('nav.ask')}</span>
         </NavLink>
 
-        {/* Tab 4: Hyperlocal Risk Map */}
+        {/* Tab 4: Explore — National Data Hubs */}
         <NavLink
-          to="/map"
+          to="/explore"
           className={({ isActive }) =>
             `flex min-h-[44px] min-w-[50px] flex-col items-center justify-center gap-0.5 rounded-xl transition-colors ${
               isActive
@@ -69,8 +69,8 @@ export const BottomTabBar: React.FC = () => {
             }`
           }
         >
-          <Map className="h-4.5 w-4.5" />
-          <span className="text-[10px]">{t('nav.map')}</span>
+          <Compass className="h-4.5 w-4.5" />
+          <span className="text-[10px]">{t('nav.explore')}</span>
         </NavLink>
 
         {/* Tab 5: Profile & Personalization */}

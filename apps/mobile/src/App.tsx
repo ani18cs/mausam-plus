@@ -14,6 +14,8 @@ import { ProfilePage } from './pages/ProfilePage';
 import { RadarSatellitePage } from './pages/RadarSatellitePage';
 import { CycloneMarinePage } from './pages/CycloneMarinePage';
 import { SpecializedHubPage } from './pages/SpecializedHubPage';
+import { AlertsPage } from './pages/AlertsPage';
+import { ExplorePage } from './pages/ExplorePage';
 
 export const App: React.FC = () => {
   const { hasCompletedOnboarding, theme, fetchForecast } = useAppStore();
@@ -53,6 +55,8 @@ export const App: React.FC = () => {
             }
           />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/alerts" element={<AlertsPage />} />
+          <Route path="/explore" element={<ExplorePage />} />
           <Route path="/radar" element={<RadarSatellitePage />} />
           <Route path="/cyclone" element={<CycloneMarinePage />} />
           <Route path="/specialized" element={<SpecializedHubPage />} />

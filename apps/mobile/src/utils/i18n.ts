@@ -182,6 +182,33 @@ Current Trajectory:
     'btn.close': 'Close',
     'btn.continue': 'Continue',
     'btn.get_started': 'Get Started',
+
+    // Navigation — Alerts & Explore tabs
+    'nav.alerts': 'Alerts',
+    'nav.explore': 'Explore',
+
+    // Alerts Page
+    'alerts.page_title': 'Alerts & Warnings',
+    'alerts.page_subtitle': 'Active IMD nowcasts, district warnings, and cyclone tracking',
+    'alerts.nowcast_section': 'Live Nowcast Warnings',
+    'alerts.fiveday_section': '5-Day District Warning Matrix',
+    'alerts.quick_actions': 'Quick Actions',
+
+    // Explore Page
+    'explore.page_title': 'Explore',
+    'explore.page_subtitle': 'National meteorological data portals & specialized forecasts',
+    'explore.radar_title': 'Radar & Satellite',
+    'explore.radar_subtitle': 'Doppler Radar studio, INSAT-3DS channels, Damini lightning',
+    'explore.cyclone_title': 'Cyclone & Marine',
+    'explore.cyclone_subtitle': 'RSMC cyclone tracker, fishermen warnings, port signals',
+    'explore.specialized_title': 'Specialized Forecasts',
+    'explore.specialized_subtitle': 'Highway corridors, pilgrimage weather, FFGS, Kisan Agromet',
+    'explore.news_title': 'Climate News',
+    'explore.news_subtitle': 'National meteorological bulletins & climate wire',
+    'explore.map_title': 'Hyperlocal Risk Map',
+    'explore.map_subtitle': 'Interactive risk map with citizen-reported observations',
+    'explore.report_title': 'Citizen Reports',
+    'explore.report_subtitle': 'Crowdsourced weather observations & road conditions',
   },
 
   kn: {
