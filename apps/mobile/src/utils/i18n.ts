@@ -10,6 +10,15 @@ export const LANGUAGE_METADATA: Record<SupportedLanguage, { label: string; nativ
   mr: { label: 'Marathi', nativeName: 'मराठी', flag: '🇮🇳' },
 };
 
+export const LANGUAGE_LABELS: Record<SupportedLanguage, string> = {
+  en: 'English',
+  kn: 'ಕನ್ನಡ (Kannada)',
+  hi: 'हिन्दी (Hindi)',
+  ta: 'தமிழ் (Tamil)',
+  bn: 'বাংলা (Bengali)',
+  mr: 'मराठी (Marathi)',
+};
+
 export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
   en: {
     // IMD Official Branding
@@ -138,13 +147,27 @@ Current Trajectory:
     'profile.gender_female': 'Female',
     'profile.gender_other': 'Other',
     'profile.allergies_title': 'Health & Weather Sensitivities',
+    'profile.active_personas': 'Active Personas',
+    'profile.personas_active': 'active',
+    'profile.personas_hint': 'Choose personas to tailor priority weather recommendations.',
     'profile.units_title': 'Display & Telemetry Units',
     'profile.temp_unit': 'Temperature Units',
     'profile.wind_unit': 'Wind Speed Units',
     'profile.language_title': 'Language & Regional Localization',
+    'profile.language': 'Language',
     'profile.theme': 'Color Theme',
+    'profile.color_theme': 'Color Theme',
+    'profile.display': 'Display Settings',
     'profile.dark_mode': 'Dark Mode',
     'profile.light_mode': 'Light Mode',
+    'profile.temperature': 'Temperature',
+    'profile.celsius': 'Celsius (°C)',
+    'profile.wind': 'Wind Speed',
+    'profile.wind_value': 'km/h',
+    'profile.project': 'Smart India Hackathon 2024',
+    'profile.project_detail': 'Building next-generation meteorological public intelligence for MoES/IMD.',
+    'profile.version': 'Mausam+ Prototype v1.2.0 • Full Multilingual & Allergy AI Engine',
+    'profile.reset': 'Reset Onboarding & Preferences',
 
     // Language Warning Modal
     'lang_modal.title': 'Change App Language?',
@@ -159,6 +182,33 @@ Current Trajectory:
     'btn.close': 'Close',
     'btn.continue': 'Continue',
     'btn.get_started': 'Get Started',
+
+    // Navigation — Alerts & Explore tabs
+    'nav.alerts': 'Alerts',
+    'nav.explore': 'Explore',
+
+    // Alerts Page
+    'alerts.page_title': 'Alerts & Warnings',
+    'alerts.page_subtitle': 'Active IMD nowcasts, district warnings, and cyclone tracking',
+    'alerts.nowcast_section': 'Live Nowcast Warnings',
+    'alerts.fiveday_section': '5-Day District Warning Matrix',
+    'alerts.quick_actions': 'Quick Actions',
+
+    // Explore Page
+    'explore.page_title': 'Explore',
+    'explore.page_subtitle': 'National meteorological data portals & specialized forecasts',
+    'explore.radar_title': 'Radar & Satellite',
+    'explore.radar_subtitle': 'Doppler Radar studio, INSAT-3DS channels, Damini lightning',
+    'explore.cyclone_title': 'Cyclone & Marine',
+    'explore.cyclone_subtitle': 'RSMC cyclone tracker, fishermen warnings, port signals',
+    'explore.specialized_title': 'Specialized Forecasts',
+    'explore.specialized_subtitle': 'Highway corridors, pilgrimage weather, FFGS, Kisan Agromet',
+    'explore.news_title': 'Climate News',
+    'explore.news_subtitle': 'National meteorological bulletins & climate wire',
+    'explore.map_title': 'Hyperlocal Risk Map',
+    'explore.map_subtitle': 'Interactive risk map with citizen-reported observations',
+    'explore.report_title': 'Citizen Reports',
+    'explore.report_subtitle': 'Crowdsourced weather observations & road conditions',
   },
 
   kn: {
@@ -198,7 +248,6 @@ Current Trajectory:
     'card.tide_title': 'ಕರಾವಳಿ ಅಲೆಗಳು ಮತ್ತು ಉಬ್ಬರವಿಳಿತ',
     'card.why_button': 'ಈ ಮಾಹಿತಿ ಏಕೆ?',
 
-    // Expanded Health AI in Kannada
     'allergy.title': 'ಬುದ್ಧಿವಂತ ಆರೋಗ್ಯ ಮತ್ತು ಹವಾಮಾನ ಸೂಕ್ಷ್ಮತೆ ಸಲಹೆ',
     'allergy.pollen_high': 'ಹೆಚ್ಚಿನ ಪರಾಗ (Pollen) ಪ್ರಮಾಣ ಪತ್ತೆಯಾಗಿದೆ',
     'allergy.pollen_desc': 'ಹುಲ್ಲು ಮತ್ತು ಗಿಡಮೂಲಿಕೆಗಳ ಪರಾಗ ಕಣಗಳು ಹೆಚ್ಚಾಗಿವೆ. ಕಿಟಕಿಗಳನ್ನು ಮುಚ್ಚಿ ಮತ್ತು ಹೊರಗೆ ಹೋಗುವಾಗ ಮಾಸ್ಕ್ ಧರಿಸಿ.',
@@ -217,7 +266,6 @@ Current Trajectory:
     'allergy.elder_care': 'ಹಿರಿಯರು ಮತ್ತು ಮಕ್ಕಳ ಉಷ್ಣತಾ ನಿಯಂತ್ರಣ ಕಾಳಜಿ',
     'allergy.elder_care_desc': 'ತಾಪಮಾನ ವ್ಯತ್ಯಾಸದಿಂದ ಸೂಕ್ಷ್ಮತೆ. ಒಳಾಂಗಣ ತಾಪಮಾನವನ್ನು 28°C ಗಿಂತ ಕಡಿಮೆ ಇರಿಸಿ.',
 
-    // News Page in Kannada
     'news.page_title': 'ಹವಾಮಾನ ಮತ್ತು ಪರಿಸರ ಸುದ್ದಿಗಳು',
     'news.page_subtitle': 'ರಾಷ್ಟ್ರೀಯ ಹವಾಮಾನ ವರದಿ ಮತ್ತು ನವೀಕರಣಗಳು',
     'news.search_placeholder': 'ಹವಾಮಾನ ಸುದ್ದಿ, ಮಾನ್ಸೂನ್ ಅಥವಾ IMD ವರದಿ ಹುಡುಕಿ...',
@@ -233,20 +281,11 @@ Current Trajectory:
 
     'news.art1.title': 'ಕರಾವಳಿ ಕರ್ನಾಟಕ ಮತ್ತು ಪಶ್ಚಿಮ ಘಟ್ಟಗಳಲ್ಲಿ ನೈಋತ್ಯ ಮಾನ್ಸೂನ್ ತೀವ್ರ: IMD ಯೆಲ್ಲೋ ಅಲರ್ಟ್',
     'news.art1.summary': 'ಕರಾವಳಿ ತೀರಗಳಲ್ಲಿ ಗಂಟೆಗೆ 55 ಕಿಮೀ ವೇಗದ ಗಾಳಿಯೊಂದಿಗೆ ಭಾರೀ ಮಳೆಯಾಗುವ ಸಾಧ್ಯತೆ. ಮೀನುಗಾರರು ಸಮುದ್ರಕ್ಕೆ ಇಳಿಯದಂತೆ ಸೂಚನೆ.',
-    'news.art1.content': `ಭಾರತ ಹವಾಮಾನ ಇಲಾಖೆ (IMD) ಪಶ್ಚಿಮ ಕರಾವಳಿಯಲ್ಲಿ ಮುಂಗಾರು ಮಳೆ ತೀವ್ರಗೊಳ್ಳುವ ಮುನ್ಸೂಚನೆ ನೀಡಿದೆ. ಮಹಾರಾಷ್ಟ್ರದಿಂದ ಕೇರಳದವರೆಗೆ ಕರಾವಳಿಯುದ್ದಕ್ಕೂ ಮಳೆಯ ಅಲೆ ಚುರುಕಾಗಿದೆ.
-
-ಪ್ರಮುಖ ಮುಖ್ಯಾಂಶಗಳು:
-1. ಮಳೆಯ ಪ್ರಮಾಣ: ಮಂಗಳೂರು, ಉಡುಪಿ ಹಾಗೂ ಸುತ್ತಮುತ್ತಲಿನ ಘಟ್ಟ ಪ್ರದೇಶಗಳಲ್ಲಿ 70-110 ಮಿ.ಮೀ ವ್ಯಾಪಕ ಮಳೆ ನಿರೀಕ್ಷಿಸಲಾಗಿದೆ.
-2. ನಗರ ಮುನ್ನೆಚ್ಚರಿಕೆ: ಬೆಂಗಳೂರು ಹಾಗೂ ಕರಾವಳಿ ತಗ್ಗು ಪ್ರದೇಶಗಳಲ್ಲಿ ನೀರು ಸರಾಗವಾಗಿ ಹರಿಯಲು ತುರ್ತು ತಂಡ ನಿಯೋಜಿಸಲಾಗಿದೆ.
-3. ಸಮುದ್ರ ಎಚ್ಚರಿಕೆ: ಸಮುದ್ರದಲ್ಲಿ 2.8 ಮೀಟರ್ ಎತ್ತರದ ಅಲೆಗಳು ಏಳುವ ಸಾಧ್ಯತೆಯಿದೆ. ಮುಂದಿನ 48 ಗಂಟೆಗಳ ಕಾಲ ಸಣ್ಣ ದೋಣಿಗಳು ಸಮುದ್ರಕ್ಕೆ ಇಳಿಯದಂತೆ ಸೂಚಿಸಲಾಗಿದೆ.`,
+    'news.art1.content': `ಭಾರತ ಹವಾಮಾನ ಇಲಾಖೆ (IMD) ಪಶ್ಚಿಮ ಕರಾವಳಿಯಲ್ಲಿ ಮುಂಗಾರು ಮಳೆ ತೀವ್ರಗೊಳ್ಳುವ ಮುನ್ಸೂಚನೆ ನೀಡಿದೆ. ಮಹಾರಾಷ್ಟ್ರದಿಂದ ಕೇರಳದವರೆಗೆ ಕರಾವಳಿಯುದ್ದಕ್ಕೂ ಮಳೆಯ ಅಲೆ ಚುರುಕಾಗಿದೆ.`,
 
     'news.art2.title': 'ಉತ್ತರ ಭಾರತದಲ್ಲಿ ತೀವ್ರ ಶಾಖ ಮತ್ತು ಆರ್ದ್ರತೆ: ಹೆಚ್ಚಿನ ಉಷ್ಣತೆಯ ಅಪಾಯ',
     'news.art2.summary': '36°C ತಾಪಮಾನ ಮತ್ತು 72% ಆರ್ದ್ರತೆಯ ಸಂಯೋಜನೆಯಿಂದ ದೇಹದ ಶಾಖ ಹೊರಹಾಕಲು ತೊಂದರೆಯಾಗುತ್ತಿದೆ.',
-    'news.art2.content': `ದೆಹಲಿ, ಲಕ್ನೋ ಮತ್ತು ಜೈಪುರದಲ್ಲಿ ಹೆಚ್ಚಿನ ಆರ್ದ್ರತೆ ಮತ್ತು ಬಿಸಿಲಿನಿಂದ ತೀವ್ರ ಶಾಖದ ವಾತಾವರಣ ಉಂಟಾಗಿದೆ.
-
-ಆರೋಗ್ಯ ಸಲಹೆಗಳು:
-- ಮಧ್ಯಾಹ್ನ 11:30 ರಿಂದ ಸಂಜೆ 4:30 ರವರೆಗೆ ಬಿಸಿಲಿನಲ್ಲಿ ಭಾರೀ ವ್ಯಾಯಾಮ ಮಾಡುವುದನ್ನು ತಪ್ಪಿಸಿ.
-- ಪ್ರತಿ 30-45 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಓಆರ್‌ಎಸ್ ಅಥವಾ ನಿಂಬೆ ನೀರು ಕುಡಿಯಿರಿ.`,
+    'news.art2.content': `ದೆಹಲಿ, ಲಕ್ನೋ ಮತ್ತು ಜೈಪುರದಲ್ಲಿ ಹೆಚ್ಚಿನ ಆರ್ದ್ರತೆ ಮತ್ತು ಬಿಸಿಲಿನಿಂದ ತೀವ್ರ ಶಾಖದ ವಾತಾವರಣ ಉಂಟಾಗಿದೆ.`,
 
     'news.art3.title': 'ಪರಾಗ ಕಣಗಳು ಮತ್ತು ವಾಯು ಮಾಲಿನ್ಯ ಹೆಚ್ಚಳ: ಸೂಕ್ಷ್ಮ ಜನರು ಗಮನಿಸಬೇಕಾದ ಅಂಶಗಳು',
     'news.art3.summary': 'ನಗರ ಪ್ರದೇಶಗಳಲ್ಲಿ ಪರಾಗ ಕಣಗಳು ಮತ್ತು PM2.5 ಹೆಚ್ಚಳದಿಂದ ಉಸಿರಾಟದ ತೊಂದರೆ ಕಂಡುಬರುತ್ತಿದೆ.',
@@ -256,7 +295,6 @@ Current Trajectory:
     'news.art4.summary': 'ಆಗ್ನೇಯ ಅರಬ್ಬಿ ಸಮುದ್ರದಲ್ಲಿ ಕಡಿಮೆ ಒತ್ತಡದ ಪ್ರದೇಶ ಮುಂದಿನ 36 ಗಂಟೆಗಳಲ್ಲಿ ತೀವ್ರಗೊಳ್ಳುವ ಸಾಧ್ಯತೆ.',
     'news.art4.content': `ಉಪಗ್ರಹ ಚಿತ್ರಗಳ ಪ್ರಕಾರ ಲಕ್ಷದ್ವೀಪದಿಂದ 380 ಕಿಮೀ ದೂರದಲ್ಲಿ ದಟ್ಟ ಮೋಡಗಳು ಸಂಗ್ರಹವಾಗುತ್ತಿವೆ. ಗಂಟೆಗೆ 55-65 ಕಿಮೀ ವೇಗದ ಗಾಳಿ ಬೀಸುತ್ತಿದೆ.`,
 
-    // Profile & Settings
     'profile.title': 'ಪ್ರೊಫೈಲ್ ಮತ್ತು ವೈಯಕ್ತೀಕರಣ',
     'profile.subtitle': 'ಆರೋಗ್ಯ ಆದ್ಯತೆಗಳು, ಮಾಪಕಗಳು ಮತ್ತು ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ',
     'profile.login_btn': 'ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಲಾಗಿನ್ ಮಾಡಿ',
@@ -269,13 +307,27 @@ Current Trajectory:
     'profile.gender_female': 'ಮಹಿಳೆ',
     'profile.gender_other': 'ಇತರೆ',
     'profile.allergies_title': 'ಆರೋಗ್ಯ ಮತ್ತು ಅಲರ್ಜಿ ಸೂಕ್ಷ್ಮತೆಗಳು',
+    'profile.active_personas': 'ಸಕ್ರಿಯ ಆಯ್ಕೆಗಳು',
+    'profile.personas_active': 'ಸಕ್ರಿಯ',
+    'profile.personas_hint': 'ಆದ್ಯತೆಯ ಹವಾಮಾನ ಶಿಫಾರಸುಗಳನ್ನು ಹೊಂದಿಸಲು ಆಯ್ಕೆಗಳನ್ನು ಆರಿಸಿ.',
     'profile.units_title': 'ಮಾಪನ ಘಟಕಗಳು',
     'profile.temp_unit': 'ತಾಪಮಾನ ಘಟಕ',
     'profile.wind_unit': 'ಗಾಳಿಯ ವೇಗ ಘಟಕ',
     'profile.language_title': 'ಭಾಷೆ ಮತ್ತು ಪ್ರಾದೇಶಿಕ ಭಾಷೆ',
+    'profile.language': 'ಭಾಷೆ',
     'profile.theme': 'ಥೀಮ್',
+    'profile.color_theme': 'ಬಣ್ಣದ ಥೀಮ್',
+    'profile.display': 'ಪ್ರದರ್ಶನ ಸೆಟ್ಟಿಂಗ್‌ಗಳು',
     'profile.dark_mode': 'ಡಾರ್ಕ್ ಮೋಡ್',
     'profile.light_mode': 'ಲೈಟ್ ಮೋಡ್',
+    'profile.temperature': 'ತಾಪಮಾನ',
+    'profile.celsius': 'ಸೆಲ್ಸಿಯಸ್ (°C)',
+    'profile.wind': 'ಗಾಳಿಯ ವೇಗ',
+    'profile.wind_value': 'ಕಿ.ಮೀ/ಗಂ',
+    'profile.project': 'ಸ್ಮಾರ್ಟ್ ಇಂಡಿಯಾ ಹ್ಯಾಕಥಾನ್ 2024',
+    'profile.project_detail': 'MoES/IMD ಗಾಗಿ ಮುಂದಿನ ಪೀಳಿಗೆಯ ಹವಾಮಾನ ವೇದಿಕೆ.',
+    'profile.version': 'Mausam+ Prototype v1.2.0 • Multilingual Engine',
+    'profile.reset': 'ಆಯ್ಕೆಗಳನ್ನು ಮರುಹೊಂದಿಸಿ',
 
     'lang_modal.title': 'ಅಪ್ಲಿಕೇಶನ್ ಭಾಷೆಯನ್ನು ಬದಲಾಯಿಸಬೇಕೆ?',
     'lang_modal.confirm_msg': 'ನೀವು ಅಪ್ಲಿಕೇಶನ್ ಭಾಷೆಯನ್ನು {lang} ಗೆ ಬದಲಾಯಿಸಲು ಖಚಿತಪಡಿಸುತ್ತೀರಾ? ಎಲ್ಲಾ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆಗಳು, ಸುದ್ದಿಗಳು ಮತ್ತು ಇಂಟರ್ಫೇಸ್ ತಕ್ಷಣ ಬದಲಾಗುತ್ತದೆ.',
@@ -386,13 +438,27 @@ Current Trajectory:
     'profile.gender_female': 'महिला',
     'profile.gender_other': 'अन्य',
     'profile.allergies_title': 'स्वास्थ्य और एलर्जी संवेदनशीलता',
+    'profile.active_personas': 'सक्रिय प्रोफ़ाइल',
+    'profile.personas_active': 'सक्रिय',
+    'profile.personas_hint': 'प्राथमिकता वाले मौसम सुझावों के लिए प्रोफ़ाइल चुनें।',
     'profile.units_title': 'माप इकाइयां',
     'profile.temp_unit': 'तापमान इकाई',
     'profile.wind_unit': 'हवा की गति इकाई',
     'profile.language_title': 'भाषा और क्षेत्रीय भाषा चुनें',
+    'profile.language': 'भाषा',
     'profile.theme': 'थीम',
+    'profile.color_theme': 'रंग थीम',
+    'profile.display': 'प्रदर्शन सेटिंग्स',
     'profile.dark_mode': 'डार्क मोड',
     'profile.light_mode': 'लाइट मोड',
+    'profile.temperature': 'तापमान',
+    'profile.celsius': 'सेल्सियस (°C)',
+    'profile.wind': 'हवा की गति',
+    'profile.wind_value': 'किमी/घंटा',
+    'profile.project': 'स्मार्ट इंडिया हैकाथॉन 2024',
+    'profile.project_detail': 'MoES/IMD के लिए अगली पीढ़ी का मौसम प्लेटफॉर्म।',
+    'profile.version': 'Mausam+ Prototype v1.2.0',
+    'profile.reset': 'विकल्प रीसेट करें',
 
     'lang_modal.title': 'ऐप की भाषा बदलें?',
     'lang_modal.confirm_msg': 'क्या आप ऐप की भाषा को {lang} में बदलना चाहते हैं? सभी पूर्वानुमान, समाचार और इंटरफ़ेस तुरंत बदल जाएंगे।',
@@ -503,13 +569,27 @@ Current Trajectory:
     'profile.gender_female': 'பெண்',
     'profile.gender_other': 'மற்றவை',
     'profile.allergies_title': 'சுகாதார & ஒவ்வாமை உணர்வுகள்',
+    'profile.active_personas': 'செயலில் உள்ள சுயவிவரம்',
+    'profile.personas_active': 'செயலில்',
+    'profile.personas_hint': 'வானிலை பரிந்துரைகளை பெற சுயவிவரங்களை தேர்ந்தெடுக்கவும்.',
     'profile.units_title': 'அளவீட்டு அலகுகள்',
     'profile.temp_unit': 'வெப்பநிலை அலகு',
     'profile.wind_unit': 'காற்றின் வேக அலகு',
     'profile.language_title': 'மொழி மற்றும் பிராந்திய மொழி',
+    'profile.language': 'மொழி',
     'profile.theme': 'தீம்',
+    'profile.color_theme': 'வண்ண தீம்',
+    'profile.display': 'காட்சி அமைப்புகள்',
     'profile.dark_mode': 'டார்க் மோட்',
     'profile.light_mode': 'லைட் மோட்',
+    'profile.temperature': 'வெப்பநிலை',
+    'profile.celsius': 'செல்சியஸ் (°C)',
+    'profile.wind': 'காற்றின் வேகம்',
+    'profile.wind_value': 'கிமீ/மணி',
+    'profile.project': 'ஸ்மார்ட் இந்தியா ஹேக்கத்தான் 2024',
+    'profile.project_detail': 'MoES/IMD க்கான புதிய தலைமுறை வானிலை தளம்.',
+    'profile.version': 'Mausam+ Prototype v1.2.0',
+    'profile.reset': 'விருப்பங்களை மீட்டமைக்க',
 
     'lang_modal.title': 'பயன்பாட்டின் மொழியை மாற்றவா?',
     'lang_modal.confirm_msg': 'பயன்பாட்டின் மொழியை {lang}க்கு மாற்ற விரும்புகிறீர்களா? அனைத்து வானிலை தகவல்களும் செய்திகளும் உடனடியாக மாறும்.',
@@ -620,13 +700,27 @@ Current Trajectory:
     'profile.gender_female': 'মহিলা',
     'profile.gender_other': 'অন্যান্য',
     'profile.allergies_title': 'স্বাস্থ্য ও অ্যালার্জি সংবেদনশীলতা',
+    'profile.active_personas': 'সক্রিয় প্রোফাইল',
+    'profile.personas_active': 'সক্রিয়',
+    'profile.personas_hint': 'আবহাওয়ার সুপারিশ কাস্টমাইজ করতে প্রোফাইল বাছুন।',
     'profile.units_title': 'পরিমাপ ইউনিট',
     'profile.temp_unit': 'তাপমাত্রা ইউনিট',
     'profile.wind_unit': 'বাতাসের গতি ইউনিট',
     'profile.language_title': 'ভাষা ও আঞ্চলিক ভাষা',
+    'profile.language': 'ভাষা',
     'profile.theme': 'থিম',
+    'profile.color_theme': 'রঙের থিম',
+    'profile.display': 'প্রদর্শন সেটিংস',
     'profile.dark_mode': 'ডার্ক মোড',
     'profile.light_mode': 'লাইট মোড',
+    'profile.temperature': 'তাপমাত্রা',
+    'profile.celsius': 'সেলসিয়াস (°C)',
+    'profile.wind': 'বাতাসের গতি',
+    'profile.wind_value': 'কিমি/ঘণ্টা',
+    'profile.project': 'স্মার্ট ইন্ডিয়া হ্যাকাথন ২০২৪',
+    'profile.project_detail': 'MoES/IMD এর জন্য পরবর্তী প্রজন্মের আবহাওয়া প্ল্যাটফর্ম।',
+    'profile.version': 'Mausam+ Prototype v1.2.0',
+    'profile.reset': 'পছন্দ রিসেট করুন',
 
     'lang_modal.title': 'অ্যাপের ভাষা পরিবর্তন করবেন?',
     'lang_modal.confirm_msg': 'আপনি কি অ্যাপের ভাষা {lang} এ পরিবর্তন করতে চান? সমস্ত আবহাওয়ার তথ্য এবং সংবাদ অবিলম্বে আপডেট হবে।',
@@ -737,13 +831,27 @@ Current Trajectory:
     'profile.gender_female': 'महिला',
     'profile.gender_other': 'इतर',
     'profile.allergies_title': 'आरोग्य आणि ॲलर्जी संवेदनशीलता',
+    'profile.active_personas': 'सक्रिय प्रोफाइल्स',
+    'profile.personas_active': 'सक्रिय',
+    'profile.personas_hint': 'हवामान शिफारसींसाठी योग्य पर्याय निवडा.',
     'profile.units_title': 'मोजमाप एकके',
     'profile.temp_unit': 'तापमान एकक',
     'profile.wind_unit': 'वाऱ्याचा वेग एकक',
     'profile.language_title': 'भाषा आणि प्रादेशिक भाषा',
+    'profile.language': 'भाषा',
     'profile.theme': 'थीम',
+    'profile.color_theme': 'रंग थीम',
+    'profile.display': 'प्रदर्शन सेटिंग्ज',
     'profile.dark_mode': 'डार्क मोड',
     'profile.light_mode': 'लाइट मोड',
+    'profile.temperature': 'तापमान',
+    'profile.celsius': 'सेल्सिअस (°C)',
+    'profile.wind': 'वाऱ्याचा वेग',
+    'profile.wind_value': 'किमी/तास',
+    'profile.project': 'स्मार्ट इंडिया हॅकाथॉन २०२४',
+    'profile.project_detail': 'MoES/IMD साठी आधुनिक हवामान प्रणाली.',
+    'profile.version': 'Mausam+ Prototype v1.2.0',
+    'profile.reset': 'पर्याय रीसेट करा',
 
     'lang_modal.title': 'ॲपची भाषा बदलायची आहे का?',
     'lang_modal.confirm_msg': 'तुम्हाला ॲपची भाषा {lang} मध्ये बदलायची आहे का? सर्व हवामान अंदाज, बातम्या आणि इंटरफेस लगेच बदलतील.',
@@ -760,22 +868,29 @@ Current Trajectory:
 };
 
 /**
+ * Functional translation helper for non-hook contexts
+ */
+export const translate = (language: SupportedLanguage, key: string, params?: Record<string, string>): string => {
+  const dict = TRANSLATIONS[language] || TRANSLATIONS.en;
+  let translation = dict[key] || TRANSLATIONS.en[key] || key;
+
+  if (params) {
+    Object.entries(params).forEach(([paramKey, paramValue]) => {
+      translation = translation.replace(`{${paramKey}}`, paramValue);
+    });
+  }
+
+  return translation;
+};
+
+/**
  * Custom React hook for accessing current language translations
  */
 export const useTranslation = () => {
   const language = useAppStore((state) => state.language) || 'en';
 
   const t = (key: string, params?: Record<string, string>): string => {
-    const dict = TRANSLATIONS[language] || TRANSLATIONS.en;
-    let translation = dict[key] || TRANSLATIONS.en[key] || key;
-
-    if (params) {
-      Object.entries(params).forEach(([paramKey, paramValue]) => {
-        translation = translation.replace(`{${paramKey}}`, paramValue);
-      });
-    }
-
-    return translation;
+    return translate(language, key, params);
   };
 
   return { t, language };
