@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { AIQueryRequest, AIQueryResponse } from '@mausam/shared-types';
-import OpenAI from 'openai';
+// import OpenAI from 'openai';
+import { GoogleGenAI,ThinkingLevel  } from '@google/genai';
 
 export const aiRouter = Router();
 
@@ -9,14 +10,39 @@ aiRouter.post('/query', async (req: Request, res: Response) => {
 
    
     const { query = '', location, selectedPersonas = [] , forecastContext} = req.body as AIQueryRequest;
-      const gemini = new OpenAI({
+      const gemini = new GoogleGenAI({
   apiKey: process.env.LLM_API_KEY!,
-  baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
+  //baseURL: 'https://generativelanguage.googleapis.com/v1beta/openai/',
 });
     if (!query.trim()) {
       return res.status(400).json({ error: 'Query cannot be empty' });
     }
+const normalizedQuery = query.trim().toLowerCase();
 
+const greetings = new Set([
+  'hi',
+  'hii',
+  'hello',
+  'hey',
+  'heyy',
+  'hiii',
+]);
+
+if (greetings.has(normalizedQuery)) {
+  const response: AIQueryResponse = {
+    answer: `Hi! Ask me anything about the weather in ${location?.name || 'your location'}.`,
+    confidence: 1,
+    insights: [],
+    suggestedFollowUps: [
+      'What is the weather right now?',
+      'Will it rain today?',
+      'Show me the hourly forecast',
+    ],
+    generatedAt: new Date().toISOString(),
+  };
+
+  return res.json(response);
+}
     const systemPrompt = `You are Ask Mausam, a weather assistant for India.
 
 Answer ONLY using the weather data provided below.
@@ -45,24 +71,56 @@ Instructions:
 4. Give safety advice only when supported by the supplied data.
 5. Do not claim the data is from IMD unless the supplied source metadata says so.
 6.Keep the answer under 120 words
+7. If the user sends a greeting such as "hi", "hello", or "hey", respond briefly and invite them to ask a weather-related question. Do not provide an unsolicited forecast.
+8. If the user's message is unclear, incomplete, gibberish, or cannot be confidently interpreted, ask them to clarify. Do not assume they are asking for the current weather.
+9. Return plain text only. Do not use Markdown syntax such as **, *, #, or bullet formatting.
+10. For hourly forecast requests, show only the next 5-6 upcoming hours from the current time. Never include hours that have already passed.
+
+11. Format hourly forecasts vertically, with one hour per line. Each line should follow this style:
+7 PM — 24°C · Light Drizzle · Rain 65%
+
+12. Add a short heading such as "Next few hours in Bengaluru:" followed by a blank line, then the hourly lines, then one short takeaway sentence.
+
+13. Keep all responses concise and mobile-friendly. Use line breaks and simple Unicode symbols such as — and · for readability. Avoid Markdown tables, headings using #, excessive bold text, and long paragraphs.
 `;
-    const message = await gemini.chat.completions.create({
-      model: 'gemini-2.5-flash',
-      messages: [
+    // const message = await gemini.chat.completions.create({
+    //   model: 'gemini-2.5-flash',
+    //   messages: [
+    //     {
+    //       role: 'system',
+    //       content: systemPrompt,
+    //     },
+    //     {
+    //       role: 'user',
+    //       content: query,
+    //     },
+    //   ],
+    //   temperature: 0.7,
+    //   max_tokens: 1200,
+    // });
+    
+const message = await gemini.models.generateContent({
+  model: 'gemini-3.5-flash-lite',
+  contents: [
+    {
+      role: 'user',
+      parts: [
         {
-          role: 'system',
-          content: systemPrompt,
-        },
-        {
-          role: 'user',
-          content: query,
+          text: `${systemPrompt}\n\nUSER QUESTION:\n${query}`,
         },
       ],
-      temperature: 0.7,
-      max_tokens: 1200,
-    });
-
-    const answer = message.choices[0].message.content || 'Unable to process query';
+    },
+  ],
+  config: {
+    //temperature: 0.7,
+    maxOutputTokens:1200,
+    thinkingConfig: {
+    thinkingLevel: ThinkingLevel.MINIMAL,
+  },
+  },
+  
+});
+    const answer = message.text || 'Unable to process query';
 
     const response: AIQueryResponse = {
       answer,
