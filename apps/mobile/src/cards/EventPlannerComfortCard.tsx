@@ -1,29 +1,15 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
+import { useTranslation } from '../utils/i18n';
 import { CalendarDays } from 'lucide-react';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
 
 export const EventPlannerComfortCard: React.FC<CardProps> = ({
   forecast,
   onOpenWhyModal,
 }) => {
+  const { t } = useTranslation();
   const dailyForecast = forecast.daily.slice(0, 7);
-
-  const trendData = dailyForecast.map((day) => ({
-    day: new Date(day.date).toLocaleDateString('en-IN', {
-      weekday: 'short',
-    }),
-    maxTemp: day.temp_max_c,
-    rain: day.rain_prob_pct,
-  }));
 
   const getComfort = (
     minTemp: number,
@@ -36,25 +22,34 @@ export const EventPlannerComfortCard: React.FC<CardProps> = ({
     if (rainProb >= 70 || maxTemp >= 40) {
       return { label: 'Poor', severity: 'warning' };
     }
-
     if (rainProb >= 40 || maxTemp >= 35 || minTemp <= 10) {
       return { label: 'Fair', severity: 'caution' };
     }
-
     return { label: 'Good', severity: 'safe' };
   };
+
+  const weekendComfort = getComfort(
+    dailyForecast[5]?.temp_min_c ?? 20,
+    dailyForecast[5]?.temp_max_c ?? 30,
+    dailyForecast[5]?.rain_prob_pct ?? 30
+  );
 
   return (
     <CardShell
       id="card-event-planner-comfort"
-      title="7-Day Outdoor Event Comfort"
-      subtitle="Plan outdoor events around temperature and rain risk."
-      icon={<CalendarDays className="h-5 w-5 text-indigo-500" />}
+      title={t('card.event_title') || 'Outdoor Event Comfort'}
+      subtitle="7-Day suitability index"
+      icon={<CalendarDays className="h-4 w-4 text-indigo-500" />}
+      badge={{
+        severity: weekendComfort.severity,
+        label: `${weekendComfort.label} Weekend`,
+      }}
       onWhyClick={onOpenWhyModal}
-      whyLabel="Why this comfort?"
+      whyLabel={t('card.why_button')}
     >
-      <div className="space-y-3">
-        <div className="grid grid-cols-7 gap-1.5">
+      <div className="space-y-2.5">
+        {/* 7-Day Mini Tiles Strip */}
+        <div className="grid grid-cols-7 gap-1">
           {dailyForecast.map((day) => {
             const comfort = getComfort(
               day.temp_min_c,
@@ -64,81 +59,36 @@ export const EventPlannerComfortCard: React.FC<CardProps> = ({
 
             const date = new Date(day.date);
             const dayName = date.toLocaleDateString('en-IN', {
-              weekday: 'short',
+              weekday: 'narrow',
             });
 
             return (
               <div
                 key={day.date}
-                className="rounded-xl bg-card-subtle p-2 text-center"
+                className="rounded-xl bg-card-subtle p-1.5 text-center border border-border-subtle/40 space-y-0.5"
               >
-                <p className="text-[10px] font-semibold text-content-muted">
+                <span className="text-[9px] font-bold text-content-muted block uppercase">
                   {dayName}
-                </p>
+                </span>
 
-                <p className="mt-1 font-heading text-xs font-bold text-content-primary">
+                <span className="font-heading text-xs font-bold text-content-primary block">
                   {Math.round(day.temp_max_c)}°
-                </p>
+                </span>
 
-                <p className="text-[10px] text-content-muted">
-                  {Math.round(day.temp_min_c)}°
-                </p>
-
-                <div className="mt-2">
-                  <span className="text-[10px] font-semibold text-content-primary">
-                    {comfort.label}
-                  </span>
-                </div>
-
-                <p className="mt-1 text-[10px] text-content-muted">
-                  Rain {day.rain_prob_pct}%
-                </p>
+                <span
+                  className={`text-[8px] font-extrabold px-1 py-0.2 rounded block ${
+                    comfort.severity === 'safe'
+                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10'
+                      : comfort.severity === 'caution'
+                      ? 'text-amber-600 dark:text-amber-400 bg-amber-500/10'
+                      : 'text-rose-600 dark:text-rose-400 bg-rose-500/10'
+                  }`}
+                >
+                  {comfort.label}
+                </span>
               </div>
             );
           })}
-        </div>
-
-        <div className="h-32 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={trendData}>
-              <XAxis
-                dataKey="day"
-                tick={{ fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-                width={25}
-              />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="maxTemp"
-                strokeWidth={2}
-                dot={{ r: 3 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="rain"
-                strokeWidth={2}
-                dot={{ r: 3 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div className="rounded-xl border border-border-subtle/50 bg-card-subtle p-3">
-          <p className="text-xs font-semibold text-content-primary">
-            Event planning guidance
-          </p>
-
-          <p className="mt-1 text-xs text-content-muted">
-            Prefer days with lower rain probability and moderate temperatures
-            for outdoor events.
-          </p>
         </div>
       </div>
     </CardShell>

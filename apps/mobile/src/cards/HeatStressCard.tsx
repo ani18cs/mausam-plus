@@ -4,7 +4,7 @@ import { CardShell } from '@mausam/design-system';
 import { useAppStore } from '../store/useAppStore';
 import { useTranslation } from '../utils/i18n';
 import { formatTemp, formatWind } from '../utils/units';
-import { Flame, Droplets, Sun, Wind, HeartPulse } from 'lucide-react';
+import { Flame, Droplets, Sun, Navigation } from 'lucide-react';
 
 export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
   const { t } = useTranslation();
@@ -13,7 +13,7 @@ export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }
   const heatStress = forecast.extras.heat_stress_index || {
     score: 72,
     band: 'orange',
-    label: 'High Risk / Severe Strain',
+    label: 'Moderate Strain',
     summary: 'High humidity restricts sweat evaporation. Hydrate frequently.',
   };
 
@@ -33,97 +33,114 @@ export const HeatStressCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }
   };
 
   const scorePct = Math.min(100, Math.max(0, heatStress.score));
+  const windDirDeg = forecast.current.wind_dir_deg ?? 180;
+
+  // SVG Circular Gauge
+  const radius = 34;
+  const circumference = Math.PI * radius;
+  const strokeDashoffset = circumference - (scorePct / 100) * circumference;
+
+  const severityColor =
+    heatStress.score < 30
+      ? '#10B981'
+      : heatStress.score < 60
+      ? '#F59E0B'
+      : heatStress.score < 85
+      ? '#F97316'
+      : '#EF4444';
 
   return (
     <CardShell
       id="card-heat-stress"
-      title={t('card.heat_stress_title')}
-      subtitle="Biometeorological Strain"
+      title={t('card.heat_stress_title') || 'Heat Stress'}
+      subtitle="Thermal load index"
       icon={<Flame className="h-4 w-4 text-orange-500" />}
       badge={{
         severity: getSeverity(heatStress.band),
         label: heatStress.label?.split('/')[0].trim() || 'Caution',
       }}
       onWhyClick={onOpenWhyModal}
-      whyLabel={t('card.why_button')}
+      whyLabel={t('card.why_button') || 'Why?'}
     >
-      <div className="space-y-3.5">
-        {/* Main Score & Perceived Temperature Row */}
-        <div className="rounded-2xl bg-card-subtle p-3 space-y-2 border border-border-subtle/60">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="text-[10px] uppercase tracking-wider font-bold text-content-muted block">
-                Thermal Stress Score
-              </span>
-              <div className="flex items-baseline gap-1.5 mt-0.5">
-                <span className="font-heading text-3xl font-extrabold text-content-primary tracking-tight">
+      <div className="space-y-2.5">
+        {/* Main High-Signal Row: Gauge + Primary Value + Feels Like */}
+        <div className="rounded-2xl bg-card-subtle p-3 border border-border-subtle/50 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            {/* Circular Progress Arc */}
+            <div className="relative w-16 h-12 flex items-center justify-center flex-shrink-0">
+              <svg className="w-16 h-16 -rotate-90" viewBox="0 0 80 80">
+                <circle
+                  cx="40"
+                  cy="40"
+                  r={radius}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="7"
+                  strokeDasharray={`${circumference} ${circumference}`}
+                  strokeLinecap="round"
+                  className="text-border-strong opacity-30"
+                />
+                <circle
+                  cx="40"
+                  cy="40"
+                  r={radius}
+                  fill="none"
+                  stroke={severityColor}
+                  strokeWidth="7"
+                  strokeDasharray={`${circumference} ${circumference}`}
+                  strokeDashoffset={strokeDashoffset}
+                  strokeLinecap="round"
+                  className="transition-all duration-700 ease-out"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pt-1.5">
+                <span className="font-heading text-lg font-extrabold text-content-primary leading-none">
                   {heatStress.score}
                 </span>
-                <span className="text-xs font-bold text-content-muted">/ 100 Index</span>
+                <span className="text-[8px] font-bold text-content-muted">/100</span>
               </div>
             </div>
 
-            <div className="text-right">
-              <span className="text-[10px] uppercase tracking-wider font-bold text-content-muted block">
-                Feels Like
-              </span>
-              <span className="font-heading text-base font-extrabold text-orange-500">
-                {formatTemp(forecast.current.feels_like_c, temperatureUnit)}
+            <div>
+              <p className="font-heading text-sm font-bold text-content-primary leading-tight">
+                {heatStress.label?.split('/')[0].trim() || 'Moderate Risk'}
+              </p>
+              <span className="text-[10px] font-medium text-content-muted block mt-0.5">
+                Biometeorological Strain
               </span>
             </div>
           </div>
 
-          {/* Thermal Spectrum Bar with Needle */}
-          <div className="space-y-1">
-            <div className="relative h-2.5 w-full rounded-full bg-gradient-to-r from-emerald-500 via-amber-400 via-orange-500 to-rose-600 shadow-inner overflow-visible">
-              <div
-                className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-white border-2 border-slate-900 shadow-md transition-all duration-300"
-                style={{ left: `calc(${scorePct}% - 8px)` }}
-              />
-            </div>
-            <div className="flex justify-between text-[9px] font-bold text-content-muted pt-0.5">
-              <span className="text-emerald-500">Safe (0-30)</span>
-              <span className="text-amber-500">Caution (30-60)</span>
-              <span className="text-orange-500">High Risk (60-85)</span>
-              <span className="text-rose-500">Extreme (85+)</span>
-            </div>
+          <div className="text-right pl-2 border-l border-border-subtle">
+            <span className="text-[9px] uppercase font-bold text-content-muted block">
+              Feels Like
+            </span>
+            <span className="font-heading text-base font-extrabold text-orange-500">
+              {formatTemp(forecast.current.feels_like_c, temperatureUnit)}
+            </span>
           </div>
         </div>
 
-        {/* Environmental Triad Metrics */}
-        <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">
-            <div className="flex items-center justify-center gap-1 text-[10px] text-content-muted uppercase font-bold">
-              <Droplets className="w-3 h-3 text-sky-400" /> Humidity
-            </div>
-            <span className="font-heading text-xs font-bold text-content-primary mt-0.5 block">
+        {/* 3 High-Signal Metrics Strip */}
+        <div className="grid grid-cols-3 gap-1.5 text-center text-[10px] font-medium">
+          <div className="rounded-xl bg-card-subtle py-1.5 px-2 border border-border-subtle/40">
+            <span className="text-content-muted block">Humidity</span>
+            <span className="font-heading text-xs font-bold text-content-primary">
               {forecast.current.humidity_pct}%
             </span>
           </div>
-
-          <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">
-            <div className="flex items-center justify-center gap-1 text-[10px] text-content-muted uppercase font-bold">
-              <Sun className="w-3 h-3 text-amber-400" /> UV Index
-            </div>
-            <span className="font-heading text-xs font-bold text-content-primary mt-0.5 block">
+          <div className="rounded-xl bg-card-subtle py-1.5 px-2 border border-border-subtle/40">
+            <span className="text-content-muted block">UV Index</span>
+            <span className="font-heading text-xs font-bold text-content-primary">
               {forecast.current.uv_index}
             </span>
           </div>
-
-          <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">
-            <div className="flex items-center justify-center gap-1 text-[10px] text-content-muted uppercase font-bold">
-              <Wind className="w-3 h-3 text-teal-400" /> Wind
-            </div>
-            <span className="font-heading text-xs font-bold text-content-primary mt-0.5 block">
+          <div className="rounded-xl bg-card-subtle py-1.5 px-2 border border-border-subtle/40">
+            <span className="text-content-muted block">Wind</span>
+            <span className="font-heading text-xs font-bold text-content-primary">
               {formatWind(forecast.current.wind_kph, windSpeedUnit)}
             </span>
           </div>
-        </div>
-
-        {/* Actionable Health Insight */}
-        <div className="rounded-xl bg-orange-500/10 border border-orange-500/20 p-2.5 text-[11px] font-semibold text-orange-600 dark:text-orange-400 flex items-center gap-2">
-          <HeartPulse className="w-4 h-4 flex-shrink-0" />
-          <span className="leading-snug">{heatStress.summary}</span>
         </div>
       </div>
     </CardShell>

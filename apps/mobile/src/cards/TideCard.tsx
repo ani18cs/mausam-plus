@@ -4,19 +4,40 @@ import { CardShell } from '@mausam/design-system';
 import { useAppStore } from '../store/useAppStore';
 import { useTranslation } from '../utils/i18n';
 import { formatTemp } from '../utils/units';
-import { Waves, ArrowUpRight, ArrowDownRight, Compass } from 'lucide-react';
+import { Waves, ArrowUpRight, ArrowDownRight, Info } from 'lucide-react';
 
 export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
   const { t } = useTranslation();
   const { temperatureUnit } = useAppStore();
 
-  const tide = forecast.extras.tide || {
-    next_high: '03:45 PM (+1.8m)',
-    next_low: '09:20 PM (+0.4m)',
-    wave_height_m: 1.2,
-    water_temp_c: 27.5,
-    surf_quality: 'Fair',
-  };
+  const tide = forecast.extras.tide;
+
+  if (!tide) {
+    return (
+      <CardShell
+        id="card-beach-tide"
+        title={t('card.tide_title')}
+        subtitle="Swell & coastal rhythm"
+        icon={<Waves className="h-4 w-4 text-cyan-500" />}
+        badge={{
+          severity: 'caution',
+          label: t('card.pending_integration'),
+        }}
+        onWhyClick={onOpenWhyModal}
+        whyLabel={t('card.why_button')}
+      >
+        <div className="rounded-2xl bg-card-subtle p-4 border border-border-subtle text-center space-y-2">
+          <Info className="w-6 h-6 text-cyan-500 mx-auto" />
+          <h4 className="font-heading text-xs font-bold text-content-primary">
+            {t('card.pending_integration')}
+          </h4>
+          <p className="text-[11px] text-content-muted leading-relaxed">
+            Active location is inland. Real-time tidal swell telemetry is calibrated for coastal coastal zones (Goa, Mumbai, Chennai, Vizag, Kerala, Odisha).
+          </p>
+        </div>
+      </CardShell>
+    );
+  }
 
   const surfSeverity =
     tide.surf_quality === 'Good' || tide.surf_quality === 'Excellent'
@@ -29,7 +50,7 @@ export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
     <CardShell
       id="card-beach-tide"
       title={t('card.tide_title')}
-      subtitle="Marine conditions & sea swell"
+      subtitle="Swell & coastal rhythm"
       icon={<Waves className="h-4 w-4 text-cyan-500" />}
       badge={{
         severity: surfSeverity,
@@ -38,34 +59,66 @@ export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
       onWhyClick={onOpenWhyModal}
       whyLabel={t('card.why_button')}
     >
-      <div className="space-y-3.5">
-        {/* High / Low Tide Visual Grid */}
-        <div className="grid grid-cols-2 gap-2.5">
-          <div className="rounded-2xl bg-cyan-500/10 border border-cyan-500/25 p-3 flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-cyan-500 text-white shadow-sm flex-shrink-0">
-              <ArrowUpRight className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-[10px] text-cyan-600 dark:text-cyan-400 block uppercase font-bold">
-                Next High Tide
-              </span>
-              <p className="font-heading text-xs font-extrabold text-content-primary">
-                {tide.next_high}
-              </p>
-            </div>
+      <div className="space-y-3">
+        {/* Visual Wave Curve Timeline */}
+        <div className="rounded-2xl bg-card-subtle p-3 border border-border-subtle/70 space-y-2">
+          <div className="flex items-center justify-between text-[10px] font-bold text-content-muted">
+            <span>Tidal Rhythm Timeline</span>
+            <span className="text-cyan-500">Live Swell</span>
           </div>
 
-          <div className="rounded-2xl bg-sky-500/10 border border-sky-500/25 p-3 flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-sky-500 text-white shadow-sm flex-shrink-0">
-              <ArrowDownRight className="w-4 h-4" />
-            </div>
-            <div>
-              <span className="text-[10px] text-sky-600 dark:text-sky-400 block uppercase font-bold">
-                Next Low Tide
-              </span>
-              <p className="font-heading text-xs font-extrabold text-content-primary">
-                {tide.next_low}
-              </p>
+          {/* SVG Sine Wave Graphic */}
+          <div className="relative h-16 w-full flex items-center justify-center overflow-hidden">
+            <svg
+              className="w-full h-full text-cyan-500/30"
+              viewBox="0 0 300 60"
+              fill="none"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 0,30 Q 37.5,5 75,30 T 150,30 T 225,30 T 300,30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeDasharray="4 3"
+              />
+              <path
+                d="M 0,30 Q 37.5,5 75,30 T 150,30 T 225,30 T 300,30 L 300,60 L 0,60 Z"
+                fill="url(#tideGradient)"
+                opacity="0.25"
+              />
+              <defs>
+                <linearGradient id="tideGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#06b6d4" />
+                  <stop offset="100%" stopColor="#06b6d4" stopOpacity="0" />
+                </linearGradient>
+              </defs>
+
+              {/* High Tide Peak Marker */}
+              <circle cx="75" cy="18" r="5" fill="#06b6d4" className="animate-pulse" />
+              {/* Low Tide Trough Marker */}
+              <circle cx="225" cy="42" r="5" fill="#38bdf8" />
+            </svg>
+
+            {/* Overlay Time Labels */}
+            <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
+              <div className="text-left -mt-4">
+                <span className="text-[9px] font-bold text-cyan-600 dark:text-cyan-400 flex items-center gap-0.5">
+                  <ArrowUpRight className="w-2.5 h-2.5 inline" /> High Tide
+                </span>
+                <span className="text-[10px] font-extrabold text-content-primary">
+                  {tide.next_high}
+                </span>
+              </div>
+
+              <div className="text-right mt-4">
+                <span className="text-[9px] font-bold text-sky-600 dark:text-sky-400 flex items-center gap-0.5 justify-end">
+                  <ArrowDownRight className="w-2.5 h-2.5 inline" /> Low Tide
+                </span>
+                <span className="text-[10px] font-extrabold text-content-primary">
+                  {tide.next_low}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -75,7 +128,7 @@ export const TideCard: React.FC<CardProps> = ({ forecast, onOpenWhyModal }) => {
           <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">
             <span className="text-[10px] text-content-muted block uppercase font-bold">Wave Height</span>
             <span className="font-heading text-xs font-bold text-content-primary mt-0.5 block">
-              {tide.wave_height_m} meters
+              {tide.wave_height_m}m Swell
             </span>
           </div>
           <div className="rounded-xl bg-card-subtle p-2 border border-border-subtle/40">

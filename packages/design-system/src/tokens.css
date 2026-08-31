@@ -1,6 +1,6 @@
 /* Mausam+ Design System Core Tokens & CSS Variables */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Sora:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans+Kannada:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap');
 
 :root {
   /* Safe-area mobile insets */
@@ -9,28 +9,28 @@
   --sal: env(safe-area-inset-left, 0px);
   --sar: env(safe-area-inset-right, 0px);
 
-  /* Light Theme Color Tokens */
-  --bg-app: #F8FAFC;
+  /* Light Theme Color Tokens (Clean Neutral Base) */
+  --bg-app: #F8F9FA;
   --bg-card: #FFFFFF;
-  --bg-card-glass: rgba(255, 255, 255, 0.82);
-  --bg-card-subtle: #F1F5F9;
-  --bg-input: #F1F5F9;
+  --bg-card-glass: rgba(255, 255, 255, 0.85);
+  --bg-card-subtle: #F1F2F4;
+  --bg-input: #F1F2F4;
   --bg-tab-bar: rgba(255, 255, 255, 0.92);
 
-  --border-subtle: #E2E8F0;
-  --border-strong: #CBD5E1;
+  --border-subtle: #E4E5E9;
+  --border-strong: #CDCFD6;
   --border-glass: rgba(255, 255, 255, 0.6);
 
-  --text-primary: #0F172A;
-  --text-secondary: #475569;
-  --text-muted: #64748B;
+  --text-primary: #141416;
+  --text-secondary: #4B4B52;
+  --text-muted: #71717A;
   --text-inverse: #FFFFFF;
 
   --accent-primary: #0284C7; /* Sky 600 */
   --accent-primary-hover: #0369A1;
   --accent-primary-subtle: rgba(2, 132, 199, 0.12);
 
-  /* Severity Level Colors */
+  /* Severity Level Colors (WCAG AA Compliant on Light) */
   --severity-safe: #10B981;
   --severity-safe-bg: rgba(16, 185, 129, 0.12);
   --severity-safe-border: rgba(16, 185, 129, 0.28);
@@ -51,62 +51,69 @@
   --severity-severe-border: rgba(239, 68, 68, 0.28);
   --severity-severe-text: #B91C1C;
 
-  /* Shadows */
-  --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-  --shadow-floating: 0 12px 32px -4px rgba(15, 23, 42, 0.12), 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  /* Shadows Light */
+  --shadow-card: 0 4px 20px -2px rgba(20, 20, 22, 0.05), 0 2px 6px -1px rgba(20, 20, 22, 0.03);
+  --shadow-floating: 0 12px 32px -4px rgba(20, 20, 22, 0.12), 0 4px 12px -2px rgba(20, 20, 22, 0.08);
   --shadow-glow-safe: 0 0 20px rgba(16, 185, 129, 0.25);
   --shadow-glow-severe: 0 0 20px rgba(239, 68, 68, 0.25);
 
   /* Fonts */
-  --font-heading: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Sora', 'Noto Sans Kannada', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', 'Noto Sans Kannada', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --transition-colors: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
-.dark {
-  /* Dark Theme Color Tokens */
-  --bg-app: #090D16;
-  --bg-card: #111827;
-  --bg-card-glass: rgba(17, 24, 39, 0.78);
-  --bg-card-subtle: #1E293B;
-  --bg-input: #1E293B;
-  --bg-tab-bar: rgba(17, 24, 39, 0.9);
+html[data-lang="kn"], .lang-kn {
+  --font-heading: 'Noto Sans Kannada', 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Noto Sans Kannada', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
+.dark {
+  /* Dark Theme Color Tokens (Clean Neutral Dark — No Blue/Slate Cast) */
+  --bg-app: #121214;
+  --bg-card: #1E1E22;
+  --bg-card-glass: rgba(30, 30, 34, 0.85);
+  --bg-card-subtle: #26262B;
+  --bg-input: #26262B;
+  --bg-tab-bar: rgba(26, 26, 30, 0.95);
+
+  /* Hairline borders communicate elevation on dark surfaces */
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.16);
   --border-glass: rgba(255, 255, 255, 0.12);
 
-  --text-primary: #F8FAFC;
-  --text-secondary: #CBD5E1;
-  --text-muted: #64748B;
-  --text-inverse: #0F172A;
+  /* Glare-free Off-white text and neutral mid-grays */
+  --text-primary: #F2F2F3;
+  --text-secondary: #C5C5CC;
+  --text-muted: #9B9BA1;
+  --text-inverse: #121214;
 
   --accent-primary: #38BDF8; /* Sky 400 */
   --accent-primary-hover: #7DD3FC;
   --accent-primary-subtle: rgba(56, 189, 248, 0.15);
 
-  /* Severity Level Colors in Dark Mode */
+  /* Severity Level Colors in Dark Mode (~10-15% desaturated, WCAG AA Compliant) */
   --severity-safe: #34D399;
-  --severity-safe-bg: rgba(52, 211, 153, 0.15);
-  --severity-safe-border: rgba(52, 211, 153, 0.35);
-  --severity-safe-text: #6EE7B7;
+  --severity-safe-bg: rgba(52, 211, 153, 0.14);
+  --severity-safe-border: rgba(52, 211, 153, 0.30);
+  --severity-safe-text: #34D399;
 
   --severity-caution: #FBBF24;
-  --severity-caution-bg: rgba(251, 191, 36, 0.15);
-  --severity-caution-border: rgba(251, 191, 36, 0.35);
-  --severity-caution-text: #FDE68A;
+  --severity-caution-bg: rgba(251, 191, 36, 0.14);
+  --severity-caution-border: rgba(251, 191, 36, 0.30);
+  --severity-caution-text: #FBBF24;
 
   --severity-warning: #FB923C;
-  --severity-warning-bg: rgba(251, 146, 60, 0.15);
-  --severity-warning-border: rgba(251, 146, 60, 0.35);
-  --severity-warning-text: #FED7AA;
+  --severity-warning-bg: rgba(251, 146, 60, 0.14);
+  --severity-warning-border: rgba(251, 146, 60, 0.30);
+  --severity-warning-text: #FB923C;
 
   --severity-severe: #F87171;
-  --severity-severe-bg: rgba(248, 113, 113, 0.18);
-  --severity-severe-border: rgba(248, 113, 113, 0.4);
-  --severity-severe-text: #FECACA;
+  --severity-severe-bg: rgba(248, 113, 113, 0.14);
+  --severity-severe-border: rgba(248, 113, 113, 0.30);
+  --severity-severe-text: #F87171;
 
   /* Shadows Dark */
-  --shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.4), 0 2px 8px -1px rgba(0, 0, 0, 0.3);
-  --shadow-floating: 0 16px 36px -4px rgba(0, 0, 0, 0.6), 0 6px 16px -2px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.45), 0 2px 8px -1px rgba(0, 0, 0, 0.35);
+  --shadow-floating: 0 16px 36px -4px rgba(0, 0, 0, 0.65), 0 6px 16px -2px rgba(0, 0, 0, 0.45);
 }

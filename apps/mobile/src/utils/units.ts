@@ -11,12 +11,14 @@ export const convertTemp = (tempC: number, unit: TemperatureUnit): number => {
 };
 
 /**
- * Formats temperature with symbol
+ * Formats temperature with proper Unicode degree sign (U+00B0, "°") immediately followed by unit
+ * e.g. "28°C" or "28°"
  */
 export const formatTemp = (tempC: number, unit: TemperatureUnit, showUnit = true): string => {
   const val = convertTemp(tempC, unit);
   const rounded = Math.round(val);
-  return showUnit ? `${rounded}°${unit === 'fahrenheit' ? 'F' : 'C'}` : `${rounded}°`;
+  const degreeSign = '\u00B0';
+  return showUnit ? `${rounded}${degreeSign}${unit === 'fahrenheit' ? 'F' : 'C'}` : `${rounded}${degreeSign}`;
 };
 
 /**

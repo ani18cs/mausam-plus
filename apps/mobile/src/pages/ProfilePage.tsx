@@ -61,7 +61,7 @@ export const ProfilePage: React.FC = () => {
     setTemperatureUnit,
     windSpeedUnit,
     setWindSpeedUnit,
-    setHasCompletedOnboarding,
+    startOnboardingDemo,
     logout,
   } = useAppStore();
 
@@ -91,7 +91,7 @@ export const ProfilePage: React.FC = () => {
   };
 
   const handleResetOnboarding = () => {
-    setHasCompletedOnboarding(false);
+    startOnboardingDemo();
     navigate('/onboarding');
   };
 
@@ -357,7 +357,7 @@ export const ProfilePage: React.FC = () => {
           onClick={handleResetOnboarding}
           leftIcon={<RotateCcw className="w-4 h-4" />}
         >
-          {t('profile.reset')}
+          Replay Opening Splash &amp; Onboarding Demo
         </Button>
       </div>
 

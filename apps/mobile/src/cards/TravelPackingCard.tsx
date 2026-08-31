@@ -1,51 +1,17 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from 'recharts';
+import { useTranslation } from '../utils/i18n';
+import { Plane, Luggage } from 'lucide-react';
 
 export const TravelPackingCard: React.FC<CardProps> = ({
   forecast,
   onOpenWhyModal,
 }) => {
-  const temperature = forecast.current.temp_c;
+  const { t } = useTranslation();
   const precipitationChance = forecast.hourly[0]?.rain_prob_pct ?? 30;
-  const windSpeed = forecast.current.wind_kph;
 
-  const trendData = forecast.hourly.slice(0, 12).map((h) => ({
-    time: new Date(h.time).toLocaleTimeString('en-IN', {
-      hour: 'numeric',
-    }),
-    temp: h.temp_c,
-    rain: h.rain_prob_pct,
-  }));
-
-  const packingItems: string[] = [];
-
-  if (temperature >= 30) {
-    packingItems.push('Light cotton clothes');
-    packingItems.push('Sunscreen');
-    packingItems.push('Water bottle');
-  } else if (temperature <= 20) {
-    packingItems.push('Light jacket');
-    packingItems.push('Comfortable layers');
-  } else {
-    packingItems.push('Light comfortable clothes');
-  }
-
-  if (precipitationChance >= 40) {
-    packingItems.push('Umbrella / rain jacket');
-  }
-
-  if (windSpeed >= 25) {
-    packingItems.push('Windproof outer layer');
-  }
+  const packingItems: string[] = ['Light cotton', 'Sunscreen', 'Umbrella'];
 
   const flightDelayRisk =
     precipitationChance >= 60
@@ -54,104 +20,55 @@ export const TravelPackingCard: React.FC<CardProps> = ({
         ? 'Moderate'
         : 'Low';
 
+  const severity = flightDelayRisk === 'Low' ? 'safe' : flightDelayRisk === 'Moderate' ? 'caution' : 'warning';
+
   return (
     <CardShell
       id="card-travel-packing"
-      title="Travel Packing & Flight Risk"
+      title={t('card.travel_title') || 'Travel & Packing'}
+      subtitle="Transit risk & essentials"
+      icon={<Plane className="h-4 w-4 text-indigo-500" />}
+      badge={{
+        severity,
+        label: `${flightDelayRisk} Delay Risk`,
+      }}
       onWhyClick={onOpenWhyModal}
-      whyLabel="Why this travel guidance?"
+      whyLabel={t('card.why_button')}
     >
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-wide text-slate-400">
-              TRAVELER
-            </p>
-
-            <h3 className="text-lg font-semibold text-white">
-              Travel & Packing
-            </h3>
-          </div>
-
-          <span className="rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-300">
-            {flightDelayRisk} delay risk
-          </span>
-        </div>
-
-        <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="rounded-xl bg-slate-800 p-3">
-            <p className="text-xs text-slate-400">Temp</p>
-            <p className="font-semibold text-white">
-              {temperature}°C
-            </p>
-          </div>
-
-          <div className="rounded-xl bg-slate-800 p-3">
-            <p className="text-xs text-slate-400">Rain</p>
-            <p className="font-semibold text-white">
-              {precipitationChance}%
-            </p>
-          </div>
-
-          <div className="rounded-xl bg-slate-800 p-3">
-            <p className="text-xs text-slate-400">Wind</p>
-            <p className="font-semibold text-white">
-              {windSpeed} km/h
-            </p>
-          </div>
-        </div>
-
-        <div className="h-32 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={trendData}>
-              <XAxis
-                dataKey="time"
-                tick={{ fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                tick={{ fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-                width={25}
-              />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="temp"
-                strokeWidth={2}
-                dot={{ r: 3 }}
-              />
-              <Line
-                type="monotone"
-                dataKey="rain"
-                strokeWidth={2}
-                dot={{ r: 3 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
-        <div>
-          <p className="mb-2 text-sm font-medium text-white">
-            Recommended packing
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {packingItems.map((item) => (
-              <span
-                key={item}
-                className="rounded-lg bg-slate-800 px-3 py-2 text-sm text-slate-200"
-              >
-                {item}
+      <div className="space-y-2.5">
+        {/* Main Travel Risk Banner */}
+        <div className="rounded-2xl bg-indigo-500/10 border border-indigo-500/25 p-3 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-500 text-white shadow-sm flex-shrink-0">
+              <Luggage className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="font-heading text-sm font-extrabold text-content-primary">
+                {flightDelayRisk} Flight Delay Risk
+              </p>
+              <span className="text-[10px] font-medium text-indigo-600 dark:text-indigo-400 block">
+                Rain probability: {precipitationChance}%
               </span>
-            ))}
+            </div>
+          </div>
+
+          <div className="text-right">
+            <span className="rounded-lg bg-card px-2 py-1 text-[11px] font-bold text-content-primary border border-border-subtle">
+              {precipitationChance < 40 ? 'On-Time' : 'Weather Delays'}
+            </span>
           </div>
         </div>
 
-        <div className="rounded-xl bg-slate-900 p-3 text-sm text-slate-300">
-          Packing recommendations are based on current weather conditions.
+        {/* Packing Item Chips */}
+        <div className="flex flex-wrap gap-1.5">
+          {packingItems.map((item) => (
+            <span
+              key={item}
+              className="rounded-xl bg-card-subtle px-2.5 py-1 text-[10px] font-semibold text-content-secondary border border-border-subtle/50"
+            >
+              ✓ {item}
+            </span>
+          ))}
         </div>
       </div>
     </CardShell>

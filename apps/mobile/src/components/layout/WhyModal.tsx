@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppStore } from '../../store/useAppStore';
 import { Sheet } from '@mausam/design-system';
-import { CheckCircle, AlertCircle, ShieldAlert, Cpu, Sparkles } from 'lucide-react';
+import { CheckCircle, Sparkles } from 'lucide-react';
 
 export const WhyModal: React.FC = () => {
   const { activeWhyModalCardId, setWhyModalCardId, forecast } = useAppStore();
@@ -12,7 +12,7 @@ export const WhyModal: React.FC = () => {
         return {
           title: 'Why is Heat-Stress Score at 72 (Orange)?',
           subtitle: 'Biometeorological Apparent Load Algorithm',
-          summary: 'High humidity is severely inhibiting skin perspiration cooling despite moderate 31°C air temperature.',
+          summary: 'High humidity is severely inhibiting skin perspiration cooling despite moderate air temperature.',
           confidence: 96,
           steps: [
             {
@@ -103,6 +103,30 @@ export const WhyModal: React.FC = () => {
             },
           ],
           recommendation: 'Avoid swimming near rock groynes during approaching high tide.',
+        };
+      case 'card-commute-radar':
+        return {
+          title: 'Why Evening Commute Delay (+20 min)?',
+          subtitle: 'Doppler Radar & Transit Velocity Model',
+          summary: 'Convective rain band moving eastward across main arterial highways between 5:00 PM and 7:30 PM.',
+          confidence: 91,
+          steps: [
+            {
+              factor: 'Convective Rain Probability',
+              observed: `${forecast?.hourly?.[17]?.rain_prob_pct ?? 65}%`,
+              threshold: '> 50%',
+              note: 'High likelihood of heavy localized showers on ring road.',
+              impact: 'high',
+            },
+            {
+              factor: 'Citizen Reported Waterlogging',
+              observed: '2 verified spots',
+              threshold: '> 0 spots',
+              note: 'Underpasses experiencing 1.5ft water depth.',
+              impact: 'high',
+            },
+          ],
+          recommendation: 'Depart before 5:00 PM or take metro / elevated corridors to avoid bottleneck delays.',
         };
       case 'card-agri-soil':
         return {

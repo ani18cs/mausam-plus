@@ -20,6 +20,7 @@ export interface CurrentWeather {
   feels_like_c: number;
   humidity_pct: number;
   wind_kph: number;
+  wind_dir_deg?: number;
   uv_index: number;
   aqi: number;
   condition: string;
@@ -269,6 +270,28 @@ export interface AIQueryRequest {
   forecastContext?: Partial<NormalizedForecast>;
 }
 
+export interface AIAuditChunk {
+  id: string;
+  title: string;
+  source: string;
+  snippet: string;
+  score?: number;
+}
+
+export interface AIAuditToolExecution {
+  toolName: string;
+  params: Record<string, any>;
+  resultSummary: string;
+}
+
+export interface AIAuditTrail {
+  query: string;
+  language: SupportedLanguage;
+  structuredToolsExecuted: AIAuditToolExecution[];
+  retrievedChunks: AIAuditChunk[];
+  generatedAt: string;
+}
+
 export interface AIQueryResponse {
   answer: string;
   confidence: number;
@@ -280,13 +303,14 @@ export interface AIQueryResponse {
   suggestedFollowUps: string[];
   suggestedCardId?: string;
   generatedAt: string;
+  auditTrail?: AIAuditTrail;
 }
 
 // ==========================================
 // 8. User Settings, Profile & Personalization
 // ==========================================
 
-export type SupportedLanguage = 'en' | 'hi' | 'ta' | 'bn' | 'mr' | 'kn';
+export type SupportedLanguage = 'en' | 'hi' | 'kn';
 export type TemperatureUnit = 'celsius' | 'fahrenheit';
 export type WindSpeedUnit = 'kph' | 'mph' | 'mps' | 'knots';
 
@@ -363,4 +387,5 @@ export interface NewsArticle {
 // 10. IMD Mausam Meteorological Contracts
 // ==========================================
 export * from './imd';
+export * from './i18n';
 

@@ -19,16 +19,6 @@ export interface CardRegistryEntry {
   description: string;
 }
 
-/**
- * =========================================================================
- * HOW TEAMMATES ADD A NEW CARD:
- * 1. Build your Card component in `apps/mobile/src/cards/MyNewCard.tsx`
- *    using the `<CardShell>` wrapper from `@mausam/design-system`.
- * 2. Register it below in `CARD_REGISTRY`.
- * 3. Assign relevant personas in `relevantPersonas`.
- * 4. See docs/CARDS.md for detailed props & ranking documentation.
- * =========================================================================
- */
 export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
   'card-heat-stress': {
     id: 'card-heat-stress',
@@ -127,45 +117,60 @@ export const CARD_REGISTRY: Record<string, CardRegistryEntry> = {
 };
 
 /**
- * Computes ranked list of card IDs based on user's active personas and optional custom order
+ * Computes ranked list of card IDs strictly matching user's selected personas (+ pinned cards)
  */
+export function getOptedInCardIds(
+  selectedPersonas: PersonaId[],
+  customOrder?: string[],
+  pinnedCardIds: string[] = []
+): string[] {
+  const matchingCards = Object.values(CARD_REGISTRY).filter((card) => {
+    const isPersonaMatch = card.relevantPersonas.some((p) => selectedPersonas.includes(p));
+    const isPinned = pinnedCardIds.includes(card.id);
+    return isPersonaMatch || isPinned;
+  });
+
+  const matchingIds = matchingCards.map((c) => c.id);
+
+  if (customOrder && customOrder.length > 0) {
+    const validCustom = customOrder.filter((id) => matchingIds.includes(id));
+    const remaining = matchingIds.filter((id) => !validCustom.includes(id));
+    return [...validCustom, ...remaining];
+  }
+
+  matchingCards.sort((a, b) => {
+    const matchA =
+      a.relevantPersonas.filter((p) => selectedPersonas.includes(p)).length +
+      (pinnedCardIds.includes(a.id) ? 5 : 0);
+    const matchB =
+      b.relevantPersonas.filter((p) => selectedPersonas.includes(p)).length +
+      (pinnedCardIds.includes(b.id) ? 5 : 0);
+    return matchB - matchA;
+  });
+
+  return matchingCards.map((c) => c.id);
+}
+
+/**
+ * Returns cards for personas that the user did NOT select (for collapsible "More categories" section)
+ */
+export function getUnselectedCardIds(
+  selectedPersonas: PersonaId[],
+  pinnedCardIds: string[] = []
+): string[] {
+  const unselectedCards = Object.values(CARD_REGISTRY).filter((card) => {
+    const isPersonaMatch = card.relevantPersonas.some((p) => selectedPersonas.includes(p));
+    const isPinned = pinnedCardIds.includes(card.id);
+    return !isPersonaMatch && !isPinned;
+  });
+
+  return unselectedCards.map((c) => c.id);
+}
+
 export function getRankedCardIds(
   selectedPersonas: PersonaId[],
   customOrder?: string[],
   hiddenCardIds: string[] = []
 ): string[] {
-  // If user has a saved custom order, honor it first, then append any missing registered cards
-  if (customOrder && customOrder.length > 0) {
-    const validCustom = customOrder.filter(
-      (id) => CARD_REGISTRY[id] && !hiddenCardIds.includes(id)
-    );
-
-    const remaining = Object.keys(CARD_REGISTRY).filter(
-      (id) => !validCustom.includes(id) && !hiddenCardIds.includes(id)
-    );
-
-    return [...validCustom, ...remaining];
-  }
-
-  // Otherwise calculate dynamic score based on persona relevance
-  const scored = Object.values(CARD_REGISTRY)
-    .filter((entry) => !hiddenCardIds.includes(entry.id))
-    .map((entry) => {
-      let score = entry.defaultRank;
-
-      const matches = entry.relevantPersonas.filter((p) =>
-        selectedPersonas.includes(p)
-      ).length;
-
-      if (matches > 0) {
-        // Boost priority if card directly matches selected personas
-        score -= matches * 10;
-      }
-
-      return { id: entry.id, score };
-    });
-
-  scored.sort((a, b) => a.score - b.score);
-
-  return scored.map((item) => item.id);
+  return getOptedInCardIds(selectedPersonas, customOrder, []);
 }

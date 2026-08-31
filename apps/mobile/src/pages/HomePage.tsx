@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
-import { CARD_REGISTRY, getRankedCardIds } from '../cards/CardRegistry';
-import { WeatherConditionIcon } from '@mausam/design-system';
+import { CARD_REGISTRY, getOptedInCardIds, getUnselectedCardIds } from '../cards/CardRegistry';
+import { LottieWeatherGraphic } from '../components/weather/LottieWeatherGraphic';
 import { useTranslation } from '../utils/i18n';
 import { formatTemp, formatWind } from '../utils/units';
 import {
-  AlertTriangle,
   ArrowUp,
   ArrowDown,
   GripVertical,
-  Layers,
-  ChevronRight,
+  ChevronDown,
+  ChevronUp,
   RefreshCw,
   Clock,
   TrendingUp,
@@ -18,20 +17,32 @@ import {
   HeartPulse,
   Sparkles,
   Droplets,
-  Wind,
+  Navigation,
   Sun,
   ShieldAlert,
+  Plus,
+  Check,
+  ChevronRight,
 } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+} from 'recharts';
 
 export const HomePage: React.FC = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const {
     forecast,
     selectedPersonas,
     cardOrder,
+    pinnedCardIds,
+    pinCardToHome,
     reorderCards,
     fetchForecast,
     isLoadingForecast,
@@ -43,7 +54,7 @@ export const HomePage: React.FC = () => {
   } = useAppStore();
 
   const [isReorderMode, setIsReorderMode] = useState(false);
-  const [showExploreModal, setShowExploreModal] = useState(false);
+  const [showMoreCategories, setShowMoreCategories] = useState(false);
   const [activeAlertCount, setActiveAlertCount] = useState<number>(0);
 
   useEffect(() => {
@@ -52,7 +63,6 @@ export const HomePage: React.FC = () => {
     }
   }, [activeLocation]);
 
-  // Fetch active alert count for the contextual banner
   useEffect(() => {
     const fetchAlertCount = async () => {
       try {
@@ -66,13 +76,14 @@ export const HomePage: React.FC = () => {
           }
         }
       } catch {
-        // Silently fail — banner just won't show
+        // Silently fail
       }
     };
     fetchAlertCount();
   }, []);
 
-  const activeCardIds = getRankedCardIds(selectedPersonas, cardOrder);
+  const optedInCardIds = getOptedInCardIds(selectedPersonas, cardOrder, pinnedCardIds);
+  const unselectedCardIds = getUnselectedCardIds(selectedPersonas, pinnedCardIds);
 
   const handleMoveUp = (index: number) => {
     if (index > 0) {
@@ -81,7 +92,7 @@ export const HomePage: React.FC = () => {
   };
 
   const handleMoveDown = (index: number) => {
-    if (index < activeCardIds.length - 1) {
+    if (index < optedInCardIds.length - 1) {
       reorderCards(index, index + 1);
     }
   };
@@ -89,387 +100,420 @@ export const HomePage: React.FC = () => {
   const rawTemp = forecast?.current.temp_c ?? 28;
   const rawFeels = forecast?.current.feels_like_c ?? 31;
   const rawWind = forecast?.current.wind_kph ?? 14;
+  const windDirDeg = forecast?.current.wind_dir_deg ?? 180;
   const condition = forecast?.current.condition ?? 'Partly Cloudy';
   const diff = forecast?.extras?.forecast_diff;
   const isDay = forecast?.current.is_day ?? true;
 
-  // Next 8 hours of forecast
-  const nextHours = forecast?.hourly?.slice(0, 8) || [];
+  // Next 12 hours for smooth animated curve chart
+  const nextHours = forecast?.hourly?.slice(0, 12) || [];
+  const chartData = nextHours.map((h, i) => ({
+    time: i === 0 ? 'Now' : h.time.split('T')[1]?.slice(0, 5) || h.time,
+    temp: Math.round(h.temp_c),
+    rain: h.rain_prob_pct || 0,
+  }));
 
-  // Determine Allergy & Health AI Alerts based on current conditions & user sensitivities
+  // Health alerts
   const aqiVal = forecast?.current.aqi ?? 128;
-  const uvVal = forecast?.current.uv_index ?? 7;
   const heatStressScore = forecast?.extras?.heat_stress_index?.score ?? 72;
-  const humidityVal = forecast?.current.humidity_pct ?? 58;
 
-  const healthAlerts: Array<{
-    type: string;
-    title: string;
-    desc: string;
-    icon: string;
-    severity: string;
-  }> = [];
+  const healthAlerts: Array<{ type: string; title: string; desc: string; icon: string }> = [];
   if (allergies.includes('pollen')) {
     healthAlerts.push({
       type: 'pollen',
-      title: t('allergy.pollen_high'),
-      desc: t('allergy.pollen_desc'),
+      title: t('allergy.pollen_high') || 'High Pollen Count',
+      desc: t('allergy.pollen_desc') || 'Grass & weed counts elevated.',
       icon: '🌸',
-      severity: 'warning',
     });
   }
   if (allergies.includes('dust_aqi') && aqiVal > 100) {
     healthAlerts.push({
       type: 'dust_aqi',
-      title: t('allergy.dust_aqi'),
-      desc: t('allergy.dust_desc'),
+      title: t('allergy.dust_aqi') || 'PM2.5 Dust Warning',
+      desc: t('allergy.dust_desc') || 'Particulate matter exceeds safe thresholds.',
       icon: '💨',
-      severity: 'caution',
     });
   }
   if (allergies.includes('asthma') && aqiVal > 120) {
     healthAlerts.push({
       type: 'asthma',
-      title: t('allergy.asthma'),
-      desc: t('allergy.asthma_desc'),
+      title: t('allergy.asthma') || 'Asthma Sensitivity Alert',
+      desc: t('allergy.asthma_desc') || 'Airway strain elevated. Carry inhaler.',
       icon: '🫁',
-      severity: 'severe',
     });
   }
   if (allergies.includes('heat_sensitive') && heatStressScore > 65) {
     healthAlerts.push({
       type: 'heat',
-      title: t('allergy.heat'),
-      desc: t('allergy.heat_desc'),
+      title: t('allergy.heat') || 'Extreme Heat Caution',
+      desc: t('allergy.heat_desc') || 'High wet-bulb temp. Avoid midday sun.',
       icon: '☀️',
-      severity: 'warning',
-    });
-  }
-  if (allergies.includes('migraine')) {
-    healthAlerts.push({
-      type: 'migraine',
-      title: t('allergy.migraine'),
-      desc: t('allergy.migraine_desc'),
-      icon: '⚡',
-      severity: 'caution',
-    });
-  }
-  if (allergies.includes('cold_joint_pain') && rawTemp < 20) {
-    healthAlerts.push({
-      type: 'cold_joint',
-      title: t('allergy.cold_joint'),
-      desc: t('allergy.cold_joint_desc'),
-      icon: '❄️',
-      severity: 'caution',
-    });
-  }
-  if (allergies.includes('eye_irritation') && (aqiVal > 150 || uvVal > 8)) {
-    healthAlerts.push({
-      type: 'eye',
-      title: t('allergy.eye'),
-      desc: t('allergy.eye_desc'),
-      icon: '👁️',
-      severity: 'caution',
-    });
-  }
-  if (allergies.includes('elder_infant_care') && (heatStressScore > 70 || rawTemp < 15)) {
-    healthAlerts.push({
-      type: 'elder_care',
-      title: t('allergy.elder_care'),
-      desc: t('allergy.elder_care_desc'),
-      icon: '👶',
-      severity: 'warning',
     });
   }
 
   return (
-    <div className="space-y-4 p-4 max-w-lg mx-auto pb-24">
-      {/* 1. Contextual Active Warnings Banner (non-intrusive, links to /alerts) */}
-      {activeAlertCount > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25 }}
-        >
-          <Link
-            to="/alerts"
-            className="flex items-center gap-2.5 rounded-2xl border border-amber-500/25 bg-amber-500/8 px-3.5 py-2.5 group hover:border-amber-500/40 transition-colors"
-          >
-            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-amber-500/20 text-amber-500 flex-shrink-0">
-              <ShieldAlert className="w-3.5 h-3.5" />
-            </div>
-            <span className="text-[11px] font-semibold text-content-secondary flex-1">
-              <strong className="text-amber-600 dark:text-amber-400">{activeAlertCount} active alerts</strong> for {activeLocation.name}
-            </span>
-            <ChevronRight className="w-3.5 h-3.5 text-amber-500/60 group-hover:text-amber-500 group-hover:translate-x-0.5 transition-all" />
-          </Link>
-        </motion.div>
-      )}
-
-      {/* 2. Clean Ambient Hero */}
-      <div className="relative overflow-hidden rounded-3xl border border-border-subtle bg-card/90 p-5 shadow-card backdrop-blur-md dark:bg-card/75">
-        <div className="flex items-start justify-between">
-          <div>
+    <div className="space-y-6 max-w-md mx-auto pb-28">
+      {/* ═══════════════════════════════════════════════════════════════════
+          1. FULL-VIEWPORT HERO TILE (Google Weather Style "Wow" Moment)
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="min-h-[calc(100vh-140px)] flex flex-col justify-between p-4 sm:p-5 rounded-b-3xl bg-gradient-to-b from-card via-card to-card-subtle/80 border-b border-border-subtle shadow-card relative overflow-hidden">
+        {/* Top: Location & Severe Alert Badge */}
+        <div className="space-y-2 pt-1">
+          <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-content-muted">
+              <h1 className="font-heading text-sm sm:text-base font-extrabold text-content-primary truncate max-w-[220px]">
                 {activeLocation.name}
-              </span>
+              </h1>
               <button
                 type="button"
                 onClick={() => fetchForecast(activeLocation.lat, activeLocation.lon, activeLocation.name)}
                 disabled={isLoadingForecast}
-                className="text-content-muted hover:text-accent-primary transition-colors"
+                className="text-content-muted hover:text-accent-primary transition-colors p-1"
                 title="Refresh weather"
               >
-                <RefreshCw className={`w-3 h-3 ${isLoadingForecast ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-3.5 h-3.5 ${isLoadingForecast ? 'animate-spin' : ''}`} />
               </button>
             </div>
 
-            <div className="flex items-baseline gap-2 mt-1">
-              <span className="font-heading text-6xl font-extrabold text-content-primary tracking-tighter">
-                {formatTemp(rawTemp, temperatureUnit, false)}°
-              </span>
-              <div className="text-xs text-content-secondary font-medium">
-                <p className="font-bold text-content-primary text-sm">{condition}</p>
-                <p>{t('hero.feels_like')} {formatTemp(rawFeels, temperatureUnit)}</p>
-              </div>
-            </div>
-
-            {/* Key Telemetry Quick Row */}
-            <div className="flex items-center gap-3 text-[11px] text-content-muted mt-2 font-medium">
-              <span className="flex items-center gap-1">
-                <Droplets className="w-3 h-3 text-sky-400" />
-                {forecast?.current.humidity_pct ?? 57}%
-              </span>
-              <span className="flex items-center gap-1">
-                <Wind className="w-3 h-3 text-teal-400" />
-                {formatWind(rawWind, windSpeedUnit)}
-              </span>
-              <span className="flex items-center gap-1">
-                <Sun className="w-3 h-3 text-amber-400" />
-                UV {uvVal}
-              </span>
-            </div>
+            {/* Severity Alert Pill if Active */}
+            {activeAlertCount > 0 && (
+              <Link
+                to="/alerts"
+                className="flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 px-2.5 py-1 text-[10px] font-bold text-amber-600 dark:text-amber-400 animate-pulse hover:bg-amber-500/25 transition-colors"
+              >
+                <ShieldAlert className="w-3.5 h-3.5" />
+                <span>{activeAlertCount} Warnings</span>
+              </Link>
+            )}
           </div>
 
-          <div className="flex flex-col items-center">
-            <WeatherConditionIcon condition={condition} isDay={isDay} className="w-16 h-16" />
-          </div>
-        </div>
-
-        {/* Hourly Forecast Timeline Strip with Weather Icons */}
-        {nextHours.length > 0 && (
-          <div className="mt-4 pt-3.5 border-t border-border-subtle/70">
-            <div className="flex items-center justify-between text-[11px] font-semibold text-content-muted mb-2.5">
-              <span className="flex items-center gap-1">
-                <Clock className="w-3 h-3 text-accent-primary" /> {t('hero.hourly_outlook')}
-              </span>
-              <span>8h Outlook</span>
-            </div>
-
-            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-              {nextHours.map((h, idx) => {
-                const hourLabel = idx === 0 ? 'Now' : h.time.split('T')[1]?.slice(0, 5) || h.time;
-                const hourCondition = h.condition || condition;
-                return (
-                  <div
-                    key={idx}
-                    className="flex flex-col items-center justify-between min-w-[56px] rounded-xl bg-card-subtle py-2 px-1 text-center"
-                  >
-                    <span className="text-[10px] font-medium text-content-muted">{hourLabel}</span>
-                    <WeatherConditionIcon
-                      condition={hourCondition}
-                      isDay={idx >= 1 && idx <= 5}
-                      className="w-5 h-5 my-1"
-                    />
-                    <span className="font-heading text-xs font-bold text-content-primary">
-                      {formatTemp(h.temp_c, temperatureUnit, false)}°
-                    </span>
-                    <span className="text-[9px] font-semibold text-sky-500">
-                      {h.rain_prob_pct > 0 ? `${h.rain_prob_pct}%` : '—'}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* "What Changed?" Integrated Insight Pill */}
-        {diff && (
-          <div className="mt-3 flex items-center justify-between rounded-xl bg-accent-primary-subtle px-3 py-2 text-xs">
-            <div className="flex items-center gap-1.5 min-w-0">
+          {/* "What Changed?" 1-Line Insight */}
+          {diff && (
+            <div className="flex items-center gap-1.5 text-xs text-content-secondary">
               {diff.trend === 'warmer' ? (
                 <TrendingUp className="w-3.5 h-3.5 text-orange-500 flex-shrink-0" />
               ) : (
                 <TrendingDown className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" />
               )}
-              <span className="truncate text-[11px] text-content-secondary">
-                <strong className="text-content-primary font-semibold">{t('hero.vs_yesterday')}:</strong> {diff.summary}
+              <span className="truncate text-[11px]">
+                <strong className="text-content-primary font-semibold">{t('hero.vs_yesterday') || 'vs Yesterday'}:</strong> {diff.summary}
               </span>
             </div>
-            <span className="text-[10px] font-bold text-accent-primary flex-shrink-0 pl-2">
-              {diff.temp_diff_c > 0 ? `+${diff.temp_diff_c}` : diff.temp_diff_c}°
-            </span>
-          </div>
-        )}
-      </div>
-
-      {/* 3. Intelligent AI Health & Allergy Advisory Module */}
-      {healthAlerts.length > 0 && (
-        <div className="rounded-3xl border border-rose-500/25 bg-rose-500/10 dark:bg-rose-950/30 p-4 space-y-2.5 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-rose-500/20 text-rose-600 dark:text-rose-400">
-                <HeartPulse className="w-4 h-4" />
-              </div>
-              <h3 className="font-heading text-xs font-bold text-content-primary">
-                {t('allergy.title')}
-              </h3>
-            </div>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center gap-1">
-              <Sparkles className="w-3 h-3" /> AI Active
-            </span>
-          </div>
-
-          <div className="space-y-2">
-            {healthAlerts.slice(0, 3).map((alert, i) => (
-              <div
-                key={i}
-                className="rounded-2xl bg-card/90 p-3 border border-border-subtle flex items-start gap-2.5"
-              >
-                <span className="text-xl flex-shrink-0 mt-0.5">{alert.icon}</span>
-                <div className="min-w-0 flex-1">
-                  <h4 className="font-heading text-xs font-bold text-content-primary">
-                    {alert.title}
-                  </h4>
-                  <p className="text-[11px] text-content-secondary leading-snug mt-0.5">
-                    {alert.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          )}
         </div>
-      )}
 
-      {/* 4. Section Header & Reorder Mode */}
-      <div className="flex items-center justify-between px-1 pt-1">
-        <div className="flex items-center gap-2">
-          <h2 className="font-heading text-xs font-bold uppercase tracking-wider text-content-primary">
-            {t('feed.title')}
-          </h2>
-          <div className="flex gap-1">
-            {selectedPersonas.map((p) => (
-              <span
-                key={p}
-                className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent-primary-subtle text-accent-primary"
-              >
-                {p}
-              </span>
-            ))}
+        {/* Center: Animated Weather Graphic + Hero Temperature Scale */}
+        <div className="my-auto flex flex-col items-center justify-center text-center py-4">
+          <LottieWeatherGraphic
+            condition={condition}
+            isDay={isDay}
+            size="hero"
+            className="mb-2"
+          />
+
+          {/* Hero Numeral with exact Unicode degree symbol */}
+          <div className="flex items-start justify-center">
+            <span className="font-heading text-7xl sm:text-8xl font-black text-content-primary tracking-tighter leading-none">
+              {formatTemp(rawTemp, temperatureUnit, false)}
+            </span>
+            <span className="font-heading text-4xl sm:text-5xl font-bold text-accent-primary ml-1 -mt-1">
+              °{temperatureUnit === 'fahrenheit' ? 'F' : 'C'}
+            </span>
+          </div>
+
+          <div className="mt-2 space-y-0.5">
+            <p className="font-heading text-lg font-extrabold text-content-primary tracking-tight">
+              {condition}
+            </p>
+            <p className="text-xs font-medium text-content-muted">
+              {t('hero.feels_like') || 'Feels like'} {formatTemp(rawFeels, temperatureUnit)}
+            </p>
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={() => setIsReorderMode(!isReorderMode)}
-          className={`flex min-h-[32px] items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-semibold transition-colors ${
-            isReorderMode
-              ? 'bg-accent-primary text-white shadow-sm'
-              : 'text-content-muted hover:bg-card-subtle hover:text-content-primary'
-          }`}
-        >
-          <GripVertical className="w-3.5 h-3.5" />
-          <span>{isReorderMode ? t('feed.done') : t('feed.reorder')}</span>
-        </button>
-      </div>
+        {/* Bottom: 3 Core Environmental Quick-Pills & Scroll Cue */}
+        <div className="space-y-3 pt-2">
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="rounded-2xl bg-card-subtle p-2.5 border border-border-subtle/50 flex flex-col items-center">
+              <span className="text-[10px] uppercase font-bold text-content-muted flex items-center gap-1">
+                <Droplets className="w-3 h-3 text-sky-400" /> Humidity
+              </span>
+              <span className="font-heading text-sm font-extrabold text-content-primary mt-0.5">
+                {forecast?.current.humidity_pct ?? 57}%
+              </span>
+            </div>
 
-      {/* 5. Ranked Persona Cards Feed */}
-      <div className="space-y-3.5">
-        {forecast && (
-          <AnimatePresence>
-            {activeCardIds.map((cardId, index) => {
-              const cardDef = CARD_REGISTRY[cardId];
-              if (!cardDef) return null;
-              const CardComp = cardDef.component;
+            <div className="rounded-2xl bg-card-subtle p-2.5 border border-border-subtle/50 flex flex-col items-center">
+              <span className="text-[10px] uppercase font-bold text-content-muted flex items-center gap-1">
+                <Navigation
+                  className="w-3 h-3 text-teal-400 transition-transform duration-500"
+                  style={{ transform: `rotate(${windDirDeg}deg)` }}
+                /> Wind
+              </span>
+              <span className="font-heading text-sm font-extrabold text-content-primary mt-0.5">
+                {formatWind(rawWind, windSpeedUnit)}
+              </span>
+            </div>
 
-              return (
-                <motion.div
-                  key={cardId}
-                  layout
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.18 }}
-                  className="relative"
-                >
-                  {isReorderMode && (
-                    <div className="absolute right-3 top-3 z-10 flex items-center gap-1 bg-card/95 backdrop-blur-md rounded-xl p-1 shadow-md border border-border-strong">
-                      <button
-                        type="button"
-                        onClick={() => handleMoveUp(index)}
-                        disabled={index === 0}
-                        className="flex h-7 w-7 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
-                        aria-label="Move card up"
-                      >
-                        <ArrowUp className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleMoveDown(index)}
-                        disabled={index === activeCardIds.length - 1}
-                        className="flex h-7 w-7 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
-                        aria-label="Move card down"
-                      >
-                        <ArrowDown className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  )}
+            <div className="rounded-2xl bg-card-subtle p-2.5 border border-border-subtle/50 flex flex-col items-center">
+              <span className="text-[10px] uppercase font-bold text-content-muted flex items-center gap-1">
+                <Sun className="w-3 h-3 text-amber-400" /> UV Index
+              </span>
+              <span className="font-heading text-sm font-extrabold text-content-primary mt-0.5">
+                {forecast?.current.uv_index ?? 7}
+              </span>
+            </div>
+          </div>
 
-                  <CardComp
-                    forecast={forecast}
-                    onOpenWhyModal={(id) => setWhyModalCardId(id)}
+          {/* Animated Scroll Down Indicator Cue */}
+          <div className="flex flex-col items-center justify-center text-center text-[10px] font-bold text-content-muted animate-bounce pt-1">
+            <span>Scroll for Persona Feed</span>
+            <ChevronDown className="w-3.5 h-3.5 text-accent-primary" />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          2. BELOW THE FOLD: HOURLY AREA CHART & EXTENDED OUTLOOK
+      ═══════════════════════════════════════════════════════════════════ */}
+      <div className="px-3.5 sm:px-4 space-y-5">
+        {/* Hourly Smooth Animated Area Chart */}
+        {chartData.length > 0 && (
+          <div className="rounded-3xl border border-border-subtle bg-card p-4 space-y-3 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5 text-xs font-bold text-content-primary">
+                <Clock className="w-4 h-4 text-accent-primary" />
+                <span>{t('hero.hourly_outlook') || '12-Hour Telemetry Curve'}</span>
+              </div>
+              <span className="text-[10px] font-bold text-accent-primary">
+                Temp (°C) &amp; Rain (%)
+              </span>
+            </div>
+
+            <div className="h-36 w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
+                  <defs>
+                    <linearGradient id="tempGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.4} />
+                      <stop offset="95%" stopColor="#38bdf8" stopOpacity={0.0} />
+                    </linearGradient>
+                    <linearGradient id="rainGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#0284c7" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#0284c7" stopOpacity={0.0} />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="time" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                      borderRadius: '12px',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      fontSize: '11px',
+                    }}
                   />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                  <Area
+                    type="monotone"
+                    dataKey="temp"
+                    name="Temp (°C)"
+                    stroke="#38bdf8"
+                    strokeWidth={2.5}
+                    fillOpacity={1}
+                    fill="url(#tempGradient)"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="rain"
+                    name="Rain (%)"
+                    stroke="#0284c7"
+                    strokeWidth={1.5}
+                    strokeDasharray="3 3"
+                    fillOpacity={1}
+                    fill="url(#rainGradient)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
         )}
-      </div>
 
-      {/* 6. Explore Persona Widgets */}
-      <div className="pt-1">
-        <button
-          type="button"
-          onClick={() => setShowExploreModal(!showExploreModal)}
-          className="flex w-full min-h-[40px] items-center justify-center gap-1.5 rounded-2xl border border-border-subtle bg-card/60 p-3 text-xs font-semibold text-content-muted hover:border-accent-primary hover:text-accent-primary transition-colors"
-        >
-          <Layers className="w-3.5 h-3.5" />
-          <span>{showExploreModal ? 'Hide Available Widgets' : `Explore All Widgets (${Object.keys(CARD_REGISTRY).length})`}</span>
-        </button>
+        {/* Health Alert Modules if Triggered */}
+        {healthAlerts.length > 0 && (
+          <div className="rounded-3xl border border-rose-500/25 bg-rose-500/10 p-3.5 space-y-2 shadow-sm">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-rose-500/20 text-rose-600 dark:text-rose-400">
+                  <HeartPulse className="w-3.5 h-3.5" />
+                </div>
+                <h3 className="font-heading text-xs font-bold text-content-primary">
+                  {t('allergy.title') || 'Personal Health Alerts'}
+                </h3>
+              </div>
+              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center gap-1">
+                <Sparkles className="w-2.5 h-2.5" /> AI Guard
+              </span>
+            </div>
 
-        {showExploreModal && (
-          <div className="mt-2.5 space-y-2 rounded-2xl border border-border-subtle bg-card p-3.5 shadow-card animate-fadeIn">
-            <h4 className="font-heading text-xs font-bold text-content-primary">
-              All Available Card Modules
-            </h4>
-            <div className="space-y-1.5 text-xs">
-              {Object.values(CARD_REGISTRY).map((c) => (
+            <div className="space-y-1.5">
+              {healthAlerts.slice(0, 2).map((alert, i) => (
                 <div
-                  key={c.id}
-                  className="flex items-center justify-between rounded-xl bg-card-subtle p-2.5"
+                  key={i}
+                  className="rounded-2xl bg-card p-2.5 border border-border-subtle flex items-start gap-2"
                 >
-                  <div>
-                    <p className="font-bold text-content-primary">{c.title}</p>
-                    <p className="text-[10px] text-content-muted">{c.description}</p>
+                  <span className="text-lg flex-shrink-0">{alert.icon}</span>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-heading text-xs font-bold text-content-primary">
+                      {alert.title}
+                    </h4>
+                    <p className="text-[10px] text-content-secondary leading-snug">
+                      {alert.desc}
+                    </p>
                   </div>
-                  <span className="text-[10px] font-semibold text-accent-primary">
-                    {c.relevantPersonas.join(', ')}
-                  </span>
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            3. OPTED-IN PERSONA CARDS (Tight, high-signal feed of 4-6 cards)
+        ═══════════════════════════════════════════════════════════════════ */}
+        <div className="space-y-3">
+          <div className="flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <h2 className="font-heading text-xs font-bold uppercase tracking-wider text-content-primary">
+                {t('feed.title') || 'Personalized Feed'}
+              </h2>
+              <div className="flex gap-1">
+                {selectedPersonas.map((p) => (
+                  <span
+                    key={p}
+                    className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-accent-primary-subtle text-accent-primary capitalize"
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => setIsReorderMode(!isReorderMode)}
+              className={`flex min-h-[32px] items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-semibold transition-colors ${
+                isReorderMode
+                  ? 'bg-accent-primary text-white shadow-sm'
+                  : 'text-content-muted hover:bg-card-subtle hover:text-content-primary'
+              }`}
+            >
+              <GripVertical className="w-3.5 h-3.5" />
+              <span>{isReorderMode ? t('feed.done') || 'Done' : t('feed.reorder') || 'Reorder'}</span>
+            </button>
+          </div>
+
+          {/* Cards Loop */}
+          <div className="space-y-3">
+            {forecast && (
+              <AnimatePresence>
+                {optedInCardIds.map((cardId, index) => {
+                  const cardDef = CARD_REGISTRY[cardId];
+                  if (!cardDef) return null;
+                  const CardComp = cardDef.component;
+
+                  return (
+                    <motion.div
+                      key={cardId}
+                      layout
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 0.18 }}
+                      className="relative"
+                    >
+                      {isReorderMode && (
+                        <div className="absolute right-3 top-3 z-10 flex items-center gap-1 bg-card/95 backdrop-blur-md rounded-xl p-1 shadow-md border border-border-strong">
+                          <button
+                            type="button"
+                            onClick={() => handleMoveUp(index)}
+                            disabled={index === 0}
+                            className="flex h-7 w-7 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
+                            aria-label="Move card up"
+                          >
+                            <ArrowUp className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleMoveDown(index)}
+                            disabled={index === optedInCardIds.length - 1}
+                            className="flex h-7 w-7 items-center justify-center rounded-lg hover:bg-card-subtle disabled:opacity-30"
+                            aria-label="Move card down"
+                          >
+                            <ArrowDown className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      )}
+
+                      <CardComp
+                        forecast={forecast}
+                        onOpenWhyModal={(id) => setWhyModalCardId(id)}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            )}
+          </div>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════════════════
+            4. "MORE CATEGORIES" COLLAPSED SECTION (Two-Way Personalization)
+        ═══════════════════════════════════════════════════════════════════ */}
+        {unselectedCardIds.length > 0 && (
+          <div className="pt-2">
+            <button
+              type="button"
+              onClick={() => setShowMoreCategories(!showMoreCategories)}
+              className="flex w-full min-h-[44px] items-center justify-between rounded-2xl border border-border-subtle bg-card p-3.5 text-xs font-semibold text-content-secondary hover:text-content-primary hover:border-accent-primary transition-all"
+            >
+              <div className="flex items-center gap-2">
+                <Plus className="w-4 h-4 text-accent-primary" />
+                <span>More Categories ({unselectedCardIds.length} Available)</span>
+              </div>
+              {showMoreCategories ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+            </button>
+
+            {showMoreCategories && (
+              <div className="mt-3 space-y-3 animate-slideDown">
+                <p className="text-[11px] text-content-muted px-1">
+                  Tap &quot;Pin to Home&quot; on any card below to add it to your daily feed.
+                </p>
+                {forecast &&
+                  unselectedCardIds.map((cardId) => {
+                    const cardDef = CARD_REGISTRY[cardId];
+                    if (!cardDef) return null;
+                    const CardComp = cardDef.component;
+
+                    return (
+                      <div key={cardId} className="relative rounded-3xl border border-border-subtle/80 bg-card/60 p-1">
+                        <div className="flex justify-end p-2 pb-0">
+                          <button
+                            type="button"
+                            onClick={() => pinCardToHome(cardId)}
+                            className="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1 rounded-xl bg-accent-primary text-white hover:bg-accent-primary-hover shadow-sm transition-colors"
+                          >
+                            <Plus className="w-3 h-3" />
+                            <span>Pin to Home</span>
+                          </button>
+                        </div>
+                        <CardComp
+                          forecast={forecast}
+                          onOpenWhyModal={(id) => setWhyModalCardId(id)}
+                        />
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
           </div>
         )}
       </div>

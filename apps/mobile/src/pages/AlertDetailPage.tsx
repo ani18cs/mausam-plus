@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Alert } from '@mausam/shared-types';
-import { SeverityBadge } from '@mausam/design-system';
+import { SeverityBadge, StateIllustration } from '@mausam/design-system';
 import { useAppStore } from '../store/useAppStore';
 import {
   ArrowLeft,
@@ -72,68 +72,59 @@ export const AlertDetailPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="p-8 text-center text-xs text-content-muted">
-        Loading explainable alert trace...
+      <div className="p-8">
+        <StateIllustration
+          type="loading"
+          title="Loading Alert Telemetry"
+          description="Fetching real-time biometeorological conditions and radar triggers..."
+        />
       </div>
     );
   }
 
   if (error || !alert) {
     return (
-      <div className="p-4 max-w-lg mx-auto space-y-4 text-xs">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-card-subtle text-content-primary hover:bg-card"
-          aria-label="Back"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-
-        <div className="rounded-2xl border border-border-subtle bg-card p-5 text-center space-y-2">
-          <h2 className="font-heading font-bold text-sm text-content-primary">
-            Alert no longer active
-          </h2>
-
-          <p className="text-content-muted">
-            {error || 'Current weather conditions no longer meet this alert threshold.'}
-          </p>
-        </div>
+      <div className="p-6 max-w-md mx-auto space-y-4 text-xs">
+        <StateIllustration
+          type="alert-ended"
+          title="Alert No Longer Active"
+          description={error || 'Current atmospheric conditions for this station have returned to safe baselines.'}
+          action={
+            <button
+              type="button"
+              onClick={() => navigate('/alerts')}
+              className="px-4 py-2 rounded-xl bg-accent-primary text-white font-bold text-xs"
+            >
+              View Active Warnings
+            </button>
+          }
+        />
       </div>
     );
   }
 
   return (
-    <div className="p-4 max-w-lg mx-auto space-y-4 text-xs">
-      {/* Top Navigation */}
-      <div className="flex items-center justify-between pb-3 border-b border-border-subtle">
-        <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-card-subtle text-content-primary hover:bg-card focus:outline-none"
-          aria-label="Back"
-        >
-          <ArrowLeft className="w-5 h-5" />
-        </button>
-
+    <div className="p-4 max-w-md mx-auto space-y-4 text-xs">
+      {/* Alert Header Sub-bar */}
+      <div className="flex items-center justify-between pb-2 border-b border-border-subtle">
         <span className="font-heading font-bold text-xs uppercase tracking-wider text-orange-600 dark:text-orange-400">
-          Weather Advisory
+          Explainable Advisory Trace
         </span>
-
         <button
           type="button"
           onClick={() => {
             if (navigator.share) {
               navigator.share({
                 title: alert.title,
-                text: alert.headline,
-              });
+                text: `${alert.title} in ${alert.affectedRegion}: ${alert.headline}`,
+                url: window.location.href,
+              }).catch(() => {});
             }
           }}
-          className="flex h-10 w-10 items-center justify-center rounded-xl bg-card-subtle text-content-primary hover:bg-card"
+          className="flex h-8 w-8 items-center justify-center rounded-xl bg-card-subtle text-content-primary hover:bg-card transition-colors"
           aria-label="Share alert"
         >
-          <Share2 className="w-4 h-4" />
+          <Share2 className="w-3.5 h-3.5" />
         </button>
       </div>
 

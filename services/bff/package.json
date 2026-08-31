@@ -14,7 +14,9 @@
     "@mausam/shared-types": "*",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-rate-limit": "^8.7.0",
+    "ioredis": "^6.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

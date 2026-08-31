@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardProps } from '@mausam/shared-types';
 import { CardShell } from '@mausam/design-system';
+import { useTranslation } from '../utils/i18n';
 import { Sprout, Droplets, Snowflake } from 'lucide-react';
 import {
   LineChart,
@@ -22,109 +23,74 @@ const soilTrend = [
 ];
 
 export const AgriSoilCard: React.FC<CardProps> = ({
-  forecast,
   onOpenWhyModal,
 }) => {
+  const { t } = useTranslation();
   const moisture = 38;
-  const frostRisk = 'Low';
-  const sprayingWindow = 'Favorable';
 
   return (
     <CardShell
       id="card-agri-soil"
-      title="Soil Moisture & Sowing Window"
-      subtitle="Topsoil moisture & agricultural guide"
-      icon={<Sprout className="h-5 w-5 text-green-600" />}
+      title={t('card.agri_title') || 'Soil Moisture'}
+      subtitle="Topsoil & sowing window"
+      icon={<Sprout className="h-4 w-4 text-emerald-600" />}
       badge={{
         severity: 'safe',
-        label: `Optimal Soil Moisture (${moisture}%)`,
+        label: `Optimal (${moisture}%)`,
       }}
       onWhyClick={onOpenWhyModal}
-      whyLabel="Why this guidance?"
+      whyLabel={t('card.why_button')}
     >
-      <div className="space-y-3">
-
-        {/* Main moisture value */}
-        <div className="flex items-baseline justify-between">
-          <div>
-            <span className="font-heading text-4xl font-extrabold text-content-primary tracking-tight">
-              {moisture}%
-            </span>
-            <span className="ml-1.5 text-xs font-semibold text-content-muted">
-              Field Capacity
-            </span>
+      <div className="space-y-2.5">
+        {/* Main moisture value banner */}
+        <div className="rounded-2xl bg-emerald-500/10 border border-emerald-500/25 p-3 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-sm flex-shrink-0">
+              <Sprout className="w-4 h-4" />
+            </div>
+            <div>
+              <p className="font-heading text-sm font-extrabold text-content-primary">
+                Favorable Sowing Window
+              </p>
+              <span className="text-[10px] font-medium text-emerald-600 dark:text-emerald-400 block">
+                Field Capacity: {moisture}%
+              </span>
+            </div>
           </div>
 
-          <span className="text-xs font-bold text-emerald-600">
-            Favorable for sowing
-          </span>
+          <div className="text-right">
+            <span className="font-heading text-xl font-extrabold text-emerald-600 dark:text-emerald-400">
+              {moisture}%
+            </span>
+          </div>
         </div>
 
         {/* Soil trend graph */}
-        <div className="h-32 w-full">
+        <div className="h-24 w-full">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={soilTrend}>
-              <XAxis
-                dataKey="day"
-                tick={{ fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-              />
-              <YAxis
-                domain={[20, 50]}
-                tick={{ fontSize: 10 }}
-                axisLine={false}
-                tickLine={false}
-                width={25}
-              />
+            <LineChart data={soilTrend} margin={{ top: 5, right: 5, bottom: 0, left: -25 }}>
+              <XAxis dataKey="day" tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
+              <YAxis domain={[20, 50]} tick={{ fontSize: 9 }} axisLine={false} tickLine={false} />
               <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="moisture"
-                strokeWidth={2}
-                dot={{ r: 3 }}
-              />
+              <Line type="monotone" dataKey="moisture" stroke="#10b981" strokeWidth={2} dot={{ r: 2 }} />
             </LineChart>
           </ResponsiveContainer>
         </div>
 
         {/* Agricultural indicators */}
-        <div className="grid grid-cols-2 gap-2">
-
-          <div className="rounded-xl bg-card-subtle p-2">
-            <div className="flex items-center gap-1">
-              <Droplets className="h-4 w-4 text-blue-500" />
-              <span className="text-[10px] font-semibold text-content-muted uppercase">
-                Spraying
-              </span>
-            </div>
-            <p className="mt-1 text-xs font-bold text-content-primary">
-              {sprayingWindow}
-            </p>
+        <div className="grid grid-cols-2 gap-1.5 text-center text-[10px] font-medium">
+          <div className="rounded-xl bg-card-subtle py-1.5 px-2 border border-border-subtle/40 flex items-center justify-center gap-1.5">
+            <Droplets className="h-3.5 w-3.5 text-sky-500" />
+            <span className="text-content-muted">Spraying:</span>
+            <strong className="text-content-primary">Favorable</strong>
           </div>
 
-          <div className="rounded-xl bg-card-subtle p-2">
-            <div className="flex items-center gap-1">
-              <Snowflake className="h-4 w-4 text-cyan-500" />
-              <span className="text-[10px] font-semibold text-content-muted uppercase">
-                Frost Risk
-              </span>
-            </div>
-            <p className="mt-1 text-xs font-bold text-content-primary">
-              {frostRisk}
-            </p>
+          <div className="rounded-xl bg-card-subtle py-1.5 px-2 border border-border-subtle/40 flex items-center justify-center gap-1.5">
+            <Snowflake className="h-3.5 w-3.5 text-cyan-500" />
+            <span className="text-content-muted">Frost Risk:</span>
+            <strong className="text-emerald-600 dark:text-emerald-400">Low</strong>
           </div>
-
         </div>
-
-        {/* Guidance */}
-        <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 p-2.5">
-          <p className="text-xs text-content-secondary leading-snug">
-            Recent rainfall has provided favorable moisture conditions.
-            Monitor soil moisture before additional irrigation.
-          </p>
-        </div>
-
       </div>
     </CardShell>
   );

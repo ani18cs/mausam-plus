@@ -10,13 +10,13 @@ export const MobileShell: React.FC<{ children: React.ReactNode }> = ({ children 
   const isMap = location.pathname === '/map';
 
   return (
-    <div className="min-h-screen w-full bg-slate-950/90 text-content-primary flex justify-center items-start sm:py-6 sm:px-4">
+    <div className="min-h-screen w-full bg-[#0E0E11] text-content-primary flex justify-center items-start sm:py-6 sm:px-4">
       {/* Mobile Phone Frame / Responsive Canvas */}
-      <div className="relative w-full max-w-md min-h-screen sm:min-h-[844px] sm:max-h-[920px] sm:rounded-[40px] sm:border-[8px] sm:border-slate-800 bg-app shadow-2xl flex flex-col overflow-hidden sm:ring-1 sm:ring-slate-700/50">
+      <div className="relative w-full max-w-md min-h-screen sm:min-h-[844px] sm:max-h-[920px] sm:rounded-[40px] sm:border-[8px] sm:border-[#222226] bg-app shadow-2xl flex flex-col overflow-hidden sm:ring-1 sm:ring-white/10">
         
         {/* Dynamic Notch Indicator (Desktop preview only) */}
         <div className="hidden sm:flex justify-center pt-2 pb-1 bg-card/85">
-          <div className="h-4 w-28 bg-slate-800/80 rounded-full" />
+          <div className="h-4 w-28 bg-[#2A2A30] rounded-full" />
         </div>
 
         {/* Persistent Top App Bar (Hidden on full onboarding) */}
