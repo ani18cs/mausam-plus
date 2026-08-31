@@ -118,6 +118,33 @@ export interface ForecastMeta {
   cached?: boolean;
 }
 
+export interface BiometeorologyData {
+  wbgt: {
+    value: number;
+    unit: '°C';
+    category: string;
+    flagColor: string;
+  };
+  evapotranspiration: {
+    et0: number;
+    soilMoistureScore: number;
+  };
+  marineSwell: {
+    swellHeight: number;
+    hazardLevel: string;
+  };
+  explainabilityTrace: {
+    inputs: {
+      temp: number;
+      humidity: number;
+      windSpeed: number;
+      radiation: number;
+    };
+    formulaUsed: string;
+    standardCitation: 'MoES/NDMA Heatwave SOP & INCOIS Ocean Protocol';
+  };
+}
+
 export interface NormalizedForecast {
   location: LocationInfo;
   current: CurrentWeather;
@@ -125,6 +152,7 @@ export interface NormalizedForecast {
   daily: DailyForecastItem[];
   extras: ForecastExtras;
   meta: ForecastMeta;
+  biometeorology: BiometeorologyData;
 }
 
 // ==========================================

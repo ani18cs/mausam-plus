@@ -2,6 +2,7 @@ import { NormalizedForecast, TideExtras } from '@mausam/shared-types';
 import { calculateHeatStressIndex } from './heatStress';
 import { fetchLiveAirQuality } from './airQuality';
 import { calculateForecastDiff } from './forecastDiff';
+import { computeBiometeorologyPipeline } from './biometeorology';
 
 /**
  * Maps WMO weather codes to human-readable meteorological conditions
@@ -92,7 +93,7 @@ export async function fetchOpenMeteoForecast(
   url.searchParams.set('longitude', lon.toString());
   url.searchParams.set(
     'current',
-    'temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,uv_index'
+    'temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,weather_code,wind_speed_10m,uv_index,shortwave_radiation_instant,direct_normal_irradiance,surface_pressure,dew_point_2m'
   );
   url.searchParams.set(
     'hourly',
@@ -194,6 +195,26 @@ export async function fetchOpenMeteoForecast(
   const isMorningOptimal = tempC <= 26 && uvIndex < 2;
   const runningScore = isMorningOptimal ? 92 : Math.max(35, Math.round(100 - (heatStress.score * 0.7 + airQuality.us_aqi * 0.2)));
 
+  // 6. Compute Step 3 Biometeorology Pipeline (WBGT, Evapotranspiration, Marine Swell & Explainability)
+  const isCoastal = isCoastalCoordinate(lat, lon);
+  const solarRadiation =
+    current.shortwave_radiation_instant != null
+      ? Number(current.shortwave_radiation_instant)
+      : current.direct_normal_irradiance != null
+      ? Number(current.direct_normal_irradiance)
+      : Math.max(0, uvIndex * 95);
+
+  const biometeorology = computeBiometeorologyPipeline({
+    tempC,
+    humidityPct: humidity,
+    windKph,
+    solarRadiationWm2: solarRadiation,
+    uvIndex,
+    swellHeightM: marineData?.wave_height_m,
+    wavePeriodSec: 8,
+    isCoastal,
+  });
+
   return {
     location: {
       name: locationName,
@@ -213,6 +234,7 @@ export async function fetchOpenMeteoForecast(
     },
     hourly: hourlyItems,
     daily: dailyItems,
+    biometeorology,
     extras: {
       tide: marineData,
       heat_stress_index: heatStress,
