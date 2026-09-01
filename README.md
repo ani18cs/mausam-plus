@@ -194,17 +194,6 @@ npm run build --workspace=@mausam/mobile
 
 ---
 
-## 📜 Standards & Mathematical Formulations
-
-1. **Wet-Bulb Globe Temperature (WBGT)**:
-   $$T_w \approx T_a \cdot \arctan\left(0.151977 \sqrt{RH + 8.313659}\right) + \arctan(T_a + RH) - \arctan(RH - 1.676331) + 0.00391838 \sqrt{RH^3} \arctan(0.023101 RH) - 4.686035$$
-   $$\text{WBGT}_{\text{outdoor}} \approx 0.7 T_w + 0.2 T_g + 0.1 T_a$$
-2. **FAO-56 Penman-Monteith Evapotranspiration ($\text{ET}_0$)**:
-   $$\text{ET}_0 = \frac{0.408 \Delta (R_n - G) + \gamma \frac{900}{T + 273} u_2 (e_s - e_a)}{\Delta + \gamma (1 + 0.34 u_2)}$$
-3. **Ocean Swell Wave Energy Flux ($P$)**:
-   $$P = \frac{\rho g^2}{64 \pi} H_s^2 T_e \approx 0.49 \cdot H_s^2 \cdot T_p \quad (\text{kW/m})$$
-
----
 
 ## 📄 License & Attribution
 * **Developed for**: Ministry of Earth Sciences (MoES) / India Meteorological Department (IMD)
