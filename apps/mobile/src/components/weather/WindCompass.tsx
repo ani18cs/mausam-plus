@@ -26,7 +26,7 @@ export const WindCompass: React.FC<WindCompassProps> = ({
   windKph,
   windDirDeg = 0,
   windSpeedUnit = 'kph',
-  size = 114,
+  size = 124,
   className = '',
 }) => {
   const convertedSpeed = convertWind(windKph, windSpeedUnit);
@@ -50,8 +50,8 @@ export const WindCompass: React.FC<WindCompassProps> = ({
     const angle = i * 10;
     const isMajor = angle % 90 === 0;
     const isMedium = angle % 30 === 0;
-    const length = isMajor ? 6 : isMedium ? 4.5 : 3;
-    const strokeWidth = isMajor ? 1.8 : isMedium ? 1.2 : 0.8;
+    const length = isMajor ? 6.5 : isMedium ? 5 : 3.5;
+    const strokeWidth = isMajor ? 2 : isMedium ? 1.4 : 0.9;
     return { angle, length, strokeWidth };
   });
 
@@ -68,7 +68,7 @@ export const WindCompass: React.FC<WindCompassProps> = ({
         <defs>
           {/* Subtle Dial Glow */}
           <radialGradient id="compassBg" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="currentColor" stop-opacity="0.06" />
+            <stop offset="0%" stop-color="currentColor" stop-opacity="0.07" />
             <stop offset="90%" stop-color="currentColor" stop-opacity="0.02" />
             <stop offset="100%" stop-color="currentColor" stop-opacity="0" />
           </radialGradient>
@@ -87,9 +87,9 @@ export const WindCompass: React.FC<WindCompassProps> = ({
           r="54"
           fill="url(#compassBg)"
           stroke="currentColor"
-          stroke-opacity="0.35"
-          stroke-width="1.2"
-          stroke-dasharray="2, 3"
+          stroke-opacity="0.38"
+          stroke-width="1.3"
+          stroke-dasharray="2.5, 3"
         />
 
         {/* Inner Ticks */}
@@ -101,7 +101,7 @@ export const WindCompass: React.FC<WindCompassProps> = ({
             x2="60"
             y2={10 + length}
             stroke="currentColor"
-            stroke-opacity={angle % 90 === 0 ? '0.85' : '0.4'}
+            stroke-opacity={angle % 90 === 0 ? '0.9' : '0.45'}
             stroke-width={strokeWidth}
             transform={`rotate(${angle} 60 60)`}
           />
@@ -110,48 +110,48 @@ export const WindCompass: React.FC<WindCompassProps> = ({
         {/* Cardinal Direction Letters */}
         <text
           x="60"
-          y="23"
+          y="23.5"
           textAnchor="middle"
-          fontSize="9.5"
-          fontWeight="800"
+          fontSize="11"
+          fontWeight="900"
           fill="currentColor"
-          opacity="0.9"
+          opacity="0.95"
           fontFamily="system-ui, -apple-system, sans-serif"
         >
           N
         </text>
         <text
-          x="101"
+          x="101.5"
           y="63.5"
           textAnchor="middle"
-          fontSize="9.5"
-          fontWeight="800"
+          fontSize="11"
+          fontWeight="900"
           fill="currentColor"
-          opacity="0.9"
+          opacity="0.95"
           fontFamily="system-ui, -apple-system, sans-serif"
         >
           E
         </text>
         <text
           x="60"
-          y="104"
+          y="104.5"
           textAnchor="middle"
-          fontSize="9.5"
-          fontWeight="800"
+          fontSize="11"
+          fontWeight="900"
           fill="currentColor"
-          opacity="0.9"
+          opacity="0.95"
           fontFamily="system-ui, -apple-system, sans-serif"
         >
           S
         </text>
         <text
-          x="19"
+          x="18.5"
           y="63.5"
           textAnchor="middle"
-          fontSize="9.5"
-          fontWeight="800"
+          fontSize="11"
+          fontWeight="900"
           fill="currentColor"
-          opacity="0.9"
+          opacity="0.95"
           fontFamily="system-ui, -apple-system, sans-serif"
         >
           W
@@ -164,18 +164,18 @@ export const WindCompass: React.FC<WindCompassProps> = ({
         >
           {/* North Pointing Arrow Head */}
           <polygon
-            points="60,26 56.5,37 63.5,37"
+            points="60,26 56,37 64,37"
             fill="url(#needleRed)"
-            filter="drop-shadow(0 1px 2px rgba(255, 59, 48, 0.4))"
+            filter="drop-shadow(0 1px 2px rgba(255, 59, 48, 0.45))"
           />
           {/* Stem Line */}
           <line
             x1="60"
             y1="37"
             x2="60"
-            y2="42"
+            y2="43"
             stroke="#FF3B30"
-            stroke-width="1.8"
+            stroke-width="2"
             stroke-linecap="round"
           />
 
@@ -183,11 +183,11 @@ export const WindCompass: React.FC<WindCompassProps> = ({
           <circle
             cx="60"
             cy="84"
-            r="3"
+            r="3.2"
             fill="none"
             stroke="#FF3B30"
-            stroke-width="1.5"
-            opacity="0.85"
+            stroke-width="1.6"
+            opacity="0.9"
           />
         </g>
 
@@ -196,7 +196,7 @@ export const WindCompass: React.FC<WindCompassProps> = ({
           x="60"
           y="58"
           textAnchor="middle"
-          fontSize="18"
+          fontSize="20"
           fontWeight="900"
           fill="currentColor"
           fontFamily="system-ui, -apple-system, sans-serif"
@@ -208,10 +208,10 @@ export const WindCompass: React.FC<WindCompassProps> = ({
           x="60"
           y="72"
           textAnchor="middle"
-          fontSize="8.5"
-          fontWeight="700"
+          fontSize="9.5"
+          fontWeight="800"
           fill="currentColor"
-          opacity="0.75"
+          opacity="0.8"
           fontFamily="system-ui, -apple-system, sans-serif"
         >
           {unitLabel}
