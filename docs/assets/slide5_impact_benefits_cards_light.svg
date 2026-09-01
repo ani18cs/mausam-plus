@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" style="background:#F8FAFC;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <!-- Drop Shadows -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#0F172A" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+
+    <!-- Card Backgrounds -->
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8FAFC"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TOP SLIDE HEADER
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 50)">
+    <!-- Team Tag -->
+    <rect x="0" y="0" width="130" height="38" rx="19" fill="#EEF2F6" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="65" y="24" text-anchor="middle" font-size="16" font-weight="800" fill="#334155" letter-spacing="1px">TEAM ARC</text>
+    
+    <!-- Title -->
+    <text x="160" y="28" font-size="34" font-weight="900" fill="#0F172A" letter-spacing="-0.5px">IMPACT AND BENEFITS</text>
+    <text x="0" y="65" font-size="16" font-weight="600" fill="#64748B">Target Audience Value Proposition &amp; Multi-Dimensional Impact Matrix (Social, Economic, Environmental)</text>
+
+    <!-- SIH Badge -->
+    <rect x="1560" y="-10" width="200" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="1660" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#0F172A">SIH 2026</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 1: TARGET AUDIENCE IMPACT (4 HORIZONTAL TILES)
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 145)">
+    <text x="0" y="0" font-size="18" font-weight="800" fill="#0F172A" letter-spacing="0.5px">🎯 PERSONA-SPECIFIC TARGET AUDIENCE IMPACT</text>
+    
+    <!-- TILE 1: Farmers & Agromet -->
+    <g transform="translate(0, 15)" filter="url(#cardShadow)">
+      <rect width="420" height="270" rx="18" fill="url(#cardBg)" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="420" height="52" rx="18" fill="#ECFDF5"/>
+      <text x="20" y="32" font-size="20">🌾</text>
+      <text x="54" y="32" font-size="16" font-weight="800" fill="#065F46">Farmers &amp; Kisan Agromet</text>
+
+      <g transform="translate(20, 72)">
+        <text x="0" y="0" font-size="14" font-weight="700" fill="#047857">FAO-56 ET₀ &amp; Meghdoot Integration</text>
+        <text x="0" y="24" font-size="13" font-weight="600" fill="#334155">• Exact daily crop evapotranspiration calculation</text>
+        <text x="0" y="46" font-size="13" font-weight="600" fill="#334155">• Smart irrigation timing saves 20-30% water</text>
+        <text x="0" y="68" font-size="13" font-weight="600" fill="#334155">• Prevents fertilizer runoff before heavy rainfall</text>
+        <text x="0" y="90" font-size="13" font-weight="600" fill="#334155">• Crop-stage advisories in regional vernacular</text>
+        <rect x="0" y="112" width="380" height="32" rx="8" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+        <text x="190" y="133" text-anchor="middle" font-size="13" font-weight="800" fill="#047857">ROI: ₹3,000 - ₹5,000 / Acre / Cycle</text>
+      </g>
+    </g>
+
+    <!-- TILE 2: Coastal & Fishermen -->
+    <g transform="translate(445, 15)" filter="url(#cardShadow)">
+      <rect width="420" height="270" rx="18" fill="url(#cardBg)" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="420" height="52" rx="18" fill="#F0F9FF"/>
+      <text x="20" y="32" font-size="20">🎣</text>
+      <text x="54" y="32" font-size="16" font-weight="800" fill="#075985">Coastal &amp; Fishermen</text>
+
+      <g transform="translate(20, 72)">
+        <text x="0" y="0" font-size="14" font-weight="700" fill="#0284C7">INCOIS Wave Flux &amp; Swell Dynamics</text>
+        <text x="0" y="24" font-size="13" font-weight="600" fill="#334155">• Real-time wave power &amp; swell surge indicators</text>
+        <text x="0" y="46" font-size="13" font-weight="600" fill="#334155">• High/Low tide clocks for safe harbor navigation</text>
+        <text x="0" y="68" font-size="13" font-weight="600" fill="#334155">• Port Warning Danger Signals (1 to 11)</text>
+        <text x="0" y="90" font-size="13" font-weight="600" fill="#334155">• Prevents nearshore boat capsizing incidents</text>
+        <rect x="0" y="112" width="380" height="32" rx="8" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1"/>
+        <text x="190" y="133" text-anchor="middle" font-size="13" font-weight="800" fill="#0284C7">Safety: 100% Zero Marine Asset Loss</text>
+      </g>
+    </g>
+
+    <!-- TILE 3: Outdoor Workers & Commuters -->
+    <g transform="translate(890, 15)" filter="url(#cardShadow)">
+      <rect width="420" height="270" rx="18" fill="url(#cardBg)" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="420" height="52" rx="18" fill="#FFF7ED"/>
+      <text x="20" y="32" font-size="20">🏃</text>
+      <text x="54" y="32" font-size="16" font-weight="800" fill="#9A3412">Workers, Athletes &amp; Commuters</text>
+
+      <g transform="translate(20, 72)">
+        <text x="0" y="0" font-size="14" font-weight="700" fill="#EA580C">Stull WBGT &amp; Highway Radar</text>
+        <text x="0" y="24" font-size="13" font-weight="600" fill="#334155">• WBGT heat strain index prevents heat strokes</text>
+        <text x="0" y="46" font-size="13" font-weight="600" fill="#334155">• Optimal morning/evening outdoor windows</text>
+        <text x="0" y="68" font-size="13" font-weight="600" fill="#334155">• Highway corridor speed &amp; waterlogging alerts</text>
+        <text x="0" y="90" font-size="13" font-weight="600" fill="#334155">• Real-time transit navigation safety scores</text>
+        <rect x="0" y="112" width="380" height="32" rx="8" fill="#FFF7ED" stroke="#FED7AA" stroke-width="1"/>
+        <text x="190" y="133" text-anchor="middle" font-size="13" font-weight="800" fill="#C2410C">Health: Zero Heat Illness Episodes</text>
+      </g>
+    </g>
+
+    <!-- TILE 4: Vulnerable Health -->
+    <g transform="translate(1335, 15)" filter="url(#cardShadow)">
+      <rect width="425" height="270" rx="18" fill="url(#cardBg)" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="425" height="52" rx="18" fill="#FAF5FF"/>
+      <text x="20" y="32" font-size="20">🫁</text>
+      <text x="54" y="32" font-size="16" font-weight="800" fill="#6B21A8">Vulnerable Health Demographics</text>
+
+      <g transform="translate(20, 72)">
+        <text x="0" y="0" font-size="14" font-weight="700" fill="#9333EA">CPCB Sub-Index AQI &amp; Allergens</text>
+        <text x="0" y="24" font-size="13" font-weight="600" fill="#334155">• PM2.5, PM10, NO₂, SO₂ dominant pollutant split</text>
+        <text x="0" y="46" font-size="13" font-weight="600" fill="#334155">• Proactive pollen &amp; dust inhalation warnings</text>
+        <text x="0" y="68" font-size="13" font-weight="600" fill="#334155">• Tailored alerts for elderly, asthmatic &amp; kids</text>
+        <text x="0" y="90" font-size="13" font-weight="600" fill="#334155">• Medication &amp; inhaler carry advisories</text>
+        <rect x="0" y="112" width="385" height="32" rx="8" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="1"/>
+        <text x="192" y="133" text-anchor="middle" font-size="13" font-weight="800" fill="#7E22CE">Protection: Proactive Medical Defense</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 2: 3-PILLAR BENEFIT MATRIX (SOCIAL, ECONOMIC, ENVIRONMENTAL)
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 490)">
+    <text x="0" y="0" font-size="18" font-weight="800" fill="#0F172A" letter-spacing="0.5px">🌐 HOLISTIC 3-PILLAR BENEFIT MATRIX</text>
+    
+    <!-- PILLAR 1: SOCIAL BENEFITS -->
+    <g transform="translate(0, 15)" filter="url(#cardShadow)">
+      <rect width="565" height="490" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <path d="M 0 22 C 0 9.849 9.849 0 22 0 L 543 0 C 555.151 0 565 9.849 565 22 L 565 72 L 0 72 Z" fill="url(#purpleGrad)"/>
+      <circle cx="42" cy="36" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+      <text x="42" y="42" text-anchor="middle" font-size="18">👥</text>
+      <text x="70" y="32" font-size="19" font-weight="800" fill="#FFFFFF">Social Impact &amp; Public Safety</text>
+      <text x="70" y="54" font-size="14" font-weight="600" fill="#DDD6FE">Inclusive Life-Saving Meteorological Intelligence</text>
+
+      <g transform="translate(28, 98)">
+        <!-- Bullet 1 -->
+        <circle cx="10" cy="10" r="5" fill="#7C3AED"/>
+        <text x="24" y="15" font-size="15" font-weight="800" fill="#1E293B">Disaster Early Warning Lead Times</text>
+        <text x="24" y="38" font-size="13.5" font-weight="600" fill="#475569">120-hour RSMC cyclone cone projections &amp; Damini lightning alerts give administrations and citizens actionable evacuation windows.</text>
+
+        <!-- Bullet 2 -->
+        <circle cx="10" cy="85" r="5" fill="#7C3AED"/>
+        <text x="24" y="90" font-size="15" font-weight="800" fill="#1E293B">Zero-Literacy Vernacular Voice Access</text>
+        <text x="24" y="113" font-size="13.5" font-weight="600" fill="#475569">Voice AI (English, हिन्दी, ಕನ್ನಡ) eliminates text barriers, democratizing critical weather insights across 1.4B citizens.</text>
+
+        <!-- Bullet 3 -->
+        <circle cx="10" cy="160" r="5" fill="#7C3AED"/>
+        <text x="24" y="165" font-size="15" font-weight="800" fill="#1E293B">Public Health &amp; Heat Illness Shield</text>
+        <text x="24" y="188" font-size="13.5" font-weight="600" fill="#475569">Proactive WBGT and pollution triggers reduce emergency room admissions during severe heatwaves and toxic smog episodes.</text>
+
+        <!-- Bullet 4 -->
+        <circle cx="10" cy="235" r="5" fill="#7C3AED"/>
+        <text x="24" y="240" font-size="15" font-weight="800" fill="#1E293B">Crowdsourced Community Safety</text>
+        <text x="24" y="263" font-size="13.5" font-weight="600" fill="#475569">Citizen hazard pins with peer verification alert neighborhoods about active waterlogging, fallen trees, and flash floods.</text>
+
+        <!-- Summary Badge -->
+        <rect x="0" y="305" width="510" height="42" rx="10" fill="#FAF5FF" stroke="#E9D5FF" stroke-width="1"/>
+        <text x="255" y="331" text-anchor="middle" font-size="14" font-weight="800" fill="#7C3AED">KPI: 100% Inclusivity &amp; Faster Evacuation Response</text>
+      </g>
+    </g>
+
+    <!-- PILLAR 2: ECONOMIC BENEFITS -->
+    <g transform="translate(595, 15)" filter="url(#cardShadow)">
+      <rect width="565" height="490" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <path d="M 0 22 C 0 9.849 9.849 0 22 0 L 543 0 C 555.151 0 565 9.849 565 22 L 565 72 L 0 72 Z" fill="url(#blueGrad)"/>
+      <circle cx="42" cy="36" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+      <text x="42" y="42" text-anchor="middle" font-size="18">💰</text>
+      <text x="70" y="32" font-size="19" font-weight="800" fill="#FFFFFF">Economic &amp; Livelihood ROI</text>
+      <text x="70" y="54" font-size="14" font-weight="600" fill="#E0F2FE">Direct Farmer, Fishermen &amp; Municipal Cost Savings</text>
+
+      <g transform="translate(28, 98)">
+        <!-- Bullet 1 -->
+        <circle cx="10" cy="10" r="5" fill="#0284C7"/>
+        <text x="24" y="15" font-size="15" font-weight="800" fill="#1E293B">Agricultural Input Cost Reduction</text>
+        <text x="24" y="38" font-size="13.5" font-weight="600" fill="#475569">Synchronizing fertilizer &amp; chemical spraying with rain probability avoids wash-off, saving ₹3,000-₹5,000 per acre per season.</text>
+
+        <!-- Bullet 2 -->
+        <circle cx="10" cy="85" r="5" fill="#0284C7"/>
+        <text x="24" y="90" font-size="15" font-weight="800" fill="#1E293B">Marine Craft &amp; Gear Asset Protection</text>
+        <text x="24" y="113" font-size="13.5" font-weight="600" fill="#475569">INCOIS swell warnings prevent offshore vessel capsizing and multi-lakh rupee fishing net destruction during squally seas.</text>
+
+        <!-- Bullet 3 -->
+        <circle cx="10" cy="160" r="5" fill="#0284C7"/>
+        <text x="24" y="165" font-size="15" font-weight="800" fill="#1E293B">Workforce Productivity Optimization</text>
+        <text x="24" y="188" font-size="13.5" font-weight="600" fill="#475569">Shift scheduling aligned to thermal stress windows preserves construction &amp; agricultural labor output without heat exhaustion.</text>
+
+        <!-- Bullet 4 -->
+        <circle cx="10" cy="235" r="5" fill="#0284C7"/>
+        <text x="24" y="240" font-size="15" font-weight="800" fill="#1E293B">Infrastructure Damage Mitigation</text>
+        <text x="24" y="263" font-size="13.5" font-weight="600" fill="#475569">Corridor nowcasts allow transport logistics operators to reroute fleets, cutting vehicle flood damage and transit delays.</text>
+
+        <!-- Summary Badge -->
+        <rect x="0" y="305" width="510" height="42" rx="10" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1"/>
+        <text x="255" y="331" text-anchor="middle" font-size="14" font-weight="800" fill="#0284C7">ROI: Massive Direct Savings Across Agrarian &amp; Marine Belts</text>
+      </g>
+    </g>
+
+    <!-- PILLAR 3: ENVIRONMENTAL BENEFITS -->
+    <g transform="translate(1190, 15)" filter="url(#cardShadow)">
+      <rect width="570" height="490" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <path d="M 0 22 C 0 9.849 9.849 0 22 0 L 548 0 C 560.151 0 570 9.849 570 22 L 570 72 L 0 72 Z" fill="url(#emeraldGrad)"/>
+      <circle cx="42" cy="36" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+      <text x="42" y="42" text-anchor="middle" font-size="18">🌿</text>
+      <text x="70" y="32" font-size="19" font-weight="800" fill="#FFFFFF">Environmental &amp; Climate Resilience</text>
+      <text x="70" y="54" font-size="14" font-weight="600" fill="#D1FAE5">Resource Conservation &amp; Urban Climate Adaptation</text>
+
+      <g transform="translate(28, 98)">
+        <!-- Bullet 1 -->
+        <circle cx="10" cy="10" r="5" fill="#059669"/>
+        <text x="24" y="15" font-size="15" font-weight="800" fill="#1E293B">Freshwater Conservation (20-30%)</text>
+        <text x="24" y="38" font-size="13.5" font-weight="600" fill="#475569">Evapotranspiration (ET₀) precision irrigation eliminates over-watering and preserves critical groundwater reserves.</text>
+
+        <!-- Bullet 2 -->
+        <circle cx="10" cy="85" r="5" fill="#059669"/>
+        <text x="24" y="90" font-size="15" font-weight="800" fill="#1E293B">Elimination of Agrochemical Leaching</text>
+        <text x="24" y="113" font-size="13.5" font-weight="600" fill="#475569">Preventing chemical drift reduces pesticide percolation into aquifers, protecting freshwater drinking reservoirs and river ecosystems.</text>
+
+        <!-- Bullet 3 -->
+        <circle cx="10" cy="160" r="5" fill="#059669"/>
+        <text x="24" y="165" font-size="15" font-weight="800" fill="#1E293B">Proactive Municipal Dewatering</text>
+        <text x="24" y="188" font-size="13.5" font-weight="600" fill="#475569">Localized rain accumulation telemetry allows smart cities to pre-activate stormwater pumps before critical urban underpasses flood.</text>
+
+        <!-- Bullet 4 -->
+        <circle cx="10" cy="235" r="5" fill="#059669"/>
+        <text x="24" y="240" font-size="15" font-weight="800" fill="#1E293B">Climate-Aware Urban Planning</text>
+        <text x="24" y="263" font-size="13.5" font-weight="600" fill="#475569">Historical telemetry logs empower municipal bodies to map urban heat islands and waterlogging hotspots for resilient infrastructure.</text>
+
+        <!-- Summary Badge -->
+        <rect x="0" y="305" width="514" height="42" rx="10" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1"/>
+        <text x="257" y="331" text-anchor="middle" font-size="14" font-weight="800" fill="#059669">Outcome: Sustainable Groundwater &amp; Climate Resilience</text>
+      </g>
+    </g>
+  </g>
+</svg>

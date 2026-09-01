@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" style="background:#F8FAFC;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <!-- Card Drop Shadows -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+    
+    <!-- Linear Gradients -->
+    <linearGradient id="blueHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="redHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+    <linearGradient id="greenHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+
+    <linearGradient id="blueCardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F9FF"/>
+    </linearGradient>
+    <linearGradient id="redCardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFF1F2"/>
+    </linearGradient>
+    <linearGradient id="greenCardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0FDF4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TOP SLIDE HEADER
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 50)">
+    <!-- Team Tag -->
+    <rect x="0" y="0" width="130" height="38" rx="19" fill="#EEF2F6" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="65" y="24" text-anchor="middle" font-size="16" font-weight="800" fill="#334155" letter-spacing="1px">TEAM ARC</text>
+    
+    <!-- Title -->
+    <text x="160" y="28" font-size="34" font-weight="900" fill="#0F172A" letter-spacing="-0.5px">FEASIBILITY AND VIABILITY</text>
+    <text x="0" y="65" font-size="16" font-weight="600" fill="#64748B">Architectural Readiness, Threat Modeling &amp; Mitigation Framework for National Scale Deployment</text>
+
+    <!-- SIH Badge placeholder -->
+    <rect x="1560" y="-10" width="200" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="1660" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#0F172A">SIH 2026</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       3-CARD MAIN GRID
+  ═══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- CARD 1: TECHNICAL & OPERATIONAL FEASIBILITY -->
+  <g transform="translate(80, 160)" filter="url(#cardShadow)">
+    <rect width="550" height="850" rx="24" fill="url(#blueCardBg)" stroke="#BAE6FD" stroke-width="2"/>
+    
+    <!-- Card Header Banner -->
+    <path d="M 0 24 C 0 10.745 10.745 0 24 0 L 526 0 C 539.255 0 550 10.745 550 24 L 550 95 L 0 95 Z" fill="url(#blueHeaderGrad)"/>
+    <circle cx="50" cy="48" r="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <text x="50" y="55" text-anchor="middle" font-size="22" fill="#FFFFFF">⚙️</text>
+    <text x="88" y="42" font-size="20" font-weight="800" fill="#FFFFFF">Technical &amp; Operational</text>
+    <text x="88" y="68" font-size="18" font-weight="700" fill="#E0F2FE">Feasibility Analysis</text>
+
+    <!-- Item 1 -->
+    <g transform="translate(30, 125)">
+      <rect width="490" height="150" rx="16" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#E0F2FE"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">📱</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#0369A1">React 18 &amp; Capacitor 8 Engine</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Unified cross-platform codebase (Android, iOS, PWA)</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Zero code duplication across web &amp; mobile binaries</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• 60fps hardware-accelerated fluid UI on budget phones</text>
+      <text x="64" y="124" font-size="13" font-weight="700" fill="#0284C7">Status: 100% Production Ready</text>
+    </g>
+
+    <!-- Item 2 -->
+    <g transform="translate(30, 295)">
+      <rect width="490" height="150" rx="16" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#E0F2FE"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">⚡</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#0369A1">High-Throughput Node BFF &amp; Redis</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Stateless Express BFF with in-memory Redis caching</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Sub-100ms response latency under heavy traffic</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• 75% payload compression vs raw weather feeds</text>
+      <text x="64" y="124" font-size="13" font-weight="700" fill="#0284C7">Metric: &lt; 95ms API Latency</text>
+    </g>
+
+    <!-- Item 3 -->
+    <g transform="translate(30, 465)">
+      <rect width="490" height="160" rx="16" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#E0F2FE"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">🛰️</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#0369A1">Direct IMD, CPCB &amp; INCOIS Ingestion</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Ingests 37 Doppler Radars &amp; INSAT-3DS Satellites</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• CPCB live PM2.5/PM10 CAAQMS telemetry</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• INCOIS ocean swell flux &amp; Damini lightning data</text>
+      <text x="64" y="124" font-size="14" font-weight="600" fill="#334155">• Automated schema normalization &amp; unit conversion</text>
+    </g>
+
+    <!-- Item 4 -->
+    <g transform="translate(30, 645)">
+      <rect width="490" height="170" rx="16" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#E0F2FE"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">🧩</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#0369A1">Modular Universal Card Engine</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Dynamic card registry with weighted persona scoring</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Plug-and-play architecture for new sectoral modules</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Zero breaking changes during future MoES integrations</text>
+      <text x="64" y="126" font-size="13" font-weight="700" fill="#0284C7">Architecture: 100% Extensible Registry</text>
+    </g>
+  </g>
+
+  <!-- CARD 2: POTENTIAL CHALLENGES & RISKS -->
+  <g transform="translate(685, 160)" filter="url(#cardShadow)">
+    <rect width="550" height="850" rx="24" fill="url(#redCardBg)" stroke="#FECDD3" stroke-width="2"/>
+    
+    <!-- Card Header Banner -->
+    <path d="M 0 24 C 0 10.745 10.745 0 24 0 L 526 0 C 539.255 0 550 10.745 550 24 L 550 95 L 0 95 Z" fill="url(#redHeaderGrad)"/>
+    <circle cx="50" cy="48" r="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <text x="50" y="55" text-anchor="middle" font-size="22" fill="#FFFFFF">⚠️</text>
+    <text x="88" y="42" font-size="20" font-weight="800" fill="#FFFFFF">Potential Challenges</text>
+    <text x="88" y="68" font-size="18" font-weight="700" fill="#FFE4E6">&amp; Operational Risks</text>
+
+    <!-- Risk 1 -->
+    <g transform="translate(30, 125)">
+      <rect width="490" height="150" rx="16" fill="#FFFFFF" stroke="#FFE4E6" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#FFE4E6"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">📡</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#BE123C">Extreme Weather Network Outages</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Cellular towers collapse during cyclones and floods</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Total loss of active internet connectivity in disaster zones</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Citizens unable to fetch live cloud warnings</text>
+      <text x="64" y="124" font-size="13" font-weight="800" fill="#E11D48">Risk Severity: CRITICAL</text>
+    </g>
+
+    <!-- Risk 2 -->
+    <g transform="translate(30, 295)">
+      <rect width="490" height="150" rx="16" fill="#FFFFFF" stroke="#FFE4E6" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#FFE4E6"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">🤖</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#BE123C">AI Hallucinations in Disaster SOPs</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Generative LLMs fabricating unverified safety steps</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Incorrect evacuation routes or distorted risk levels</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Severe liability &amp; life safety implications</text>
+      <text x="64" y="124" font-size="13" font-weight="800" fill="#E11D48">Risk Severity: HIGH</text>
+    </g>
+
+    <!-- Risk 3 -->
+    <g transform="translate(30, 465)">
+      <rect width="490" height="160" rx="16" fill="#FFFFFF" stroke="#FFE4E6" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#FFE4E6"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">🗣️</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#BE123C">Rural Low-Bandwidth &amp; Dialects</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• 2G/3G high packet loss in remote agricultural belts</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Complex meteorological scientific vocabulary</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Low text literacy among farmers &amp; coastal fishermen</text>
+      <text x="64" y="124" font-size="13" font-weight="800" fill="#E11D48">Risk Severity: HIGH</text>
+    </g>
+
+    <!-- Risk 4 -->
+    <g transform="translate(30, 645)">
+      <rect width="490" height="170" rx="16" fill="#FFFFFF" stroke="#FFE4E6" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#FFE4E6"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">⛰️</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#BE123C">Radar Blindspots &amp; Sensor Lag</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Mountainous terrain blocking radar beam lines of sight</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Discrepancies between satellite models &amp; local rain</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Hyperlocal flash floods occurring between station grids</text>
+      <text x="64" y="126" font-size="13" font-weight="800" fill="#E11D48">Risk Severity: MEDIUM</text>
+    </g>
+  </g>
+
+  <!-- CARD 3: MITIGATION & VIABILITY STRATEGIES -->
+  <g transform="translate(1290, 160)" filter="url(#cardShadow)">
+    <rect width="550" height="850" rx="24" fill="url(#greenCardBg)" stroke="#A7F3D0" stroke-width="2"/>
+    
+    <!-- Card Header Banner -->
+    <path d="M 0 24 C 0 10.745 10.745 0 24 0 L 526 0 C 539.255 0 550 10.745 550 24 L 550 95 L 0 95 Z" fill="url(#greenHeaderGrad)"/>
+    <circle cx="50" cy="48" r="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <text x="50" y="55" text-anchor="middle" font-size="22" fill="#FFFFFF">🛡️</text>
+    <text x="88" y="42" font-size="20" font-weight="800" fill="#FFFFFF">Mitigation Strategies</text>
+    <text x="88" y="68" font-size="18" font-weight="700" fill="#D1FAE5">&amp; Viability Solutions</text>
+
+    <!-- Strategy 1 -->
+    <g transform="translate(30, 125)">
+      <rect width="490" height="150" rx="16" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#D1FAE5"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">💾</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#047857">100% Offline Emergency Caching</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• PWA Service Worker caching &amp; local storage hydration</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Pre-synced emergency maps, radar loops &amp; safety SOPs</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Instant zero-connectivity access during active storms</text>
+      <text x="64" y="124" font-size="13" font-weight="700" fill="#059669">Efficacy: 100% Offline Availability</text>
+    </g>
+
+    <!-- Strategy 2 -->
+    <g transform="translate(30, 295)">
+      <rect width="490" height="150" rx="16" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#D1FAE5"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">📐</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#047857">Grounded Dual-RAG &amp; Audit Trail</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Strict RAG anchored to verified IMD/NDMA guidelines</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Mathematical proofs for Stull WBGT, FAO-56 ET0</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Inspectable audit log: "Why this alert?" with citations</text>
+      <text x="64" y="124" font-size="13" font-weight="700" fill="#059669">Accuracy: Zero AI Hallucinations</text>
+    </g>
+
+    <!-- Strategy 3 -->
+    <g transform="translate(30, 465)">
+      <rect width="490" height="160" rx="16" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#D1FAE5"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">🎙️</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#047857">Multilingual Vernacular Voice AI</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Natural female voice TTS in English, हिन्दी, ಕನ್ನಡ</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Instant audio cancellation &amp; continuous speech mic</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Plainspoken conversational answers without jargon</text>
+      <text x="64" y="124" font-size="13" font-weight="700" fill="#059669">Inclusivity: Zero-Literacy Accessible</text>
+    </g>
+
+    <!-- Strategy 4 -->
+    <g transform="translate(30, 645)">
+      <rect width="490" height="170" rx="16" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+      <circle cx="36" cy="36" r="16" fill="#D1FAE5"/>
+      <text x="36" y="42" text-anchor="middle" font-size="16">👥</text>
+      <text x="64" y="34" font-size="17" font-weight="800" fill="#047857">Crowdsourced Ground-Truthing</text>
+      <text x="64" y="58" font-size="14" font-weight="600" fill="#334155">• Citizen hazard reporting wizard with photo verification</text>
+      <text x="64" y="80" font-size="14" font-weight="600" fill="#334155">• Real-time community upvotes &amp; geo-clustering</text>
+      <text x="64" y="102" font-size="14" font-weight="600" fill="#334155">• Validates waterlogging &amp; micro-scale weather events</text>
+      <text x="64" y="126" font-size="13" font-weight="700" fill="#059669">Coverage: Hyperlocal Street-Level</text>
+    </g>
+  </g>
+</svg>

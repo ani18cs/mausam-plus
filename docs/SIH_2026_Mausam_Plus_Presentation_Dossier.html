@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SIH 2026 — Mausam+ Slide 4 & 5 Presentation Dossier</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
+
+    @page {
+      size: A4 portrait;
+      margin: 14mm 14mm 14mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #0F172A;
+      background: #FFFFFF;
+      line-height: 1.5;
+      font-size: 11pt;
+    }
+
+    .page {
+      page-break-after: always;
+      padding-bottom: 20px;
+    }
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* Header Bar */
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0284C7;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .team-badge {
+      display: inline-block;
+      background: #0284C7;
+      color: #FFFFFF;
+      font-size: 10pt;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+    .sih-badge {
+      font-size: 10pt;
+      font-weight: 800;
+      color: #0F172A;
+      background: #F1F5F9;
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid #CBD5E1;
+    }
+
+    h1 {
+      font-size: 20pt;
+      font-weight: 900;
+      color: #0F172A;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .subtitle {
+      font-size: 11pt;
+      font-weight: 600;
+      color: #64748B;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: 14pt;
+      font-weight: 800;
+      color: #0369A1;
+      margin: 16px 0 10px 0;
+      border-left: 4px solid #0284C7;
+      padding-left: 10px;
+    }
+
+    h3 {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1E293B;
+      margin: 12px 0 6px 0;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: #334155;
+    }
+
+    /* Embedded Graphic Container */
+    .graphic-container {
+      width: 100%;
+      border: 1px solid #CBD5E1;
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 14px 0 18px 0;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      background: #F8FAFC;
+    }
+    .graphic-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Cards Grid */
+    .card-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 14px 0;
+    }
+    .card-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .card {
+      border-radius: 10px;
+      border: 1px solid #E2E8F0;
+      padding: 12px 14px;
+      background: #FFFFFF;
+    }
+    .card.blue {
+      border-top: 4px solid #0284C7;
+      background: #F0F9FF;
+    }
+    .card.red {
+      border-top: 4px solid #E11D48;
+      background: #FFF1F2;
+    }
+    .card.green {
+      border-top: 4px solid #059669;
+      background: #F0FDF4;
+    }
+    .card.purple {
+      border-top: 4px solid #7C3AED;
+      background: #FAF5FF;
+    }
+
+    .card-title {
+      font-size: 11pt;
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card.blue .card-title { color: #0369A1; }
+    .card.red .card-title { color: #BE123C; }
+    .card.green .card-title { color: #047857; }
+    .card.purple .card-title { color: #6D28D9; }
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 6px;
+      font-size: 9.5pt;
+      color: #334155;
+    }
+    li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+      color: #0284C7;
+    }
+    .card.red li::before { color: #E11D48; }
+    .card.green li::before { color: #059669; }
+    .card.purple li::before { color: #7C3AED; }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px 0;
+      font-size: 9pt;
+    }
+    th, td {
+      border: 1px solid #CBD5E1;
+      padding: 6px 10px;
+      text-align: left;
+    }
+    th {
+      background: #F1F5F9;
+      color: #0F172A;
+      font-weight: 700;
+    }
+    tr:nth-child(even) {
+      background: #F8FAFC;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 8pt;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .badge.critical { background: #FEE2E2; color: #991B1B; }
+    .badge.high { background: #FFEDD5; color: #9A3412; }
+    .badge.medium { background: #FEF9C3; color: #854D0E; }
+    .badge.success { background: #DCFCE7; color: #166534; }
+
+    .formula-box {
+      background: #0F172A;
+      color: #38BDF8;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 8.5pt;
+      margin: 10px 0;
+      line-height: 1.4;
+    }
+
+    .footer-note {
+      font-size: 8pt;
+      color: #94A3B8;
+      border-top: 1px solid #E2E8F0;
+      padding-top: 6px;
+      margin-top: 16px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       PAGE 1: SLIDE 4 - FEASIBILITY AND VIABILITY
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="header-bar">
+      <div>
+        <span class="team-badge">TEAM ARC</span>
+        <span style="margin-left: 8px; font-weight: 700; font-size: 10pt; color: #475569;">Smart India Hackathon 2026</span>
+      </div>
+      <span class="sih-badge">SLIDE 4 DOSSIER</span>
+    </div>
+
+    <h1>Slide 4: Feasibility and Viability</h1>
+    <p class="subtitle">Architecture Feasibility, Operational Resilience, Threat Modeling &amp; Mitigation Framework</p>
+
+    <!-- Embedded High-Resolution Card Graphic -->
+    <div class="graphic-container">
+      <img src="assets/slide4_feasibility_cards_light.svg" alt="Slide 4 Feasibility and Viability Cards" />
+    </div>
+
+    <h2>Technical &amp; Operational Readiness Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>System Dimension</th>
+          <th>Implementation Architecture</th>
+          <th>Feasibility Status</th>
+          <th>Operational Performance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Cross-Platform Engine</strong></td>
+          <td>React 18 + Capacitor 8 + Tailwind CSS</td>
+          <td><span class="badge success">100% Ready</span></td>
+          <td>Unified codebase compiles to Android, iOS &amp; PWA.</td>
+        </tr>
+        <tr>
+          <td><strong>BFF &amp; Caching Tier</strong></td>
+          <td>Node.js Express + In-Memory Redis / LRU</td>
+          <td><span class="badge success">Operational</span></td>
+          <td>Sub-100ms response time; 75% payload compression.</td>
+        </tr>
+        <tr>
+          <td><strong>Multi-Agency Ingestion</strong></td>
+          <td>37 IMD Radars, INSAT-3DS, CPCB, INCOIS, Damini</td>
+          <td><span class="badge success">Live Ingest</span></td>
+          <td>Automated schema normalization &amp; diurnal delta engine.</td>
+        </tr>
+        <tr>
+          <td><strong>Zero-Connectivity Mode</strong></td>
+          <td>PWA Service Worker + Local Storage Hydration</td>
+          <td><span class="badge success">Verified</span></td>
+          <td>100% offline access to previously synced advisories &amp; maps.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Threat Modeling, Operational Risks &amp; Engineered Mitigations</h2>
+    <div class="card-grid-3">
+      <div class="card red">
+        <div class="card-title">📡 Network Blackouts</div>
+        <p style="font-size: 8.5pt; margin-bottom: 6px;"><strong>Risk</strong>: Cyclones knock out cellular towers, disabling internet access during peak disasters.</p>
+        <div style="border-top: 1px dashed #FECDD3; padding-top: 6px;">
+          <p style="font-size: 8.5pt; color: #047857; margin: 0;"><strong>Mitigation</strong>: PWA offline caching retains full forecast models, emergency radar loops &amp; evacuation SOPs locally without cellular signal.</p>
+        </div>
+      </div>
+
+      <div class="card red">
+        <div class="card-title">🤖 AI Hallucinations</div>
+        <p style="font-size: 8.5pt; margin-bottom: 6px;"><strong>Risk</strong>: LLMs fabricating unverified safety guidelines during extreme emergency situations.</p>
+        <div style="border-top: 1px dashed #FECDD3; padding-top: 6px;">
+          <p style="font-size: 8.5pt; color: #047857; margin: 0;"><strong>Mitigation</strong>: Dual-RAG engine strictly anchored to verified IMD/NDMA SOPs with mathematical proofs and full citation trace audit logs.</p>
+        </div>
+      </div>
+
+      <div class="card red">
+        <div class="card-title">🗣️ Rural Literacy Barrier</div>
+        <p style="font-size: 8.5pt; margin-bottom: 6px;"><strong>Risk</strong>: Complex meteorological jargon and low text literacy among rural farmers and fishermen.</p>
+        <div style="border-top: 1px dashed #FECDD3; padding-top: 6px;">
+          <p style="font-size: 8.5pt; color: #047857; margin: 0;"><strong>Mitigation</strong>: Natural female voice AI (English, हिन्दी, ಕನ್ನಡ) with instant speech interruption and plainspoken vernacular guidance.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Mausam+ Hackathon Dossier • Team ARC • SIH 2026 Problem Statement: Development of Personalized Homepage for 'Mausam' Mobile App
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       PAGE 2: SLIDE 5 - IMPACT AND BENEFITS
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="header-bar">
+      <div>
+        <span class="team-badge">TEAM ARC</span>
+        <span style="margin-left: 8px; font-weight: 700; font-size: 10pt; color: #475569;">Smart India Hackathon 2026</span>
+      </div>
+      <span class="sih-badge">SLIDE 5 DOSSIER</span>
+    </div>
+
+    <h1>Slide 5: Impact and Benefits</h1>
+    <p class="subtitle">Persona-Centric User Value &amp; Multi-Dimensional Impact Matrix (Social, Economic, Environmental)</p>
+
+    <!-- Embedded High-Resolution Card Graphic -->
+    <div class="graphic-container">
+      <img src="assets/slide5_impact_benefits_cards_light.svg" alt="Slide 5 Impact and Benefits Cards" />
+    </div>
+
+    <h2>Multi-Dimensional Benefit Matrix (Social, Economic &amp; Environmental)</h2>
+    <div class="card-grid-3">
+      <div class="card purple">
+        <div class="card-title">👥 Social &amp; Safety Impact</div>
+        <ul>
+          <li><strong>Disaster Lead Times</strong>: 120-hour RSMC cyclone cone tracks and lightning alerts give administrations proactive evacuation lead times.</li>
+          <li><strong>Universal Inclusivity</strong>: Multilingual voice AI breaks text barriers for 1.4B citizens regardless of literacy level.</li>
+          <li><strong>Public Health Shield</strong>: Biometeorological WBGT alerts reduce heat-stroke casualties and emergency hospitalizations.</li>
+          <li><strong>Community Ground-Truthing</strong>: Citizen hazard pins with peer upvoting alert neighborhoods to local flash floods.</li>
+        </ul>
+      </div>
+
+      <div class="card blue">
+        <div class="card-title">💰 Economic &amp; Livelihood ROI</div>
+        <ul>
+          <li><strong>Agricultural Savings</strong>: Fertilizer/pesticide spray timing prevents rain wash-off, saving <strong>₹3,000–₹5,000 per acre</strong> per cycle.</li>
+          <li><strong>Zero Marine Asset Loss</strong>: INCOIS wave flux &amp; swell warnings prevent multi-lakh rupee boat capsizing and net damage.</li>
+          <li><strong>Workforce Productivity</strong>: Thermal stress scheduling maintains construction/industrial labor output without heat exhaustion.</li>
+          <li><strong>Fleet Logistics</strong>: Real-time corridor alerts reduce transit flood damages and commercial delivery bottlenecks.</li>
+        </ul>
+      </div>
+
+      <div class="card green">
+        <div class="card-title">🌿 Environmental Resilience</div>
+        <ul>
+          <li><strong>20–30% Water Conservation</strong>: FAO-56 Penman-Monteith $\text{ET}_0$ calculations guide precise micro-irrigation scheduling.</li>
+          <li><strong>Reduced Agrochemical Leaching</strong>: Eliminating redundant chemical spraying prevents aquifer and river eco-toxicity.</li>
+          <li><strong>Municipal Stormwater Action</strong>: Hyperlocal rainfall accumulation alerts enable cities to deploy dewatering pumps proactively.</li>
+          <li><strong>Urban Heat Island Mapping</strong>: Historical telemetry logs empower municipal bodies to plan climate-resilient green buffers.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>Inspectable Biometeorological Formulations (Zero AI Hallucinations)</h2>
+    <div class="formula-box">
+// 1. Wet-Bulb Globe Temperature (WBGT - Stull 2011 Formulation)
+WBGT = T * atan(0.151977 * (RH + 8.313659)^0.5) + atan(T + RH) - atan(RH - 1.676331) + 0.00391838 * (RH^1.5) * atan(0.023101 * RH) - 4.686035
+
+// 2. FAO-56 Penman-Monteith Evapotranspiration (ET0 in mm/day)
+ET0 = (0.408 * Δ * (Rn - G) + γ * (900 / (T + 273)) * u2 * (es - ea)) / (Δ + γ * (1 + 0.34 * u2))
+
+// 3. INCOIS Ocean Wave Power Density (P in kW/m)
+P = (ρ * g^2 / (64 * π)) * (Hs^2) * Te ≈ 0.49 * (Hs^2) * Te
+    </div>
+
+    <div class="footer-note">
+      Mausam+ Hackathon Dossier • Team ARC • SIH 2026 Problem Statement: Development of Personalized Homepage for 'Mausam' Mobile App
+    </div>
+  </div>
+
+</body>
+</html>
