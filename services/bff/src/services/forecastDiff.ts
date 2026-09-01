@@ -34,23 +34,23 @@ export function calculateForecastDiff(
   // Generate clear, conversational natural language explanation
   let summary = '';
   if (tempDiff > 0) {
-    summary += `Today is **${tempDiff}°C warmer** than yesterday (${yesterdayTemp}°C vs ${currentTemp}°C)`;
+    summary += `Today is ${tempDiff}°C warmer than yesterday (${yesterdayTemp}°C vs ${currentTemp}°C)`;
   } else if (tempDiff < 0) {
-    summary += `Today is **${Math.abs(tempDiff)}°C cooler** than yesterday (${yesterdayTemp}°C vs ${currentTemp}°C)`;
+    summary += `Today is ${Math.abs(tempDiff)}°C cooler than yesterday (${yesterdayTemp}°C vs ${currentTemp}°C)`;
   } else {
     summary += `Temperatures are nearly identical to yesterday (${currentTemp}°C)`;
   }
 
   if (humidityDiff >= 8) {
-    summary += ` with **${humidityDiff}% higher humidity**, increasing perceived thermal load.`;
+    summary += ` with ${humidityDiff}% higher humidity, increasing perceived thermal load.`;
   } else if (humidityDiff <= -8) {
-    summary += ` with **${Math.abs(humidityDiff)}% lower humidity**, resulting in a crisper feel.`;
+    summary += ` with ${Math.abs(humidityDiff)}% lower humidity, resulting in a crisper feel.`;
   } else {
     summary += `.`;
   }
 
   if (currentRainProb >= 50 && yesterdayRain < 30) {
-    summary += ` ⚠️ Notable change: Rain probability spiked from ${yesterdayRain}% yesterday to ${currentRainProb}% today.`;
+    summary += ` Rain probability spiked from ${yesterdayRain}% yesterday to ${currentRainProb}% today.`;
   }
 
   return {

@@ -304,7 +304,15 @@
     "cyclone_alert_title": "Coastal Cyclone Advisory",
     "cyclone_alert_body": "Deep depression alert issued. Fishermen advised not to venture into deep sea."
   },
+  "lang_modal": {
+    "title": "Change Language?",
+    "confirm_msg": "Are you sure you want to change the application language to {{lang}}? All weather dashboards and alerts will update immediately.",
+    "cancel_btn": "No, Keep",
+    "confirm_btn": "Yes, Change"
+  },
   "common": {
+    "yes": "Yes",
+    "no": "No",
     "save": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm",
