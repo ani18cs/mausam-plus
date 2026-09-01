@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>SIH 2026 — Mausam+ Slide 4 & 5 Presentation Dossier</title>
+  <title>Smart India Hackathon 2026 — Mausam+ Presentation Dossier</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap');
 
     @page {
-      size: A4 portrait;
-      margin: 14mm 14mm 14mm 14mm;
+      size: A4 landscape;
+      margin: 8mm 8mm 8mm 8mm;
     }
 
     * {
@@ -20,181 +20,114 @@
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       color: #0F172A;
-      background: #FFFFFF;
-      line-height: 1.5;
-      font-size: 11pt;
+      background: #F8FAFC;
+      line-height: 1.4;
+      font-size: 10pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
 
     .page {
       page-break-after: always;
-      padding-bottom: 20px;
+      width: 100%;
+      height: 194mm;
+      max-height: 194mm;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 6px;
     }
     .page:last-child {
       page-break-after: avoid;
     }
 
-    /* Header Bar */
+    .slide-svg-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-svg-container svg {
+      width: 100%;
+      height: 100%;
+      max-height: 194mm;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+      background: #FFFFFF;
+    }
+
+    /* Detail Page Styles */
+    .detail-container {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 14px;
+      padding: 16px 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    }
+
     .header-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid #0284C7;
-      padding-bottom: 12px;
-      margin-bottom: 20px;
+      padding-bottom: 8px;
     }
     .team-badge {
-      display: inline-block;
       background: #0284C7;
       color: #FFFFFF;
-      font-size: 10pt;
+      font-size: 9pt;
       font-weight: 800;
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 999px;
       letter-spacing: 0.5px;
     }
     .sih-badge {
-      font-size: 10pt;
+      font-size: 9pt;
       font-weight: 800;
       color: #0F172A;
       background: #F1F5F9;
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 6px;
       border: 1px solid #CBD5E1;
     }
 
     h1 {
-      font-size: 20pt;
+      font-size: 16pt;
       font-weight: 900;
       color: #0F172A;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
+      margin-top: 4px;
     }
     .subtitle {
-      font-size: 11pt;
+      font-size: 9.5pt;
       font-weight: 600;
       color: #64748B;
-      margin-bottom: 18px;
     }
 
     h2 {
-      font-size: 14pt;
-      font-weight: 800;
-      color: #0369A1;
-      margin: 16px 0 10px 0;
-      border-left: 4px solid #0284C7;
-      padding-left: 10px;
-    }
-
-    h3 {
-      font-size: 12pt;
-      font-weight: 700;
-      color: #1E293B;
-      margin: 12px 0 6px 0;
-    }
-
-    p {
-      margin-bottom: 10px;
-      color: #334155;
-    }
-
-    /* Embedded Graphic Container */
-    .graphic-container {
-      width: 100%;
-      border: 1px solid #CBD5E1;
-      border-radius: 12px;
-      overflow: hidden;
-      margin: 14px 0 18px 0;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
-      background: #F8FAFC;
-    }
-    .graphic-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Cards Grid */
-    .card-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 14px 0;
-    }
-    .card-grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-      margin: 14px 0;
-    }
-
-    .card {
-      border-radius: 10px;
-      border: 1px solid #E2E8F0;
-      padding: 12px 14px;
-      background: #FFFFFF;
-    }
-    .card.blue {
-      border-top: 4px solid #0284C7;
-      background: #F0F9FF;
-    }
-    .card.red {
-      border-top: 4px solid #E11D48;
-      background: #FFF1F2;
-    }
-    .card.green {
-      border-top: 4px solid #059669;
-      background: #F0FDF4;
-    }
-    .card.purple {
-      border-top: 4px solid #7C3AED;
-      background: #FAF5FF;
-    }
-
-    .card-title {
       font-size: 11pt;
       font-weight: 800;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: #0369A1;
+      margin: 8px 0 4px 0;
+      border-left: 3px solid #0284C7;
+      padding-left: 8px;
     }
-    .card.blue .card-title { color: #0369A1; }
-    .card.red .card-title { color: #BE123C; }
-    .card.green .card-title { color: #047857; }
-    .card.purple .card-title { color: #6D28D9; }
 
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    li {
-      position: relative;
-      padding-left: 14px;
-      margin-bottom: 6px;
-      font-size: 9.5pt;
-      color: #334155;
-    }
-    li::before {
-      content: "•";
-      position: absolute;
-      left: 0;
-      font-weight: bold;
-      color: #0284C7;
-    }
-    .card.red li::before { color: #E11D48; }
-    .card.green li::before { color: #059669; }
-    .card.purple li::before { color: #7C3AED; }
-
-    /* Tables */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 12px 0 16px 0;
-      font-size: 9pt;
+      font-size: 8.5pt;
+      margin: 6px 0;
     }
     th, td {
       border: 1px solid #CBD5E1;
-      padding: 6px 10px;
+      padding: 5px 8px;
       text-align: left;
     }
     th {
@@ -206,36 +139,60 @@
       background: #F8FAFC;
     }
 
-    .badge {
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-size: 8pt;
-      font-weight: 800;
-      text-transform: uppercase;
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 6px 0;
     }
-    .badge.critical { background: #FEE2E2; color: #991B1B; }
-    .badge.high { background: #FFEDD5; color: #9A3412; }
-    .badge.medium { background: #FEF9C3; color: #854D0E; }
-    .badge.success { background: #DCFCE7; color: #166534; }
+
+    .card {
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+      padding: 8px 10px;
+      font-size: 8.5pt;
+    }
+    .card.blue { border-top: 3px solid #0284C7; background: #F0F9FF; }
+    .card.red { border-top: 3px solid #E11D48; background: #FFF1F2; }
+    .card.green { border-top: 3px solid #059669; background: #F0FDF4; }
+    .card.purple { border-top: 3px solid #7C3AED; background: #FAF5FF; }
+
+    .card-title {
+      font-weight: 800;
+      font-size: 9.5pt;
+      margin-bottom: 4px;
+    }
+    .card.blue .card-title { color: #0369A1; }
+    .card.red .card-title { color: #BE123C; }
+    .card.green .card-title { color: #047857; }
+    .card.purple .card-title { color: #6D28D9; }
 
     .formula-box {
       background: #0F172A;
       color: #38BDF8;
       font-family: 'JetBrains Mono', monospace;
-      padding: 10px 14px;
-      border-radius: 8px;
-      font-size: 8.5pt;
-      margin: 10px 0;
-      line-height: 1.4;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 8pt;
+      line-height: 1.35;
+      margin-top: 4px;
     }
 
+    .badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 7.5pt;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .badge.success { background: #DCFCE7; color: #166534; }
+
     .footer-note {
-      font-size: 8pt;
+      font-size: 7.5pt;
       color: #94A3B8;
       border-top: 1px solid #E2E8F0;
-      padding-top: 6px;
-      margin-top: 16px;
+      padding-top: 4px;
       text-align: center;
     }
   </style>
@@ -243,150 +200,683 @@
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       PAGE 1: SLIDE 4 - FEASIBILITY AND VIABILITY
+       PAGE 1: SLIDE 4 VISUAL PRESENTATION SLIDE (FEASIBILITY & VIABILITY)
   ═══════════════════════════════════════════════════════════════════════ -->
   <div class="page">
-    <div class="header-bar">
-      <div>
-        <span class="team-badge">TEAM ARC</span>
-        <span style="margin-left: 8px; font-weight: 700; font-size: 10pt; color: #475569;">Smart India Hackathon 2026</span>
-      </div>
-      <span class="sih-badge">SLIDE 4 DOSSIER</span>
-    </div>
+    <div class="slide-svg-container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" style="background:#F8FAFC;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <!-- Drop Shadows -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+    
+    <!-- Header Gradients -->
+    <linearGradient id="blueHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="redHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E11D48"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+    <linearGradient id="greenHeaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
 
-    <h1>Slide 4: Feasibility and Viability</h1>
-    <p class="subtitle">Architecture Feasibility, Operational Resilience, Threat Modeling &amp; Mitigation Framework</p>
+    <linearGradient id="blueCardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0F9FF"/>
+    </linearGradient>
+    <linearGradient id="redCardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#FFF1F2"/>
+    </linearGradient>
+    <linearGradient id="greenCardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F0FDF4"/>
+    </linearGradient>
+  </defs>
 
-    <!-- Embedded High-Resolution Card Graphic -->
-    <div class="graphic-container">
-      <img src="assets/slide4_feasibility_cards_light.svg" alt="Slide 4 Feasibility and Viability Cards" />
-    </div>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TOP SLIDE HEADER
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 45)">
+    <!-- Team Tag -->
+    <rect x="0" y="0" width="130" height="38" rx="19" fill="#EEF2F6" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="65" y="24" text-anchor="middle" font-size="16" font-weight="800" fill="#334155" letter-spacing="1px">TEAM ARC</text>
+    
+    <!-- Title -->
+    <text x="160" y="28" font-size="34" font-weight="900" fill="#0F172A" letter-spacing="-0.5px">FEASIBILITY AND VIABILITY</text>
+    <text x="0" y="65" font-size="16" font-weight="600" fill="#64748B">Architectural Readiness, Threat Modeling &amp; Mitigation Framework for National Scale Deployment</text>
 
-    <h2>Technical &amp; Operational Readiness Matrix</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>System Dimension</th>
-          <th>Implementation Architecture</th>
-          <th>Feasibility Status</th>
-          <th>Operational Performance</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>Cross-Platform Engine</strong></td>
-          <td>React 18 + Capacitor 8 + Tailwind CSS</td>
-          <td><span class="badge success">100% Ready</span></td>
-          <td>Unified codebase compiles to Android, iOS &amp; PWA.</td>
-        </tr>
-        <tr>
-          <td><strong>BFF &amp; Caching Tier</strong></td>
-          <td>Node.js Express + In-Memory Redis / LRU</td>
-          <td><span class="badge success">Operational</span></td>
-          <td>Sub-100ms response time; 75% payload compression.</td>
-        </tr>
-        <tr>
-          <td><strong>Multi-Agency Ingestion</strong></td>
-          <td>37 IMD Radars, INSAT-3DS, CPCB, INCOIS, Damini</td>
-          <td><span class="badge success">Live Ingest</span></td>
-          <td>Automated schema normalization &amp; diurnal delta engine.</td>
-        </tr>
-        <tr>
-          <td><strong>Zero-Connectivity Mode</strong></td>
-          <td>PWA Service Worker + Local Storage Hydration</td>
-          <td><span class="badge success">Verified</span></td>
-          <td>100% offline access to previously synced advisories &amp; maps.</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- SIH Badge -->
+    <rect x="1560" y="-10" width="200" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="1660" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#0F172A">SIH 2026</text>
+  </g>
 
-    <h2>Threat Modeling, Operational Risks &amp; Engineered Mitigations</h2>
-    <div class="card-grid-3">
-      <div class="card red">
-        <div class="card-title">📡 Network Blackouts</div>
-        <p style="font-size: 8.5pt; margin-bottom: 6px;"><strong>Risk</strong>: Cyclones knock out cellular towers, disabling internet access during peak disasters.</p>
-        <div style="border-top: 1px dashed #FECDD3; padding-top: 6px;">
-          <p style="font-size: 8.5pt; color: #047857; margin: 0;"><strong>Mitigation</strong>: PWA offline caching retains full forecast models, emergency radar loops &amp; evacuation SOPs locally without cellular signal.</p>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       3-CARD MAIN GRID
+  ═══════════════════════════════════════════════════════════════════════ -->
+
+  <!-- CARD 1: TECHNICAL & OPERATIONAL FEASIBILITY -->
+  <g transform="translate(80, 145)" filter="url(#cardShadow)">
+    <rect width="550" height="880" rx="24" fill="url(#blueCardBg)" stroke="#BAE6FD" stroke-width="2"/>
+    
+    <!-- Card Header Banner -->
+    <path d="M 0 24 C 0 10.745 10.745 0 24 0 L 526 0 C 539.255 0 550 10.745 550 24 L 550 90 L 0 90 Z" fill="url(#blueHeaderGrad)"/>
+    <circle cx="48" cy="45" r="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <text x="48" y="52" text-anchor="middle" font-size="22" fill="#FFFFFF">⚙️</text>
+    <text x="84" y="40" font-size="19" font-weight="800" fill="#FFFFFF">Technical &amp; Operational</text>
+    <text x="84" y="64" font-size="16" font-weight="700" fill="#E0F2FE">Feasibility Analysis</text>
+
+    <foreignObject x="20" y="105" width="510" height="755">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;gap:14px;">
+        
+        <!-- Item 1 -->
+        <div style="background:#FFFFFF;border:1.5px solid #E0F2FE;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">📱</span>
+            <span style="font-weight:800;color:#0369A1;font-size:15px;">React 18 &amp; Capacitor 8 Native Engine</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Unified cross-platform codebase for Android, iOS &amp; PWA</div>
+            <div>• Zero code duplication across web &amp; mobile binaries</div>
+            <div>• 60fps hardware-accelerated fluid UI on budget smartphones</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#0284C7;margin-top:6px;">Status: 100% Production Ready</div>
         </div>
-      </div>
 
-      <div class="card red">
-        <div class="card-title">🤖 AI Hallucinations</div>
-        <p style="font-size: 8.5pt; margin-bottom: 6px;"><strong>Risk</strong>: LLMs fabricating unverified safety guidelines during extreme emergency situations.</p>
-        <div style="border-top: 1px dashed #FECDD3; padding-top: 6px;">
-          <p style="font-size: 8.5pt; color: #047857; margin: 0;"><strong>Mitigation</strong>: Dual-RAG engine strictly anchored to verified IMD/NDMA SOPs with mathematical proofs and full citation trace audit logs.</p>
+        <!-- Item 2 -->
+        <div style="background:#FFFFFF;border:1.5px solid #E0F2FE;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">⚡</span>
+            <span style="font-weight:800;color:#0369A1;font-size:15px;">High-Throughput Node BFF &amp; Redis</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Stateless Express BFF with in-memory Redis caching</div>
+            <div>• Sub-100ms response latency under heavy peak bursts</div>
+            <div>• 75% payload compression vs raw meteorological feeds</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#0284C7;margin-top:6px;">Metric: &lt; 95ms Endpoint Latency</div>
         </div>
-      </div>
 
-      <div class="card red">
-        <div class="card-title">🗣️ Rural Literacy Barrier</div>
-        <p style="font-size: 8.5pt; margin-bottom: 6px;"><strong>Risk</strong>: Complex meteorological jargon and low text literacy among rural farmers and fishermen.</p>
-        <div style="border-top: 1px dashed #FECDD3; padding-top: 6px;">
-          <p style="font-size: 8.5pt; color: #047857; margin: 0;"><strong>Mitigation</strong>: Natural female voice AI (English, हिन्दी, ಕನ್ನಡ) with instant speech interruption and plainspoken vernacular guidance.</p>
+        <!-- Item 3 -->
+        <div style="background:#FFFFFF;border:1.5px solid #E0F2FE;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">🛰️</span>
+            <span style="font-weight:800;color:#0369A1;font-size:15px;">Direct IMD, CPCB &amp; INCOIS Ingestion</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Ingests 37 Doppler Radars &amp; INSAT-3DS Multi-Spectral Satellites</div>
+            <div>• CPCB live PM2.5/PM10 CAAQMS pollution telemetry</div>
+            <div>• INCOIS ocean wave swell flux &amp; Damini lightning data</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#0284C7;margin-top:6px;">Coverage: All India Multi-Agency</div>
         </div>
-      </div>
-    </div>
 
-    <div class="footer-note">
-      Mausam+ Hackathon Dossier • Team ARC • SIH 2026 Problem Statement: Development of Personalized Homepage for 'Mausam' Mobile App
+        <!-- Item 4 -->
+        <div style="background:#FFFFFF;border:1.5px solid #E0F2FE;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">🧩</span>
+            <span style="font-weight:800;color:#0369A1;font-size:15px;">Modular Universal Card Registry</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Dynamic card registry with weighted persona scoring</div>
+            <div>• Plug-and-play architecture for new sectoral modules</div>
+            <div>• Zero breaking changes during future MoES deployments</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#0284C7;margin-top:6px;">Architecture: 100% Extensible Registry</div>
+        </div>
+
+      </div>
+    </foreignObject>
+  </g>
+
+  <!-- CARD 2: POTENTIAL CHALLENGES & RISKS -->
+  <g transform="translate(685, 145)" filter="url(#cardShadow)">
+    <rect width="550" height="880" rx="24" fill="url(#redCardBg)" stroke="#FECDD3" stroke-width="2"/>
+    
+    <!-- Card Header Banner -->
+    <path d="M 0 24 C 0 10.745 10.745 0 24 0 L 526 0 C 539.255 0 550 10.745 550 24 L 550 90 L 0 90 Z" fill="url(#redHeaderGrad)"/>
+    <circle cx="48" cy="45" r="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <text x="48" y="52" text-anchor="middle" font-size="22" fill="#FFFFFF">⚠️</text>
+    <text x="84" y="40" font-size="19" font-weight="800" fill="#FFFFFF">Potential Challenges</text>
+    <text x="84" y="64" font-size="16" font-weight="700" fill="#FFE4E6">&amp; Operational Risks</text>
+
+    <foreignObject x="20" y="105" width="510" height="755">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;gap:14px;">
+        
+        <!-- Risk 1 -->
+        <div style="background:#FFFFFF;border:1.5px solid #FFE4E6;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">📡</span>
+            <span style="font-weight:800;color:#BE123C;font-size:15px;">Extreme Weather Network Blackouts</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Cellular towers collapse during cyclones, floods &amp; severe storms</div>
+            <div>• Complete loss of internet connectivity in ground zero disaster zones</div>
+            <div>• Citizens unable to fetch live cloud warnings during peak peril</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:800;color:#E11D48;margin-top:6px;">Risk Severity: CRITICAL</div>
+        </div>
+
+        <!-- Risk 2 -->
+        <div style="background:#FFFFFF;border:1.5px solid #FFE4E6;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">🤖</span>
+            <span style="font-weight:800;color:#BE123C;font-size:15px;">AI Hallucinations in Disaster SOPs</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Generative LLMs fabricating unverified safety guidelines</div>
+            <div>• Incorrect evacuation guidance or distorted hazard thresholds</div>
+            <div>• Severe liability &amp; life safety implications during emergencies</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:800;color:#E11D48;margin-top:6px;">Risk Severity: HIGH</div>
+        </div>
+
+        <!-- Risk 3 -->
+        <div style="background:#FFFFFF;border:1.5px solid #FFE4E6;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">🗣️</span>
+            <span style="font-weight:800;color:#BE123C;font-size:15px;">Rural Low-Bandwidth &amp; Dialect Gaps</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• 2G/3G high packet loss in remote agricultural &amp; coastal belts</div>
+            <div>• Complex meteorological terminology creating confusion</div>
+            <div>• Low text literacy among farmers &amp; small-scale fishermen</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:800;color:#E11D48;margin-top:6px;">Risk Severity: HIGH</div>
+        </div>
+
+        <!-- Risk 4 -->
+        <div style="background:#FFFFFF;border:1.5px solid #FFE4E6;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">⛰️</span>
+            <span style="font-weight:800;color:#BE123C;font-size:15px;">Radar Blindspots &amp; Sensor Lags</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Mountainous terrain blocking radar beam line-of-sight</div>
+            <div>• Discrepancies between satellite models &amp; local rain bursts</div>
+            <div>• Micro-scale flash floods occurring between station grids</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:800;color:#E11D48;margin-top:6px;">Risk Severity: MEDIUM</div>
+        </div>
+
+      </div>
+    </foreignObject>
+  </g>
+
+  <!-- CARD 3: MITIGATION & VIABILITY STRATEGIES -->
+  <g transform="translate(1290, 145)" filter="url(#cardShadow)">
+    <rect width="550" height="880" rx="24" fill="url(#greenCardBg)" stroke="#A7F3D0" stroke-width="2"/>
+    
+    <!-- Card Header Banner -->
+    <path d="M 0 24 C 0 10.745 10.745 0 24 0 L 526 0 C 539.255 0 550 10.745 550 24 L 550 90 L 0 90 Z" fill="url(#greenHeaderGrad)"/>
+    <circle cx="48" cy="45" r="22" fill="#FFFFFF" fill-opacity="0.2"/>
+    <text x="48" y="52" text-anchor="middle" font-size="22" fill="#FFFFFF">🛡️</text>
+    <text x="84" y="40" font-size="19" font-weight="800" fill="#FFFFFF">Mitigation Strategies</text>
+    <text x="84" y="64" font-size="16" font-weight="700" fill="#D1FAE5">&amp; Viability Solutions</text>
+
+    <foreignObject x="20" y="105" width="510" height="755">
+      <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;gap:14px;">
+        
+        <!-- Strategy 1 -->
+        <div style="background:#FFFFFF;border:1.5px solid #D1FAE5;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">💾</span>
+            <span style="font-weight:800;color:#047857;font-size:15px;">100% Offline Emergency Caching</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• PWA Service Worker caching &amp; local storage state hydration</div>
+            <div>• Pre-synced emergency maps, radar loops &amp; disaster SOPs</div>
+            <div>• Instant zero-connectivity access during active landfalls</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#059669;margin-top:6px;">Efficacy: 100% Offline Availability</div>
+        </div>
+
+        <!-- Strategy 2 -->
+        <div style="background:#FFFFFF;border:1.5px solid #D1FAE5;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">📐</span>
+            <span style="font-weight:800;color:#047857;font-size:15px;">Grounded Dual-RAG &amp; Audit Trail</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Strict RAG anchored directly to verified IMD/NDMA guidelines</div>
+            <div>• Mathematical proofs for Stull WBGT, FAO-56 ET₀ &amp; Wave Flux</div>
+            <div>• Inspectable audit log: "Why this alert?" with citations</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#059669;margin-top:6px;">Accuracy: Zero AI Hallucinations</div>
+        </div>
+
+        <!-- Strategy 3 -->
+        <div style="background:#FFFFFF;border:1.5px solid #D1FAE5;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">🎙️</span>
+            <span style="font-weight:800;color:#047857;font-size:15px;">Multilingual Vernacular Voice AI</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Natural female voice TTS in English, हिन्दी, ಕನ್ನಡ</div>
+            <div>• Instant audio cancellation &amp; continuous speech mic input</div>
+            <div>• Plainspoken guidance without complex meteorological jargon</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#059669;margin-top:6px;">Inclusivity: Zero-Literacy Accessible</div>
+        </div>
+
+        <!-- Strategy 4 -->
+        <div style="background:#FFFFFF;border:1.5px solid #D1FAE5;border-radius:14px;padding:12px 14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <span style="font-size:16px;">👥</span>
+            <span style="font-weight:800;color:#047857;font-size:15px;">Crowdsourced Ground-Truthing</span>
+          </div>
+          <div style="font-size:12.5px;color:#334155;line-height:1.45;">
+            <div>• Citizen hazard reporting wizard with photo verification</div>
+            <div>• Real-time community upvotes &amp; geographic clustering</div>
+            <div>• Validates street waterlogging &amp; radar blindspot events</div>
+          </div>
+          <div style="font-size:11.5px;font-weight:700;color:#059669;margin-top:6px;">Coverage: Hyperlocal Street-Level</div>
+        </div>
+
+      </div>
+    </foreignObject>
+  </g>
+</svg>
+
     </div>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════════════
-       PAGE 2: SLIDE 5 - IMPACT AND BENEFITS
+       PAGE 2: SLIDE 4 TECHNICAL ARCHITECTURE & THREAT MODELING DOSSIER
   ═══════════════════════════════════════════════════════════════════════ -->
   <div class="page">
-    <div class="header-bar">
+    <div class="detail-container">
       <div>
-        <span class="team-badge">TEAM ARC</span>
-        <span style="margin-left: 8px; font-weight: 700; font-size: 10pt; color: #475569;">Smart India Hackathon 2026</span>
+        <div class="header-bar">
+          <div>
+            <span class="team-badge">TEAM ARC</span>
+            <span style="margin-left: 8px; font-weight: 700; font-size: 9pt; color: #475569;">Smart India Hackathon 2026</span>
+          </div>
+          <span class="sih-badge">SLIDE 4 TECHNICAL SPECIFICATIONS</span>
+        </div>
+
+        <h1>Slide 4: Feasibility &amp; Viability Engineering Dossier</h1>
+        <p class="subtitle">Architectural Readiness, Benchmarked Latency, Threat Mitigation &amp; Scale Blueprint</p>
+
+        <h2>Production Readiness &amp; Performance Benchmarks</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Architecture Tier</th>
+              <th>Technology Stack</th>
+              <th>Operational Status</th>
+              <th>Benchmarked Performance Metric</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Mobile &amp; Web Engine</strong></td>
+              <td>React 18 + Capacitor 8 + Tailwind CSS</td>
+              <td><span class="badge success">100% Production Ready</span></td>
+              <td>Unified codebase compiles to Android APK/AAB, iOS &amp; PWA with 60fps UI.</td>
+            </tr>
+            <tr>
+              <td><strong>Backend for Frontend (BFF)</strong></td>
+              <td>Stateless Node.js Express + Redis / LRU</td>
+              <td><span class="badge success">Operational</span></td>
+              <td>Sub-100ms response time; 75% payload compression vs raw data feeds.</td>
+            </tr>
+            <tr>
+              <td><strong>Multi-Agency Telemetry</strong></td>
+              <td>37 IMD Radars, INSAT-3DS, CPCB, INCOIS, Damini</td>
+              <td><span class="badge success">Live Ingest</span></td>
+              <td>Automated schema normalization, diurnal forecast diff &amp; geocoding.</td>
+            </tr>
+            <tr>
+              <td><strong>Zero-Connectivity Mode</strong></td>
+              <td>PWA Service Worker (sw.js) + Local Hydration</td>
+              <td><span class="badge success">Verified</span></td>
+              <td>100% offline access to pre-synced forecasts, emergency radar maps &amp; SOPs.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Threat Modeling &amp; Engineered Risk Mitigations</h2>
+        <div class="grid-3">
+          <div class="card red">
+            <div class="card-title">📡 Network Blackouts during Disasters</div>
+            <p style="margin-bottom: 4px;"><strong>Risk</strong>: Cellular towers collapse during cyclones, floods, and severe storms, cutting off real-time updates.</p>
+            <p style="color: #047857; font-weight: 600;"><strong>Mitigation</strong>: PWA offline cache retains full forecast models, emergency radar loops &amp; evacuation SOPs locally.</p>
+          </div>
+
+          <div class="card red">
+            <div class="card-title">🤖 AI Hallucinations in Critical Advisories</div>
+            <p style="margin-bottom: 4px;"><strong>Risk</strong>: Generative LLMs fabricating unverified safety guidelines during extreme emergency events.</p>
+            <p style="color: #047857; font-weight: 600;"><strong>Mitigation</strong>: Dual-RAG engine anchored strictly to IMD/NDMA guidelines with mathematical proofs &amp; audit trace logs.</p>
+          </div>
+
+          <div class="card red">
+            <div class="card-title">🗣️ Rural Bandwidth &amp; Literacy Barrier</div>
+            <p style="margin-bottom: 4px;"><strong>Risk</strong>: 2G/3G packet loss, complex meteorological jargon, and low text literacy among rural farmers and fishermen.</p>
+            <p style="color: #047857; font-weight: 600;"><strong>Mitigation</strong>: Natural female voice AI (English, हिन्दी, ಕನ್ನಡ) with continuous mic input and instant voice cancellation.</p>
+          </div>
+        </div>
       </div>
-      <span class="sih-badge">SLIDE 5 DOSSIER</span>
+
+      <div class="footer-note">
+        Mausam+ Hackathon Dossier • Team ARC • SIH 2026 Problem Statement: Development of Personalized Homepage for 'Mausam' Mobile App
+      </div>
     </div>
+  </div>
 
-    <h1>Slide 5: Impact and Benefits</h1>
-    <p class="subtitle">Persona-Centric User Value &amp; Multi-Dimensional Impact Matrix (Social, Economic, Environmental)</p>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       PAGE 3: SLIDE 5 VISUAL PRESENTATION SLIDE (IMPACT & BENEFITS)
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="slide-svg-container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" style="background:#F8FAFC;font-family:'Segoe UI',-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;">
+  <defs>
+    <!-- Drop Shadows -->
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
 
-    <!-- Embedded High-Resolution Card Graphic -->
-    <div class="graphic-container">
-      <img src="assets/slide5_impact_benefits_cards_light.svg" alt="Slide 5 Impact and Benefits Cards" />
+    <!-- Header Gradients -->
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       TOP SLIDE HEADER
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 45)">
+    <!-- Team Tag -->
+    <rect x="0" y="0" width="130" height="38" rx="19" fill="#EEF2F6" stroke="#CBD5E1" stroke-width="1.5"/>
+    <text x="65" y="24" text-anchor="middle" font-size="16" font-weight="800" fill="#334155" letter-spacing="1px">TEAM ARC</text>
+    
+    <!-- Title -->
+    <text x="160" y="28" font-size="34" font-weight="900" fill="#0F172A" letter-spacing="-0.5px">IMPACT AND BENEFITS</text>
+    <text x="0" y="65" font-size="16" font-weight="600" fill="#64748B">Target Audience Value Proposition &amp; Multi-Dimensional Impact Matrix (Social, Economic, Environmental)</text>
+
+    <!-- SIH Badge -->
+    <rect x="1560" y="-10" width="200" height="48" rx="8" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+    <text x="1660" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#0F172A">SIH 2026</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 1: TARGET AUDIENCE IMPACT (4 TILES)
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 140)">
+    <text x="0" y="0" font-size="17" font-weight="800" fill="#0F172A" letter-spacing="0.5px">🎯 PERSONA-SPECIFIC TARGET AUDIENCE IMPACT</text>
+    
+    <!-- TILE 1: Farmers & Agromet -->
+    <g transform="translate(0, 15)" filter="url(#cardShadow)">
+      <rect width="420" height="280" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="420" height="52" rx="18" fill="#ECFDF5"/>
+      <text x="20" y="33" font-size="20">🌾</text>
+      <text x="54" y="33" font-size="16" font-weight="800" fill="#065F46">Farmers &amp; Kisan Agromet</text>
+
+      <foreignObject x="18" y="62" width="384" height="205">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:12.5px;color:#334155;line-height:1.45;">
+          <div style="font-weight:700;color:#047857;margin-bottom:6px;font-size:13.5px;">FAO-56 ET₀ &amp; Meghdoot Advisory</div>
+          <div style="margin-bottom:4px;">• Daily crop evapotranspiration calculations</div>
+          <div style="margin-bottom:4px;">• Smart irrigation timing saves 20-30% water</div>
+          <div style="margin-bottom:4px;">• Prevents fertilizer wash-off before downpours</div>
+          <div style="margin-bottom:10px;">• Growth-stage advisories in regional vernacular</div>
+          <div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:8px;padding:6px 10px;text-align:center;font-weight:800;color:#047857;font-size:12.5px;">
+            ROI: ₹3,000 – ₹5,000 / Acre / Season
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+
+    <!-- TILE 2: Coastal & Fishermen -->
+    <g transform="translate(445, 15)" filter="url(#cardShadow)">
+      <rect width="420" height="280" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="420" height="52" rx="18" fill="#F0F9FF"/>
+      <text x="20" y="33" font-size="20">🎣</text>
+      <text x="54" y="33" font-size="16" font-weight="800" fill="#075985">Coastal &amp; Fishermen</text>
+
+      <foreignObject x="18" y="62" width="384" height="205">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:12.5px;color:#334155;line-height:1.45;">
+          <div style="font-weight:700;color:#0284C7;margin-bottom:6px;font-size:13.5px;">INCOIS Wave Flux &amp; Swell Dynamics</div>
+          <div style="margin-bottom:4px;">• Real-time wave power &amp; swell surge metrics</div>
+          <div style="margin-bottom:4px;">• High/Low tide clocks for harbor navigation</div>
+          <div style="margin-bottom:4px;">• Commercial Port Danger Signals (1 to 11)</div>
+          <div style="margin-bottom:10px;">• Prevents boat capsizing &amp; lost fishing days</div>
+          <div style="background:#F0F9FF;border:1px solid #BAE6FD;border-radius:8px;padding:6px 10px;text-align:center;font-weight:800;color:#0284C7;font-size:12.5px;">
+            Safety: Zero Marine Craft Asset Loss
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+
+    <!-- TILE 3: Outdoor Workers & Commuters -->
+    <g transform="translate(890, 15)" filter="url(#cardShadow)">
+      <rect width="420" height="280" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="420" height="52" rx="18" fill="#FFF7ED"/>
+      <text x="20" y="33" font-size="20">🏃</text>
+      <text x="54" y="33" font-size="16" font-weight="800" fill="#9A3412">Workers &amp; Commuters</text>
+
+      <foreignObject x="18" y="62" width="384" height="205">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:12.5px;color:#334155;line-height:1.45;">
+          <div style="font-weight:700;color:#EA580C;margin-bottom:6px;font-size:13.5px;">Stull WBGT &amp; Highway Radar</div>
+          <div style="margin-bottom:4px;">• WBGT heat strain index prevents heat stroke</div>
+          <div style="margin-bottom:4px;">• Optimal morning/evening outdoor windows</div>
+          <div style="margin-bottom:4px;">• Highway corridor speed &amp; waterlogging alerts</div>
+          <div style="margin-bottom:10px;">• Real-time transit navigation safety scores</div>
+          <div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;padding:6px 10px;text-align:center;font-weight:800;color:#C2410C;font-size:12.5px;">
+            Health: Zero Heat Illness Episodes
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+
+    <!-- TILE 4: Vulnerable Health -->
+    <g transform="translate(1335, 15)" filter="url(#cardShadow)">
+      <rect width="425" height="280" rx="18" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <rect width="425" height="52" rx="18" fill="#FAF5FF"/>
+      <text x="20" y="33" font-size="20">🫁</text>
+      <text x="54" y="33" font-size="16" font-weight="800" fill="#6B21A8">Vulnerable Health Demographics</text>
+
+      <foreignObject x="18" y="62" width="389" height="205">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:12.5px;color:#334155;line-height:1.45;">
+          <div style="font-weight:700;color:#9333EA;margin-bottom:6px;font-size:13.5px;">CPCB Sub-Index AQI &amp; Allergens</div>
+          <div style="margin-bottom:4px;">• PM2.5, PM10, NO₂, SO₂ dominant pollutant split</div>
+          <div style="margin-bottom:4px;">• Proactive dust &amp; pollen inhalation warnings</div>
+          <div style="margin-bottom:4px;">• Custom alerts for elderly, asthmatic &amp; kids</div>
+          <div style="margin-bottom:10px;">• Proactive medication &amp; inhaler reminders</div>
+          <div style="background:#FAF5FF;border:1px solid #E9D5FF;border-radius:8px;padding:6px 10px;text-align:center;font-weight:800;color:#7E22CE;font-size:12.5px;">
+            Protection: Proactive Medical Defense
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SECTION 2: 3-PILLAR BENEFIT MATRIX (SOCIAL, ECONOMIC, ENVIRONMENTAL)
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <g transform="translate(80, 485)">
+    <text x="0" y="0" font-size="17" font-weight="800" fill="#0F172A" letter-spacing="0.5px">🌐 HOLISTIC 3-PILLAR BENEFIT MATRIX</text>
+    
+    <!-- PILLAR 1: SOCIAL IMPACT -->
+    <g transform="translate(0, 15)" filter="url(#cardShadow)">
+      <rect width="565" height="505" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <path d="M 0 22 C 0 9.849 9.849 0 22 0 L 543 0 C 555.151 0 565 9.849 565 22 L 565 72 L 0 72 Z" fill="url(#purpleGrad)"/>
+      <circle cx="42" cy="36" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+      <text x="42" y="42" text-anchor="middle" font-size="18">👥</text>
+      <text x="70" y="32" font-size="18" font-weight="800" fill="#FFFFFF">Social Impact &amp; Public Safety</text>
+      <text x="70" y="54" font-size="13.5" font-weight="600" fill="#DDD6FE">Inclusive Life-Saving Weather Intelligence</text>
+
+      <foreignObject x="24" y="86" width="517" height="405">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;color:#334155;line-height:1.45;">
+          
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Disaster Early Warning Lead Times</div>
+            <div style="color:#475569;margin-top:2px;">120-hour RSMC cyclone cone tracks &amp; Damini lightning alerts provide actionable evacuation windows for administrations.</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Zero-Literacy Vernacular Voice Access</div>
+            <div style="color:#475569;margin-top:2px;">Voice AI (English, हिन्दी, ಕನ್ನಡ) eliminates text barriers, democratizing critical weather insights across 1.4B citizens.</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Public Health &amp; Heatwave Shield</div>
+            <div style="color:#475569;margin-top:2px;">Proactive WBGT and pollution triggers reduce emergency room admissions during severe heatwaves and toxic smog episodes.</div>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Crowdsourced Community Ground-Truthing</div>
+            <div style="color:#475569;margin-top:2px;">Citizen hazard pins with peer verification alert neighborhoods to active waterlogging, fallen trees, and flash floods.</div>
+          </div>
+
+          <div style="background:#FAF5FF;border:1px solid #E9D5FF;border-radius:10px;padding:10px;text-align:center;font-weight:800;color:#7C3AED;font-size:13.5px;">
+            KPI: 100% Inclusivity &amp; Faster Evacuation Response
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+
+    <!-- PILLAR 2: ECONOMIC BENEFITS -->
+    <g transform="translate(595, 15)" filter="url(#cardShadow)">
+      <rect width="565" height="505" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <path d="M 0 22 C 0 9.849 9.849 0 22 0 L 543 0 C 555.151 0 565 9.849 565 22 L 565 72 L 0 72 Z" fill="url(#blueGrad)"/>
+      <circle cx="42" cy="36" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+      <text x="42" y="42" text-anchor="middle" font-size="18">💰</text>
+      <text x="70" y="32" font-size="18" font-weight="800" fill="#FFFFFF">Economic &amp; Livelihood ROI</text>
+      <text x="70" y="54" font-size="13.5" font-weight="600" fill="#E0F2FE">Direct Farmer, Fishermen &amp; Municipal Cost Savings</text>
+
+      <foreignObject x="24" y="86" width="517" height="405">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;color:#334155;line-height:1.45;">
+          
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Agricultural Input Cost Reduction</div>
+            <div style="color:#475569;margin-top:2px;">Synchronizing fertilizer &amp; pesticide spraying with rain probability avoids wash-off, saving ₹3,000–₹5,000 per acre per season.</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Marine Craft &amp; Gear Asset Protection</div>
+            <div style="color:#475569;margin-top:2px;">INCOIS swell warnings prevent offshore vessel capsizing and multi-lakh rupee fishing net destruction during squally seas.</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Workforce Productivity Optimization</div>
+            <div style="color:#475569;margin-top:2px;">Shift scheduling aligned to thermal stress windows preserves construction &amp; agricultural labor output without heat exhaustion.</div>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Infrastructure Damage Mitigation</div>
+            <div style="color:#475569;margin-top:2px;">Corridor nowcasts allow transport logistics operators to reroute fleets, cutting vehicle flood damage and transit delays.</div>
+          </div>
+
+          <div style="background:#F0F9FF;border:1px solid #BAE6FD;border-radius:10px;padding:10px;text-align:center;font-weight:800;color:#0284C7;font-size:13.5px;">
+            ROI: Massive Direct Savings Across Agrarian &amp; Marine Belts
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+
+    <!-- PILLAR 3: ENVIRONMENTAL RESILIENCE -->
+    <g transform="translate(1190, 15)" filter="url(#cardShadow)">
+      <rect width="570" height="505" rx="22" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="1.5"/>
+      <path d="M 0 22 C 0 9.849 9.849 0 22 0 L 548 0 C 560.151 0 570 9.849 570 22 L 570 72 L 0 72 Z" fill="url(#emeraldGrad)"/>
+      <circle cx="42" cy="36" r="18" fill="#FFFFFF" fill-opacity="0.2"/>
+      <text x="42" y="42" text-anchor="middle" font-size="18">🌿</text>
+      <text x="70" y="32" font-size="18" font-weight="800" fill="#FFFFFF">Environmental &amp; Climate Resilience</text>
+      <text x="70" y="54" font-size="13.5" font-weight="600" fill="#D1FAE5">Resource Conservation &amp; Urban Adaptation</text>
+
+      <foreignObject x="24" y="86" width="522" height="405">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:'Segoe UI',system-ui,sans-serif;font-size:13px;color:#334155;line-height:1.45;">
+          
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Freshwater Conservation (20–30%)</div>
+            <div style="color:#475569;margin-top:2px;">Evapotranspiration (ET₀) precision irrigation eliminates over-watering and preserves critical groundwater reserves.</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Elimination of Agrochemical Leaching</div>
+            <div style="color:#475569;margin-top:2px;">Preventing chemical drift reduces pesticide percolation into aquifers, protecting freshwater drinking reservoirs and rivers.</div>
+          </div>
+
+          <div style="margin-bottom:12px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Proactive Municipal Dewatering</div>
+            <div style="color:#475569;margin-top:2px;">Localized rainfall accumulation alerts enable smart cities to pre-activate stormwater pumps before underpasses flood.</div>
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <div style="font-weight:800;color:#1E293B;font-size:14.5px;">• Climate-Aware Urban Planning</div>
+            <div style="color:#475569;margin-top:2px;">Historical telemetry logs empower municipal bodies to map urban heat islands and waterlogging hotspots for green buffers.</div>
+          </div>
+
+          <div style="background:#ECFDF5;border:1px solid #A7F3D0;border-radius:10px;padding:10px;text-align:center;font-weight:800;color:#059669;font-size:13.5px;">
+            Outcome: Sustainable Groundwater &amp; Climate Resilience
+          </div>
+        </div>
+      </foreignObject>
+    </g>
+  </g>
+</svg>
+
     </div>
+  </div>
 
-    <h2>Multi-Dimensional Benefit Matrix (Social, Economic &amp; Environmental)</h2>
-    <div class="card-grid-3">
-      <div class="card purple">
-        <div class="card-title">👥 Social &amp; Safety Impact</div>
-        <ul>
-          <li><strong>Disaster Lead Times</strong>: 120-hour RSMC cyclone cone tracks and lightning alerts give administrations proactive evacuation lead times.</li>
-          <li><strong>Universal Inclusivity</strong>: Multilingual voice AI breaks text barriers for 1.4B citizens regardless of literacy level.</li>
-          <li><strong>Public Health Shield</strong>: Biometeorological WBGT alerts reduce heat-stroke casualties and emergency hospitalizations.</li>
-          <li><strong>Community Ground-Truthing</strong>: Citizen hazard pins with peer upvoting alert neighborhoods to local flash floods.</li>
-        </ul>
-      </div>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       PAGE 4: SLIDE 5 TARGET AUDIENCE & MULTI-DIMENSIONAL ROI DOSSIER
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="page">
+    <div class="detail-container">
+      <div>
+        <div class="header-bar">
+          <div>
+            <span class="team-badge">TEAM ARC</span>
+            <span style="margin-left: 8px; font-weight: 700; font-size: 9pt; color: #475569;">Smart India Hackathon 2026</span>
+          </div>
+          <span class="sih-badge">SLIDE 5 IMPACT &amp; ROI MATRIX</span>
+        </div>
 
-      <div class="card blue">
-        <div class="card-title">💰 Economic &amp; Livelihood ROI</div>
-        <ul>
-          <li><strong>Agricultural Savings</strong>: Fertilizer/pesticide spray timing prevents rain wash-off, saving <strong>₹3,000–₹5,000 per acre</strong> per cycle.</li>
-          <li><strong>Zero Marine Asset Loss</strong>: INCOIS wave flux &amp; swell warnings prevent multi-lakh rupee boat capsizing and net damage.</li>
-          <li><strong>Workforce Productivity</strong>: Thermal stress scheduling maintains construction/industrial labor output without heat exhaustion.</li>
-          <li><strong>Fleet Logistics</strong>: Real-time corridor alerts reduce transit flood damages and commercial delivery bottlenecks.</li>
-        </ul>
-      </div>
+        <h1>Slide 5: Multi-Dimensional Impact &amp; Mathematical Formulations</h1>
+        <p class="subtitle">Persona-Centric User Value Proposition, Quantified Economic ROI &amp; Inspectable Scientific Formulations</p>
 
-      <div class="card green">
-        <div class="card-title">🌿 Environmental Resilience</div>
-        <ul>
-          <li><strong>20–30% Water Conservation</strong>: FAO-56 Penman-Monteith $\text{ET}_0$ calculations guide precise micro-irrigation scheduling.</li>
-          <li><strong>Reduced Agrochemical Leaching</strong>: Eliminating redundant chemical spraying prevents aquifer and river eco-toxicity.</li>
-          <li><strong>Municipal Stormwater Action</strong>: Hyperlocal rainfall accumulation alerts enable cities to deploy dewatering pumps proactively.</li>
-          <li><strong>Urban Heat Island Mapping</strong>: Historical telemetry logs empower municipal bodies to plan climate-resilient green buffers.</li>
-        </ul>
-      </div>
-    </div>
+        <h2>Holistic 3-Pillar Benefit Matrix</h2>
+        <div class="grid-3">
+          <div class="card purple">
+            <div class="card-title">👥 Social Impact &amp; Public Safety</div>
+            <p>• <strong>Disaster Lead Times</strong>: 120-hr RSMC cyclone cone tracks &amp; Damini lightning alerts give administrations proactive evacuation lead times.</p>
+            <p>• <strong>Zero-Literacy Accessibility</strong>: Voice AI breaks text barriers for 1.4B citizens regardless of regional language or reading ability.</p>
+            <p>• <strong>Health Shielding</strong>: Biometeorological WBGT alerts reduce heat-stroke casualties and emergency hospitalizations.</p>
+          </div>
 
-    <h2>Inspectable Biometeorological Formulations (Zero AI Hallucinations)</h2>
-    <div class="formula-box">
+          <div class="card blue">
+            <div class="card-title">💰 Economic &amp; Livelihood ROI</div>
+            <p>• <strong>Agrarian Cost Savings</strong>: Fertilizer/pesticide spray timing prevents rain wash-off, saving <strong>₹3,000–₹5,000 per acre</strong> per cycle.</p>
+            <p>• <strong>Marine Asset Protection</strong>: INCOIS wave flux &amp; swell warnings prevent multi-lakh rupee fishing boat wreckage and gear destruction.</p>
+            <p>• <strong>Workforce Output</strong>: Thermal stress scheduling preserves outdoor labor productivity without heat exhaustion.</p>
+          </div>
+
+          <div class="card green">
+            <div class="card-title">🌿 Environmental Resilience</div>
+            <p>• <strong>20–30% Water Conservation</strong>: FAO-56 Penman-Monteith ET₀ calculations guide precise micro-irrigation scheduling.</p>
+            <p>• <strong>Reduced Agrochemical Leaching</strong>: Eliminating redundant chemical spraying prevents aquifer and river eco-toxicity.</p>
+            <p>• <strong>Municipal Stormwater Action</strong>: Hyperlocal rainfall accumulation telemetry enables cities to deploy dewatering pumps proactively.</p>
+          </div>
+        </div>
+
+        <h2>Inspectable Biometeorological Formulations (Zero AI Hallucinations)</h2>
+        <div class="formula-box">
 // 1. Wet-Bulb Globe Temperature (WBGT - Stull 2011 Formulation)
 WBGT = T * atan(0.151977 * (RH + 8.313659)^0.5) + atan(T + RH) - atan(RH - 1.676331) + 0.00391838 * (RH^1.5) * atan(0.023101 * RH) - 4.686035
 
@@ -395,10 +885,12 @@ ET0 = (0.408 * Δ * (Rn - G) + γ * (900 / (T + 273)) * u2 * (es - ea)) / (Δ + 
 
 // 3. INCOIS Ocean Wave Power Density (P in kW/m)
 P = (ρ * g^2 / (64 * π)) * (Hs^2) * Te ≈ 0.49 * (Hs^2) * Te
-    </div>
+        </div>
+      </div>
 
-    <div class="footer-note">
-      Mausam+ Hackathon Dossier • Team ARC • SIH 2026 Problem Statement: Development of Personalized Homepage for 'Mausam' Mobile App
+      <div class="footer-note">
+        Mausam+ Hackathon Dossier • Team ARC • SIH 2026 Problem Statement: Development of Personalized Homepage for 'Mausam' Mobile App
+      </div>
     </div>
   </div>
 
