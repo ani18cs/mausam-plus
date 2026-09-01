@@ -4,7 +4,11 @@ This document provides an exhaustive structural blueprint of the **Mausam+** bio
 
 ---
 
-## 1. 🌐 Master Sitemap & Screen Hierarchy (Flowchart Diagram)
+## 1. 🌐 Master Visual Sitemap & Screen Hierarchy
+
+![Mausam+ App Visual Sitemap Diagram](./assets/sitemap_flowchart_diagram.jpg)
+
+### Interactive Structural Flowchart (Mermaid)
 
 ```mermaid
 graph TD
@@ -152,7 +156,11 @@ graph TD
 
 ---
 
-## 3. 🏗️ End-to-End System Architecture (Technical Drawing)
+## 3. 🏗️ End-to-End System Architecture Blueprint
+
+![Mausam+ System Architecture Blueprint Diagram](./assets/system_architecture_diagram.jpg)
+
+### Interactive Architectural Flowchart (Mermaid)
 
 ```mermaid
 flowchart TD
