@@ -7,8 +7,9 @@ import { RainCard } from '../components/weather/RainCard';
 import { ForecastCard } from '../components/weather/ForecastCard';
 import { ScheduleCard, ScheduleItem } from '../components/weather/ScheduleCard';
 import { WeatherChart } from '../components/weather/WeatherChart';
+import { WindCompass } from '../components/weather/WindCompass';
 import { useTranslation } from '../utils/i18n';
-import { convertTemp, formatWind } from '../utils/units';
+import { convertTemp, formatTemp, formatWind } from '../utils/units';
 import {
   ArrowUp,
   ArrowDown,
@@ -195,8 +196,36 @@ export const HomePage: React.FC = () => {
     },
   ];
 
-  // Health alerts
-  const aqiVal = forecast?.current.aqi ?? 128;
+  // Health alerts & computed parameters
+  const aqiVal = forecast?.current.aqi ?? 48;
+  const aqiCategory =
+    aqiVal <= 50
+      ? 'Good'
+      : aqiVal <= 100
+      ? 'Satisfactory'
+      : aqiVal <= 200
+      ? 'Moderate'
+      : aqiVal <= 300
+      ? 'Poor'
+      : 'Severe';
+
+  const aqiCategoryBadgeClass =
+    aqiVal <= 50
+      ? 'bg-emerald-500 text-white'
+      : aqiVal <= 100
+      ? 'bg-teal-500 text-white'
+      : aqiVal <= 200
+      ? 'bg-amber-500 text-white'
+      : aqiVal <= 300
+      ? 'bg-orange-500 text-white'
+      : 'bg-rose-500 text-white';
+
+  const feelsLikeTemp =
+    forecast?.extras?.heat_stress_index?.apparent_temp_c ??
+    forecast?.current.temp_c ??
+    rawTemp;
+  const tempMax = forecast?.daily?.[0]?.temp_max_c ?? Math.round(rawTemp + 3.8);
+  const tempMin = forecast?.daily?.[0]?.temp_min_c ?? Math.round(rawTemp - 4.2);
   const heatStressScore = forecast?.extras?.heat_stress_index?.score ?? 72;
 
   const healthAlerts: Array<{ type: string; title: string; desc: string; icon: string }> = [];
@@ -247,7 +276,7 @@ export const HomePage: React.FC = () => {
           {/* Contrast Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/60 pointer-events-none" />
 
-          {/* Top Bar: Active Alerts if Present (No redundant Location pill) */}
+          {/* Top Bar: Active Alerts if Present */}
           <div className="relative z-10 flex items-center justify-end pt-1">
             {activeAlertCount > 0 && (
               <Link
@@ -272,14 +301,25 @@ export const HomePage: React.FC = () => {
         </div>
 
         {/* ═══════════════════════════════════════════════════════════════════
-            Attached Weather Details Sheet Card (Seamless Integration)
+            Attached Weather Details Sheet Card with Live Wind Compass
         ═══════════════════════════════════════════════════════════════════ */}
         <div className="relative z-10 -mt-7 rounded-t-[32px] sm:rounded-t-[36px] bg-card border-t border-border-subtle p-5 pt-4 space-y-4 shadow-2xl">
-          {/* Top Metadata Row: 'Updated 12m ago' & Day/Date Badge */}
+          {/* Top Metadata Row: 'Updated ...' & Day/Date Badge + Refresh */}
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-content-muted">
-              {getUpdatedTimeText(forecast?.meta?.fetched_at)}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-semibold text-content-muted">
+                {getUpdatedTimeText(forecast?.meta?.fetched_at)}
+              </span>
+              <button
+                type="button"
+                onClick={() => fetchForecast(activeLocation.lat, activeLocation.lon, activeLocation.name)}
+                disabled={isLoadingForecast}
+                className="h-6 w-6 rounded-full bg-accent-primary/10 hover:bg-accent-primary text-accent-primary hover:text-white flex items-center justify-center transition-all shadow-2xs active:scale-90"
+                title="Refresh weather"
+              >
+                <RefreshCw className={`w-3 h-3 ${isLoadingForecast ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
 
             <div className="text-right">
               <span className="block text-[10px] font-black uppercase tracking-wider text-content-muted leading-none">
@@ -291,51 +331,84 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
 
-          {/* Weather Condition Title */}
-          <div>
-            <h2 className="font-heading text-2xl font-black text-content-primary tracking-tight">
-              {condition}
-            </h2>
-          </div>
+          {/* Main Temperature & Live Wind Compass Instrument Row */}
+          <div className="flex items-center justify-between gap-3">
+            {/* Left Side: Big Temperature, Condition & Environmental Metrics */}
+            <div className="space-y-1">
+              <h2 className="font-heading text-lg sm:text-xl font-black text-content-primary tracking-tight">
+                {condition}
+              </h2>
 
-          {/* Temperature & Micro-Graphic Presentation with Refresh Button */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {/* Cute Weather Animated Graphic */}
-              <div className="flex-shrink-0">
-                <LottieWeatherGraphic condition={condition} isDay={isDay} size="md" />
-              </div>
-
-              {/* Large Modern Proper Temperature Numeral */}
+              {/* Main Temperature Numeral */}
               <div className="flex items-baseline">
-                <span className="font-heading text-6xl sm:text-7xl font-black tracking-tighter text-content-primary select-none drop-shadow-sm">
+                <span className="font-heading text-5xl sm:text-6xl font-black tracking-tighter text-content-primary select-none drop-shadow-xs">
                   {Math.round(convertTemp(rawTemp, temperatureUnit))}
                 </span>
-                <span className="font-heading text-3xl font-extrabold text-accent-primary ml-1 -translate-y-3">
+                <span className="font-heading text-2xl sm:text-3xl font-extrabold text-accent-primary ml-1 -translate-y-2 sm:-translate-y-3">
                   °{temperatureUnit === 'fahrenheit' ? 'F' : 'C'}
                 </span>
               </div>
+
+              {/* Detailed Metrics List */}
+              <div className="space-y-0.5 text-xs text-content-secondary font-medium">
+                <div className="flex items-center gap-1.5 text-[11px]">
+                  <span className="text-content-muted">Feels Like</span>
+                  <span className="font-bold text-content-primary">
+                    {formatTemp(feelsLikeTemp, temperatureUnit)}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-[11px]">
+                  <span>
+                    <span className="text-content-muted">Max </span>
+                    <span className="font-bold text-content-primary">{formatTemp(tempMax, temperatureUnit)}</span>
+                  </span>
+                  <span className="text-border-strong">•</span>
+                  <span>
+                    <span className="text-content-muted">Min </span>
+                    <span className="font-bold text-content-primary">{formatTemp(tempMin, temperatureUnit)}</span>
+                  </span>
+                </div>
+                <div className="flex items-center gap-1 text-[11px] text-sky-600 dark:text-sky-400 font-semibold pt-0.5">
+                  <Droplets className="w-3.5 h-3.5" />
+                  <span>{forecast?.current.humidity_pct ?? 71}% Humidity</span>
+                </div>
+              </div>
             </div>
 
-            {/* Quick Refresh Button */}
-            <button
-              type="button"
-              onClick={() => fetchForecast(activeLocation.lat, activeLocation.lon, activeLocation.name)}
-              disabled={isLoadingForecast}
-              className="h-10 w-10 rounded-full bg-accent-primary/10 hover:bg-accent-primary text-accent-primary hover:text-white flex items-center justify-center transition-all shadow-sm active:scale-90"
-              title="Refresh weather"
-            >
-              <RefreshCw className={`w-4 h-4 ${isLoadingForecast ? 'animate-spin' : ''}`} />
-            </button>
+            {/* Right Side: Circular Wind Compass Instrument Widget */}
+            <div className="flex flex-col items-center justify-center flex-shrink-0 bg-card-subtle/50 p-1.5 rounded-2xl border border-border-subtle/60">
+              <WindCompass
+                windKph={rawWind}
+                windDirDeg={windDirDeg}
+                windSpeedUnit={windSpeedUnit}
+                size={112}
+                className="text-content-primary"
+              />
+            </div>
           </div>
 
-          {/* "What Changed?" 1-Line Insight (Clean text without raw asterisks) */}
+          {/* CPCB Air Quality Index Banner Pill (Official IMD Mausam App Style) */}
+          <div className="flex items-center justify-center">
+            <div className="inline-flex items-center gap-2 rounded-xl bg-card-subtle px-3 py-1.5 border border-border-subtle shadow-2xs">
+              <span className="font-mono text-xs font-bold text-content-primary">
+                AQI {aqiVal}
+              </span>
+              <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-md ${aqiCategoryBadgeClass}`}>
+                {aqiCategory}
+              </span>
+              <span className="text-[10px] font-semibold text-content-muted border-l border-border-subtle pl-2">
+                National AQI • CPCB
+              </span>
+            </div>
+          </div>
+
+          {/* "What Changed?" 1-Line Insight */}
           {diff && (
-            <div className="flex items-center gap-2 text-xs text-content-secondary bg-card-subtle/70 p-3 rounded-2xl border border-border-subtle/70">
+            <div className="flex items-center gap-2 text-xs text-content-secondary bg-card-subtle/70 p-2.5 rounded-2xl border border-border-subtle/70">
               {diff.trend === 'warmer' ? (
-                <TrendingUp className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                <TrendingUp className="w-3.5 h-3.5 text-orange-500 flex-shrink-0" />
               ) : (
-                <TrendingDown className="w-4 h-4 text-sky-500 flex-shrink-0" />
+                <TrendingDown className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" />
               )}
               <span className="truncate text-[11px]">
                 <strong className="text-content-primary font-semibold">
@@ -346,38 +419,22 @@ export const HomePage: React.FC = () => {
             </div>
           )}
 
-          {/* 3 Core Environmental Metrics Quick-Pills */}
-          <div className="grid grid-cols-3 gap-2 text-center pt-1">
-            <div className="rounded-2xl bg-card-subtle p-2.5 border border-border-subtle/50 flex flex-col items-center">
-              <span className="text-[10px] uppercase font-bold text-content-muted flex items-center gap-1">
-                <Droplets className="w-3 h-3 text-sky-400" /> Humidity
-              </span>
-              <span className="font-heading text-sm font-extrabold text-content-primary mt-0.5">
-                {forecast?.current.humidity_pct ?? 57}%
-              </span>
-            </div>
-
-            <div className="rounded-2xl bg-card-subtle p-2.5 border border-border-subtle/50 flex flex-col items-center">
-              <span className="text-[10px] uppercase font-bold text-content-muted flex items-center gap-1">
-                <Navigation
-                  className="w-3 h-3 text-teal-400 transition-transform duration-500"
-                  style={{ transform: `rotate(${windDirDeg}deg)` }}
-                />{' '}
-                Wind
-              </span>
-              <span className="font-heading text-sm font-extrabold text-content-primary mt-0.5">
-                {formatWind(rawWind, windSpeedUnit)}
-              </span>
-            </div>
-
-            <div className="rounded-2xl bg-card-subtle p-2.5 border border-border-subtle/50 flex flex-col items-center">
-              <span className="text-[10px] uppercase font-bold text-content-muted flex items-center gap-1">
-                <Sun className="w-3 h-3 text-amber-400" /> UV Index
-              </span>
-              <span className="font-heading text-sm font-extrabold text-content-primary mt-0.5">
-                {forecast?.current.uv_index ?? 7}
-              </span>
-            </div>
+          {/* Quick Action Shortcut Tiles (Agromet & Crowd Source like IMD app) */}
+          <div className="grid grid-cols-2 gap-2 pt-0.5">
+            <Link
+              to="/specialized"
+              className="flex items-center justify-center gap-2 rounded-2xl bg-card-subtle hover:bg-card border border-border-subtle p-2.5 text-xs font-bold text-content-primary transition-all active:scale-98 shadow-2xs"
+            >
+              <span>🌾</span>
+              <span>Kisan Agromet</span>
+            </Link>
+            <Link
+              to="/report"
+              className="flex items-center justify-center gap-2 rounded-2xl bg-card-subtle hover:bg-card border border-border-subtle p-2.5 text-xs font-bold text-content-primary transition-all active:scale-98 shadow-2xs"
+            >
+              <span>📢</span>
+              <span>Crowd Source</span>
+            </Link>
           </div>
         </div>
       </section>
