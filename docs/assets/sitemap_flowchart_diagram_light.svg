@@ -1,0 +1,361 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#EDF2F7"/>
+    </linearGradient>
+    
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+
+    <linearGradient id="homeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0EA5E9"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+
+    <linearGradient id="alertsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <linearGradient id="askGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+
+    <linearGradient id="exploreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="profileGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748B"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+
+    <filter id="cardShadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.08"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#0284C7" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="900" fill="url(#bgGrad)" />
+
+  <!-- Subtle Blueprint Grid Pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+  </pattern>
+  <rect width="1600" height="900" fill="url(#grid)" opacity="0.6"/>
+
+  <!-- Connecting Trunk Lines -->
+  <!-- Top Root down to level 1 -->
+  <path d="M 800 130 L 800 170" fill="none" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/>
+  <!-- Horizontal Distribution Bus -->
+  <path d="M 200 170 L 1400 170" fill="none" stroke="#0284C7" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Vertical Drops to 5 Main Tabs -->
+  <path d="M 200 170 L 200 210" fill="none" stroke="#0EA5E9" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 500 170 L 500 210" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 800 170 L 800 210" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 1100 170 L 1100 210" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 1400 170 L 1400 210" fill="none" stroke="#64748B" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ========================================== -->
+  <!-- ROOT HEADER NODE: MAUSAM+ APP SHELL -->
+  <!-- ========================================== -->
+  <g transform="translate(620, 50)" filter="url(#cardShadow)">
+    <rect width="360" height="80" rx="16" fill="url(#headerGrad)"/>
+    <rect width="360" height="80" rx="16" fill="none" stroke="#38BDF8" stroke-width="1.5" opacity="0.5"/>
+    <text x="50" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" fill="#FFFFFF">🌦️ Mausam+ Application</text>
+    <text x="50" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500" fill="#E0F2FE">App Shell, TopAppBar &amp; BottomNav</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 1: HOME SCREEN (SKY BLUE) -->
+  <!-- ========================================== -->
+  <!-- Main Home Card -->
+  <g transform="translate(80, 210)" filter="url(#cardShadow)">
+    <rect width="240" height="60" rx="14" fill="url(#homeGrad)"/>
+    <text x="24" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">🏠 1. Home Screen</text>
+  </g>
+
+  <!-- Home Children Connector Line -->
+  <path d="M 100 270 L 100 810" fill="none" stroke="#BAE6FD" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Home Sub-items -->
+  <!-- 1.1 Weather Hero -->
+  <path d="M 100 310 L 125 310" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 290)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🌅 Weather Hero &amp; Diff</text>
+  </g>
+
+  <!-- 1.2 Hourly Strip -->
+  <path d="M 100 365 L 125 365" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 345)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">⏱️ 12H Hourly Timeline</text>
+  </g>
+
+  <!-- 1.3 7-Day Forecast -->
+  <path d="M 100 420 L 125 420" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 400)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📅 7-Day Outlook</text>
+  </g>
+
+  <!-- 1.4 Rain Radar Card -->
+  <path d="M 100 475 L 125 475" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 455)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🌧️ Rain Probability Radar</text>
+  </g>
+
+  <!-- 1.5 Telemetry Curve Chart -->
+  <path d="M 100 530 L 125 530" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 510)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📈 Telemetry Curve Chart</text>
+  </g>
+
+  <!-- 1.6 Daily Schedule -->
+  <path d="M 100 585 L 125 585" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 565)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">⏰ Circadian Schedule</text>
+  </g>
+
+  <!-- 1.7 Health Guard -->
+  <path d="M 100 640 L 125 640" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 620)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🌸 Health &amp; Allergy Guard</text>
+  </g>
+
+  <!-- 1.8 Persona Feed -->
+  <path d="M 100 695 L 125 695" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 675)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🎯 8-Persona Cards Feed</text>
+  </g>
+
+  <!-- 1.9 Why Modal -->
+  <path d="M 100 750 L 125 750" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 730)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">💡 'Why this metric?' Modal</text>
+  </g>
+
+  <!-- 1.10 More Categories Drawer -->
+  <path d="M 100 805 L 125 805" fill="none" stroke="#38BDF8" stroke-width="2"/>
+  <g transform="translate(125, 785)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#E0F2FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">➕ 'More Categories' Drawer</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 2: ALERTS SCREEN (AMBER) -->
+  <!-- ========================================== -->
+  <g transform="translate(380, 210)" filter="url(#cardShadow)">
+    <rect width="240" height="60" rx="14" fill="url(#alertsGrad)"/>
+    <text x="24" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">⚠️ 2. Alerts Screen</text>
+  </g>
+
+  <!-- Alerts Connector Line -->
+  <path d="M 400 270 L 400 480" fill="none" stroke="#FDE68A" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- 2.1 Doppler Nowcast -->
+  <path d="M 400 310 L 425 310" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <g transform="translate(425, 290)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#FEF3C7" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">⚡ 3H Doppler Nowcast</text>
+  </g>
+
+  <!-- 2.2 5-Day Warning Matrix -->
+  <path d="M 400 365 L 425 365" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <g transform="translate(425, 345)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#FEF3C7" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🗓️ 5-Day District Matrix</text>
+  </g>
+
+  <!-- 2.3 IMD Bulletins -->
+  <path d="M 400 420 L 425 420" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <g transform="translate(425, 400)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#FEF3C7" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📜 National Bulletins</text>
+  </g>
+
+  <!-- 2.4 CAP-XML Details -->
+  <path d="M 400 475 L 425 475" fill="none" stroke="#F59E0B" stroke-width="2"/>
+  <g transform="translate(425, 455)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#FEF3C7" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📄 CAP-XML Detail View</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 3: ASK MAUSAM AI (PURPLE) -->
+  <!-- ========================================== -->
+  <g transform="translate(680, 210)" filter="url(#cardShadow)">
+    <rect width="240" height="60" rx="14" fill="url(#askGrad)"/>
+    <text x="24" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">✨ 3. Ask Mausam AI</text>
+  </g>
+
+  <!-- Ask AI Connector Line -->
+  <path d="M 700 270 L 700 535" fill="none" stroke="#DDD6FE" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- 3.1 Time-Aware Greeting -->
+  <path d="M 700 310 L 725 310" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <g transform="translate(725, 290)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#EDE9FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">☀️ Personalized Greetings</text>
+  </g>
+
+  <!-- 3.2 Female Voice TTS -->
+  <path d="M 700 365 L 725 365" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <g transform="translate(725, 345)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#EDE9FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🎙️ Female TTS &amp; Stop Voice</text>
+  </g>
+
+  <!-- 3.3 Voice Mic Input -->
+  <path d="M 700 420 L 725 420" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <g transform="translate(725, 400)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#EDE9FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🎤 Continuous Mic Input</text>
+  </g>
+
+  <!-- 3.4 Grounded RAG Chat -->
+  <path d="M 700 475 L 725 475" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <g transform="translate(725, 455)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#EDE9FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">💬 Grounded RAG (No **)</text>
+  </g>
+
+  <!-- 3.5 Explainable Audit Trail -->
+  <path d="M 700 530 L 725 530" fill="none" stroke="#8B5CF6" stroke-width="2"/>
+  <g transform="translate(725, 510)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#EDE9FE" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🛠️ Explainable Audit Trail</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 4: EXPLORE HUB (EMERALD) -->
+  <!-- ========================================== -->
+  <g transform="translate(980, 210)" filter="url(#cardShadow)">
+    <rect width="240" height="60" rx="14" fill="url(#exploreGrad)"/>
+    <text x="24" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">🧭 4. Explore Hub</text>
+  </g>
+
+  <!-- Explore Connector Line -->
+  <path d="M 1000 270 L 1000 700" fill="none" stroke="#A7F3D0" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- 4.1 Doppler Radar -->
+  <path d="M 1000 310 L 1025 310" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 290)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📡 Doppler Radar (37 DWRs)</text>
+  </g>
+
+  <!-- 4.2 INSAT-3DS Satellite -->
+  <path d="M 1000 365 L 1025 365" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 345)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🛰️ INSAT-3DS Satellite</text>
+  </g>
+
+  <!-- 4.3 Damini Lightning -->
+  <path d="M 1000 420 L 1025 420" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 400)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">⚡ Damini Lightning Grid</text>
+  </g>
+
+  <!-- 4.4 RSMC Cyclone -->
+  <path d="M 1000 475 L 1025 475" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 455)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🌀 RSMC Cyclone Tracker</text>
+  </g>
+
+  <!-- 4.5 Highway Weather -->
+  <path d="M 1000 530 L 1025 530" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 510)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🛣️ Highway Corridor Route</text>
+  </g>
+
+  <!-- 4.6 Pilgrimage & FFGS -->
+  <path d="M 1000 585 L 1025 585" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 565)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🏔️ Pilgrimage &amp; FFGS Flood</text>
+  </g>
+
+  <!-- 4.7 Kisan Agromet -->
+  <path d="M 1000 640 L 1025 640" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 620)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🌾 Kisan Agromet Advisory</text>
+  </g>
+
+  <!-- 4.8 Climate News Wire -->
+  <path d="M 1000 695 L 1025 695" fill="none" stroke="#10B981" stroke-width="2"/>
+  <g transform="translate(1025, 675)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📰 Climate &amp; IMD News Wire</text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- COLUMN 5: PROFILE & SETTINGS (SLATE) -->
+  <!-- ========================================== -->
+  <g transform="translate(1280, 210)" filter="url(#cardShadow)">
+    <rect width="240" height="60" rx="14" fill="url(#profileGrad)"/>
+    <text x="24" y="37" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">👤 5. Profile &amp; Settings</text>
+  </g>
+
+  <!-- Profile Connector Line -->
+  <path d="M 1300 270 L 1300 535" fill="none" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- 5.1 Citizen Card -->
+  <path d="M 1300 310 L 1325 310" fill="none" stroke="#64748B" stroke-width="2"/>
+  <g transform="translate(1325, 290)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">👤 Demographics &amp; Badges</text>
+  </g>
+
+  <!-- 5.2 Sensitivities -->
+  <path d="M 1300 365 L 1325 365" fill="none" stroke="#64748B" stroke-width="2"/>
+  <g transform="translate(1325, 345)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🫀 Weather Sensitivities</text>
+  </g>
+
+  <!-- 5.3 Persona Selector -->
+  <path d="M 1300 420 L 1325 420" fill="none" stroke="#64748B" stroke-width="2"/>
+  <g transform="translate(1325, 400)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🎯 Persona Preferences</text>
+  </g>
+
+  <!-- 5.4 Language Modal -->
+  <path d="M 1300 475 L 1325 475" fill="none" stroke="#64748B" stroke-width="2"/>
+  <g transform="translate(1325, 455)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">🌐 3-Language Switcher Modal</text>
+  </g>
+
+  <!-- 5.5 Units -->
+  <path d="M 1300 530 L 1325 530" fill="none" stroke="#64748B" stroke-width="2"/>
+  <g transform="translate(1325, 510)" filter="url(#cardShadow)">
+    <rect width="200" height="42" rx="10" fill="#FFFFFF" stroke="#F1F5F9" stroke-width="1.5"/>
+    <text x="14" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#0F172A">📐 Units (°C/°F, km/h)</text>
+  </g>
+
+</svg>

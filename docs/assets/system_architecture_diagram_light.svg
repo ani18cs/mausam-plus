@@ -1,0 +1,334 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 960" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradLight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="50%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
+    </linearGradient>
+
+    <!-- Layer Card Gradients -->
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+
+    <linearGradient id="bffGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#0F766E"/>
+    </linearGradient>
+
+    <linearGradient id="computeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#6D28D9"/>
+    </linearGradient>
+
+    <linearGradient id="ragGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#DB2777"/>
+      <stop offset="100%" stop-color="#BE185D"/>
+    </linearGradient>
+
+    <linearGradient id="dataGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="tierShadow" x="-5%" y="-10%" width="110%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.07"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0F172A" flood-opacity="0.04"/>
+    </filter>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrowDownCyan" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#0284C7"/>
+    </marker>
+    <marker id="arrowDownTeal" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#0D9488"/>
+    </marker>
+    <marker id="arrowDownPurple" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#7C3AED"/>
+    </marker>
+    <marker id="arrowDownPink" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M 0 1 L 9 5 L 0 9 z" fill="#DB2777"/>
+    </marker>
+    <marker id="arrowUpTeal" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+      <path d="M 9 1 L 0 5 L 9 9 z" fill="#0D9488"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1600" height="960" fill="url(#bgGradLight)" />
+
+  <!-- Subtle Blueprint Grid Pattern -->
+  <pattern id="gridLight" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#CBD5E1" stroke-width="1"/>
+  </pattern>
+  <rect width="1600" height="960" fill="url(#gridLight)" opacity="0.45"/>
+
+  <!-- Top Title Banner -->
+  <g transform="translate(100, 30)">
+    <text x="0" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#0F172A" letter-spacing="-0.02em">
+      ⚡ Mausam+ End-to-End System Architecture Blueprint
+    </text>
+    <text x="0" y="52" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#64748B">
+      High-Performance Biometeorological Ingestion, Mathematical Pipeline, Explainable AI RAG &amp; Native Mobile PWA Layer
+    </text>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- TIER 1: CLIENT PRESENTATION LAYER -->
+  <!-- ========================================== -->
+  <g transform="translate(100, 100)" filter="url(#tierShadow)">
+    <rect width="1400" height="130" rx="18" fill="#FFFFFF" stroke="#BAE6FD" stroke-width="2"/>
+    
+    <!-- Tier Header Bar -->
+    <rect width="1400" height="38" rx="18" fill="url(#clientGrad)"/>
+    <rect width="1400" height="18" y="20" fill="url(#clientGrad)"/>
+    <text x="24" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">
+      📱 TIER 1: CLIENT PRESENTATION LAYER (React 18 + TypeScript + Vite + TailwindCSS + Capacitor 8 Mobile Engine)
+    </text>
+
+    <!-- Sub-boxes -->
+    <!-- Home Module -->
+    <g transform="translate(24, 52)">
+      <rect width="250" height="64" rx="10" fill="#F0F9FF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0369A1">🏠 Home Experience Suite</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#0284C7">Hero, 12H Strip, 7-Day, Rain Radar, Chart</text>
+    </g>
+
+    <!-- Alerts & Detail Module -->
+    <g transform="translate(294, 52)">
+      <rect width="250" height="64" rx="10" fill="#F0F9FF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0369A1">⚠️ Alerts &amp; CAP-XML Studio</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#0284C7">Doppler Nowcasts, 5-Day Matrix, Bulletins</text>
+    </g>
+
+    <!-- Ask AI Assistant -->
+    <g transform="translate(564, 52)">
+      <rect width="250" height="64" rx="10" fill="#F0F9FF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0369A1">✨ Ask Mausam AI Interface</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#0284C7">Female Voice TTS, Speech Mic, Audit Log</text>
+    </g>
+
+    <!-- Explore Portals -->
+    <g transform="translate(834, 52)">
+      <rect width="250" height="64" rx="10" fill="#F0F9FF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0369A1">🧭 Specialized Portals Hub</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#0284C7">DWR Radar, INSAT-3DS, Cyclone, Highways</text>
+    </g>
+
+    <!-- App State & Leaflet Map -->
+    <g transform="translate(1104, 52)">
+      <rect width="272" height="64" rx="10" fill="#F0F9FF" stroke="#E0F2FE" stroke-width="1.5"/>
+      <text x="14" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0369A1">🗺️ Hyperlocal Map &amp; App State</text>
+      <text x="14" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#0284C7">Leaflet OSM, Dynamic Overlays, Zustand Store</text>
+    </g>
+  </g>
+
+  <!-- Connectors: Tier 1 to Tier 2 -->
+  <line x1="800" y1="230" x2="800" y2="280" stroke="#0284C7" stroke-width="3" marker-end="url(#arrowDownCyan)"/>
+  <line x1="770" y1="280" x2="770" y2="230" stroke="#0D9488" stroke-width="2.5" marker-end="url(#arrowUpTeal)"/>
+
+  <!-- ========================================== -->
+  <!-- TIER 2: BFF GATEWAY & TELEMETRY CACHE -->
+  <!-- ========================================== -->
+  <g transform="translate(100, 290)" filter="url(#tierShadow)">
+    <rect width="1400" height="120" rx="18" fill="#FFFFFF" stroke="#99F6E4" stroke-width="2"/>
+    
+    <!-- Tier Header Bar -->
+    <rect width="1400" height="38" rx="18" fill="url(#bffGrad)"/>
+    <rect width="1400" height="18" y="20" fill="url(#bffGrad)"/>
+    <text x="24" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">
+      ⚡ TIER 2: BACKEND-FOR-FRONTEND (BFF) GATEWAY &amp; LRU CACHING LAYER (Express REST API, Port 4000)
+    </text>
+
+    <!-- Sub-boxes -->
+    <g transform="translate(24, 50)">
+      <rect width="420" height="54" rx="10" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0F766E">🔄 Ingestion Gateway &amp; Coordinates Hashing</text>
+      <text x="14" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#14B8A6">Normalized lat/lon grid indexing with sub-2ms hit latency</text>
+    </g>
+
+    <g transform="translate(480, 50)">
+      <rect width="420" height="54" rx="10" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0F766E">💾 In-Memory LRU &amp; Redis Cache Contract</text>
+      <text x="14" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#14B8A6">12-minute meteorological sliding TTL with cache eviction</text>
+    </g>
+
+    <g transform="translate(936, 50)">
+      <rect width="440" height="54" rx="10" fill="#F0FDFA" stroke="#CCFBF1" stroke-width="1.5"/>
+      <text x="14" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#0F766E">🛡️ API Rate-Limiter &amp; Resilience Fallback</text>
+      <text x="14" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="500" fill="#14B8A6">Automatic retry backoff and fallback data mocks on upstream downtime</text>
+    </g>
+  </g>
+
+  <!-- Connectors: Tier 2 to Tier 3A and Tier 3B -->
+  <path d="M 450 410 L 450 470" fill="none" stroke="#7C3AED" stroke-width="3" marker-end="url(#arrowDownPurple)"/>
+  <path d="M 1150 410 L 1150 470" fill="none" stroke="#DB2777" stroke-width="3" marker-end="url(#arrowDownPink)"/>
+
+  <!-- ========================================== -->
+  <!-- TIER 3A & 3B: PARALLEL COMPUTATION & AI RAG -->
+  <!-- ========================================== -->
+  <!-- 3A: Biometeorological Computational Pipeline -->
+  <g transform="translate(100, 480)" filter="url(#tierShadow)">
+    <rect width="680" height="210" rx="18" fill="#FFFFFF" stroke="#DDD6FE" stroke-width="2"/>
+    
+    <rect width="680" height="38" rx="18" fill="url(#computeGrad)"/>
+    <rect width="680" height="18" y="20" fill="url(#computeGrad)"/>
+    <text x="20" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF">
+      🧮 TIER 3A: BIOMETEOROLOGICAL COMPUTING PIPELINE
+    </text>
+
+    <!-- Sub engines inside 3A -->
+    <g transform="translate(18, 50)">
+      <rect width="310" height="66" rx="8" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6D28D9">🌡️ WBGT Heat-Stress Engine</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">Stull Wet-Bulb equation, Solar globe proxy,</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">MoES/NDMA heat wave caution matrix</text>
+    </g>
+
+    <g transform="translate(350, 50)">
+      <rect width="310" height="66" rx="8" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6D28D9">🌱 FAO-56 Evapotranspiration</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">Penman-Monteith reference ET0 (mm/day),</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">0–100cm root-zone soil saturation %</text>
+    </g>
+
+    <g transform="translate(18, 128)">
+      <rect width="310" height="66" rx="8" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6D28D9">🌊 INCOIS Ocean Wave Power</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">Wave energy flux (P ≈ 0.49 * Hs² * Tp kW/m),</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">Tidal high/low window predictions</text>
+    </g>
+
+    <g transform="translate(350, 128)">
+      <rect width="310" height="66" rx="8" fill="#FAF5FF" stroke="#F3E8FF" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6D28D9">📈 Diurnal Forecast Delta &amp; Explainability</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">forecastDiff.ts temperature/humidity delta,</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#7C3AED">Standard citation &amp; mathematical proof trace</text>
+    </g>
+  </g>
+
+  <!-- 3B: Grounded Explainable AI RAG Engine -->
+  <g transform="translate(820, 480)" filter="url(#tierShadow)">
+    <rect width="680" height="210" rx="18" fill="#FFFFFF" stroke="#FBCFE8" stroke-width="2"/>
+    
+    <rect width="680" height="38" rx="18" fill="url(#ragGrad)"/>
+    <rect width="680" height="18" y="20" fill="url(#ragGrad)"/>
+    <text x="20" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF">
+      🧠 TIER 3B: EXPLAINABLE AI &amp; GROUNDED RAG PIPELINE
+    </text>
+
+    <!-- Sub engines inside 3B -->
+    <g transform="translate(18, 50)">
+      <rect width="310" height="66" rx="8" fill="#FDF2F8" stroke="#FCE7F3" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#BE185D">📚 In-Memory Vector Knowledge Store</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">MoES/NDMA Heat SOPs, Cyclone guidelines,</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">CPCB NAQI definitions &amp; health thresholds</text>
+    </g>
+
+    <g transform="translate(350, 50)">
+      <rect width="310" height="66" rx="8" fill="#FDF2F8" stroke="#FCE7F3" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#BE185D">🧩 Dynamic Context Assembler</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">Injects active GPS weather, persona profile,</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">allergies, and active district alert triggers</text>
+    </g>
+
+    <g transform="translate(18, 128)">
+      <rect width="310" height="66" rx="8" fill="#FDF2F8" stroke="#FCE7F3" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#BE185D">🎙️ Natural Female Voice Dictation</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">Female voice priority, pitch 1.15, rate 0.96,</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">Instant audio halt on new prompts/mic taps</text>
+    </g>
+
+    <g transform="translate(350, 128)">
+      <rect width="310" height="66" rx="8" fill="#FDF2F8" stroke="#FCE7F3" stroke-width="1.5"/>
+      <text x="12" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#BE185D">🔍 Explainable Audit Trail Logging</text>
+      <text x="12" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">Exact latency (ms), confidence %, retrieved</text>
+      <text x="12" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="500" fill="#DB2777">knowledge chunks, and tool execution history</text>
+    </g>
+  </g>
+
+  <!-- Connectors: Tier 3 to Tier 4 -->
+  <path d="M 450 690 L 450 740" fill="none" stroke="#D97706" stroke-width="3" marker-end="url(#arrowDownTeal)"/>
+  <path d="M 1150 690 L 1150 740" fill="none" stroke="#D97706" stroke-width="3" marker-end="url(#arrowDownTeal)"/>
+
+  <!-- ========================================== -->
+  <!-- TIER 4: UPSTREAM DATA SOURCES -->
+  <!-- ========================================== -->
+  <g transform="translate(100, 750)" filter="url(#tierShadow)">
+    <rect width="1400" height="150" rx="18" fill="#FFFFFF" stroke="#FDE68A" stroke-width="2"/>
+    
+    <rect width="1400" height="38" rx="18" fill="url(#dataGrad)"/>
+    <rect width="1400" height="18" y="20" fill="url(#dataGrad)"/>
+    <text x="24" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="800" fill="#FFFFFF">
+      🌐 TIER 4: UPSTREAM METEOROLOGICAL TELEMETRY &amp; GOVERNMENT SENSORS CATALOG
+    </text>
+
+    <!-- Source Chips (Grid of 8) -->
+    <!-- Open Meteo -->
+    <g transform="translate(24, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🌡️ Open-Meteo AWS</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">Temp, Humidity, Wind,</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">Radiation, Dew Point</text>
+    </g>
+
+    <!-- CPCB NAQI -->
+    <g transform="translate(195, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🫁 CPCB NAQI Grid</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">PM2.5, PM10, NO2, O3,</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">CO, SO2 sub-indices</text>
+    </g>
+
+    <!-- IMD DWR Radar -->
+    <g transform="translate(366, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">📡 IMD Doppler Radar</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">37 Radar Scans: Max-Z,</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">SRI, PAC, PPI_Z, PPV</text>
+    </g>
+
+    <!-- INSAT-3DS Satellite -->
+    <g transform="translate(537, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🛰️ INSAT-3DS</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">IR1, Visible, Water</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">Vapor, Night RGB</text>
+    </g>
+
+    <!-- Damini Lightning -->
+    <g transform="translate(708, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">⚡ Damini Lightning</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">IITM flash coordinates,</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">convective risk density</text>
+    </g>
+
+    <!-- RSMC Cyclone -->
+    <g transform="translate(879, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🌀 RSMC Cyclone</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">120-Hr track history,</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">Port signals 1-11</text>
+    </g>
+
+    <!-- GKMS Agromet & FFGS -->
+    <g transform="translate(1050, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">🌾 Kisan &amp; FFGS</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">Meghdoot crop advice,</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">flash flood runoff mm</text>
+    </g>
+
+    <!-- Citizen Crowd Reports -->
+    <g transform="translate(1221, 52)">
+      <rect width="155" height="80" rx="8" fill="#FFFBEB" stroke="#FEF3C7" stroke-width="1.5"/>
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#B45309">📢 Citizen Reports</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">GPS Waterlogging, Tree</text>
+      <text x="10" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="500" fill="#D97706">falls, Hail, Community</text>
+    </g>
+  </g>
+</svg>
