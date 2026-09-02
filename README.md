@@ -162,19 +162,6 @@ npm run dev:all
 
 ---
 
-## 🧪 Verification & Production Build
-
-To validate TypeScript typing and compile production bundles:
-```bash
-# Typecheck mobile workspace
-npm run typecheck --workspace=@mausam/mobile
-
-# Production build mobile client
-npm run build --workspace=@mausam/mobile
-```
-
----
-
 ## 📡 Upstream Telemetry Ingestion Catalog
 
 | Telemetry Data Stream | Source Organization | Telemetry Parameters Ingested | Ingestion Interval | Used By Components |
